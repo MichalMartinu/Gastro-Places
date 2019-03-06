@@ -15,6 +15,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var loadingIndicatorView: UIView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var loadingPlacesView: UIView!
+    @IBOutlet weak var centerOnMapButton: UIButton!
     
     let locationManager = CLLocationManager()
     var mapCentered = false
@@ -30,6 +31,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     func roundButtonsAndViews() {
         loadingPlacesView.roundCornersLarge()
+        
     }
     
     // MARK: Location manager
@@ -56,16 +58,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if mapCentered == false {
-            centerMapOnUserLocation(location: locations, radius: regionRadius)
+        if mapCentered == false, let location = locations.first {
+            centerMapOnUserLocation(location: location, radius: regionRadius)
             mapCentered = true
         }
     }
     
      // MARK: Map
     
-    func centerMapOnUserLocation(location: [CLLocation], radius: CLLocationDistance) {
-        let location = location.first!
+    func centerMapOnUserLocation(location: CLLocation, radius: CLLocationDistance) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius, longitudinalMeters: radius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
@@ -75,4 +76,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    @IBAction func centerOnUserLocationButtonIsPressed(_ sender: Any) {
+        if let location = locationManager.location {
+            centerMapOnUserLocation(location: location, radius: regionRadius)
+        }
+    }
+    
+    
 }
