@@ -8,22 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F12F222FF5F800E22A27 /* AppDelegate.swift */; };
-		07B7F132222FF5F800E22A27 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F131222FF5F800E22A27 /* ViewController.swift */; };
+		07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F131222FF5F800E22A27 /* MapViewController.swift */; };
 		07B7F135222FF5F800E22A27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7F133222FF5F800E22A27 /* Main.storyboard */; };
 		07B7F138222FF5F800E22A27 /* Gastro_Places.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F136222FF5F800E22A27 /* Gastro_Places.xcdatamodeld */; };
 		07B7F13A222FF5F900E22A27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07B7F139222FF5F900E22A27 /* Assets.xcassets */; };
 		07B7F13D222FF5F900E22A27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7F13B222FF5F900E22A27 /* LaunchScreen.storyboard */; };
+		07B7F14722301AD000E22A27 /* RoundObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F14622301AD000E22A27 /* RoundObjects.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		07B7F12C222FF5F800E22A27 /* Gastro Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gastro Places.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B7F12F222FF5F800E22A27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		07B7F131222FF5F800E22A27 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		07B7F131222FF5F800E22A27 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		07B7F134222FF5F800E22A27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07B7F137222FF5F800E22A27 /* Gastro_Places.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gastro_Places.xcdatamodel; sourceTree = "<group>"; };
 		07B7F139222FF5F900E22A27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07B7F13C222FF5F900E22A27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07B7F13E222FF5F900E22A27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07B7F14622301AD000E22A27 /* RoundObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundObjects.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +58,9 @@
 		07B7F12E222FF5F800E22A27 /* Gastro Places */ = {
 			isa = PBXGroup;
 			children = (
+				07B7F14422301A8900E22A27 /* ViewControllers */,
+				07B7F14522301A9E00E22A27 /* Extensions */,
 				07B7F12F222FF5F800E22A27 /* AppDelegate.swift */,
-				07B7F131222FF5F800E22A27 /* ViewController.swift */,
 				07B7F133222FF5F800E22A27 /* Main.storyboard */,
 				07B7F139222FF5F900E22A27 /* Assets.xcassets */,
 				07B7F13B222FF5F900E22A27 /* LaunchScreen.storyboard */,
@@ -65,6 +68,22 @@
 				07B7F136222FF5F800E22A27 /* Gastro_Places.xcdatamodeld */,
 			);
 			path = "Gastro Places";
+			sourceTree = "<group>";
+		};
+		07B7F14422301A8900E22A27 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				07B7F131222FF5F800E22A27 /* MapViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		07B7F14522301A9E00E22A27 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				07B7F14622301AD000E22A27 /* RoundObjects.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +158,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				07B7F138222FF5F800E22A27 /* Gastro_Places.xcdatamodeld in Sources */,
-				07B7F132222FF5F800E22A27 /* ViewController.swift in Sources */,
+				07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */,
 				07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */,
+				07B7F14722301AD000E22A27 /* RoundObjects.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
