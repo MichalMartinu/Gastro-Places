@@ -10,16 +10,17 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, GeocontextDelegate {
 
     @IBOutlet weak var loadingIndicatorView: UIView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var loadingPlacesView: UIView!
-    @IBOutlet weak var centerOnMapButton: UIButton!
-    
+        
     let locationManager = CLLocationManager()
     var mapCentered = false
     let regionRadius: CLLocationDistance = 1000
+    
+    var geoContext: GeoContext?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if mapCentered == false, let location = locations.first {
+            geoContext = GeoContext(location: location, radius: regionRadius)
+            geoContext?.delegate = self
             centerMapOnUserLocation(location: location, radius: regionRadius)
             mapCentered = true
         }
@@ -83,5 +86,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    // Mark: Geocontext
+    func geocontextDidLoadAnnotations() {
+        mountGeocontext(geoContext)
+    }
     
+    func mountGeocontext(_ geoContext: GeoContext?) {
+        guard let placeAnnotations = geoContext?.placeAnnotation else {
+            return
+        }
+        
+        for placeAnnotation in placeAnnotations {
+            mapView.addAnnotation(placeAnnotation.annotation)
+        }
+    }
+}
+
+
+protocol GeocontextDelegate: AnyObject {
+    func geocontextDidLoadAnnotations()
 }

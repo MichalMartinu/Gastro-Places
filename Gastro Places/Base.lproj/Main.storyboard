@@ -55,7 +55,7 @@
                                     <constraint firstAttribute="width" constant="40" id="uku-Mu-xKm"/>
                                     <constraint firstAttribute="height" constant="40" id="wE3-kd-Svm"/>
                                 </constraints>
-                                <state key="normal" image="navigationIcon"/>
+                                <state key="normal" image="restaurantAnnotation"/>
                                 <connections>
                                     <action selector="centerOnUserLocationButtonIsPressed:" destination="1YZ-Al-IQI" eventType="touchUpInside" id="1SJ-V8-kLw"/>
                                 </connections>
@@ -106,6 +106,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="navigationIcon" width="512" height="512"/>
+        <image name="restaurantAnnotation" width="520" height="924"/>
     </resources>
 </document>
