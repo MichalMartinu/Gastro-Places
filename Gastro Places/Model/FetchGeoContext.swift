@@ -37,7 +37,7 @@ class FetchGeoContext: AsyncOperation {
     }
     
     func fetchCloudKitPlaces() {
-        let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(location, %@) < %f",  location, radius)
+        let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(location, %@) < %f",  location, Double(radius))
         let query = CKQuery(recordType: "Place", predicate: locationPredicate)
         publicDB.perform(query, inZoneWith: nil) { results, error in
             if self.isCancelled {
@@ -73,8 +73,8 @@ class FetchGeoContext: AsyncOperation {
                 }
             }
             
-            self.delegate?.finishedLoadingData(placeAnnotation: self.placeAnnotations, error: nil)
             self.state = .Finished
+            self.delegate?.finishedLoadingData(placeAnnotation: self.placeAnnotations, error: nil)
         }
     }
     

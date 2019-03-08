@@ -15,12 +15,12 @@ protocol GeocontextOperations: AnyObject {
 }
 
 enum GeoContextState {
-    case ready, exectuting, finished, noData, failed
+    case ready, exectuting, finished, noData, failed, canceled
 }
 
 class GeoContext: GeocontextOperations {
     
-    var placeAnnotation = [PlaceAnnotationItem]()
+    var annotations = [MKAnnotation]()
     var state = GeoContextState.ready
     
     let location: CLLocation
@@ -56,9 +56,20 @@ class GeoContext: GeocontextOperations {
             return
         }
         
-        self.placeAnnotation = placeAnnotation
+        for placeAnnotation in placeAnnotation {
+            self.annotations.append(placeAnnotation.annotation)
+        }
+        
         state = .finished
-        delegate?.geocontextDidLoadAnnotations()
+        DispatchQueue.main.async {
+            self.delegate?.geocontextDidLoadAnnotations()
+        }
+    }
+    
+    func cancel() {
+        operationQueue.cancelAllOperations()
+        delegate = nil
+        state = .canceled
     }
 }
 

@@ -88,17 +88,49 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Geocontext
     
     // Mark: Geocontext
     func geocontextDidLoadAnnotations() {
-        mountGeocontext(geoContext)
+        mountGeocontext()
     }
     
-    func mountGeocontext(_ geoContext: GeoContext?) {
-        guard let placeAnnotations = geoContext?.placeAnnotation else {
+    func mountGeocontext() {
+        guard let annotations = geoContext?.annotations else {
             return
         }
-        
-        for placeAnnotation in placeAnnotations {
-            mapView.addAnnotation(placeAnnotation.annotation)
+        mapView.addAnnotations(annotations)
+    }
+    
+    func unmountGeocontext(_ geoContext: GeoContext?) {
+        guard let annotations = geoContext?.annotations else {
+            return
         }
+        mapView.removeAnnotations(annotations)
+    }
+    
+    
+    @IBAction func searchButtonIsPressed(_ sender: Any) {
+        if let _geoContext = geoContext {
+            if _geoContext.state == .finished {
+                unmountGeocontext(_geoContext)
+            }
+            _geoContext.cancel()
+        }
+        
+        let coordinate = mapView.region.center
+        let location = CLLocation.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let radius = getRadiusFromMapView(mapView)
+        geoContext = GeoContext(location: location, radius: radius)
+        geoContext?.delegate = self
+
+    }
+    
+    func getRadiusFromMapView(_ mapView: MKMapView) -> CLLocationDistance{
+        let span = mapView.region.span
+        let center = mapView.region.center
+        
+        let locationCenter = CLLocation(latitude: center.latitude, longitude: center.longitude)
+        let locationUpperRight = CLLocation(latitude: center.latitude + span.latitudeDelta * 0.5, longitude: center.longitude + span.longitudeDelta * 0.5)
+        let radius = locationCenter.distance(from: locationUpperRight)
+        
+        return radius
     }
 }
 

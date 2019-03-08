@@ -55,7 +55,7 @@
                                     <constraint firstAttribute="width" constant="40" id="uku-Mu-xKm"/>
                                     <constraint firstAttribute="height" constant="40" id="wE3-kd-Svm"/>
                                 </constraints>
-                                <state key="normal" image="restaurantAnnotation"/>
+                                <state key="normal" image="navigationIcon"/>
                                 <connections>
                                     <action selector="centerOnUserLocationButtonIsPressed:" destination="1YZ-Al-IQI" eventType="touchUpInside" id="1SJ-V8-kLw"/>
                                 </connections>
@@ -74,7 +74,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Gastro Places" id="Q9f-eI-gVy">
                         <barButtonItem key="backBarButtonItem" title="cancel" id="5yW-Ie-1y2"/>
-                        <barButtonItem key="rightBarButtonItem" title="Search" id="nKS-p8-6rH"/>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="nKS-p8-6rH">
+                            <connections>
+                                <action selector="searchButtonIsPressed:" destination="1YZ-Al-IQI" id="ume-10-cgR"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="loadingIndicatorView" destination="bW9-ue-3cg" id="gY0-GK-6K2"/>
@@ -106,6 +110,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="restaurantAnnotation" width="520" height="924"/>
+        <image name="navigationIcon" width="512" height="512"/>
     </resources>
 </document>
