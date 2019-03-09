@@ -12,6 +12,8 @@
 		075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */; };
 		075FE1762232811B007EC555 /* PlaceRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE1752232811B007EC555 /* PlaceRecord.swift */; };
 		075FE17B2232A6A5007EC555 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 075FE17A2232A6A5007EC555 /* Assets.xcassets */; };
+		07956E3C2233AAB4001F1449 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07956E3B2233AAB4001F1449 /* Default-568h@2x.png */; };
+		07A5F8942232DCFD0071FB3A /* PlaceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A5F8932232DCFD0071FB3A /* PlaceContext.swift */; };
 		07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F12F222FF5F800E22A27 /* AppDelegate.swift */; };
 		07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F131222FF5F800E22A27 /* MapViewController.swift */; };
 		07B7F135222FF5F800E22A27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7F133222FF5F800E22A27 /* Main.storyboard */; };
@@ -29,6 +31,8 @@
 		075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotationItem.swift; sourceTree = "<group>"; };
 		075FE1752232811B007EC555 /* PlaceRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceRecord.swift; sourceTree = "<group>"; };
 		075FE17A2232A6A5007EC555 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		07956E3B2233AAB4001F1449 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07A5F8932232DCFD0071FB3A /* PlaceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceContext.swift; sourceTree = "<group>"; };
 		07B7F12C222FF5F800E22A27 /* Gastro Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gastro Places.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B7F12F222FF5F800E22A27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07B7F131222FF5F800E22A27 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -69,9 +73,19 @@
 			path = PlaceCKRecord;
 			sourceTree = "<group>";
 		};
+		07956E3A2233AA7F001F1449 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				07B7F12F222FF5F800E22A27 /* AppDelegate.swift */,
+				07B7F136222FF5F800E22A27 /* Gastro_Places.xcdatamodeld */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
 		07B7F123222FF5F800E22A27 = {
 			isa = PBXGroup;
 			children = (
+				07956E3B2233AAB4001F1449 /* Default-568h@2x.png */,
 				07B7F12E222FF5F800E22A27 /* Gastro Places */,
 				07B7F12D222FF5F800E22A27 /* Products */,
 				075FE16E22326246007EC555 /* Frameworks */,
@@ -94,11 +108,10 @@
 				07B7F14422301A8900E22A27 /* ViewControllers */,
 				07B7F14522301A9E00E22A27 /* Extensions */,
 				075FE17722328120007EC555 /* PlaceCKRecord */,
-				07B7F12F222FF5F800E22A27 /* AppDelegate.swift */,
 				07B7F133222FF5F800E22A27 /* Main.storyboard */,
 				07B7F13B222FF5F900E22A27 /* LaunchScreen.storyboard */,
+				07956E3A2233AA7F001F1449 /* Supporting files */,
 				07B7F13E222FF5F900E22A27 /* Info.plist */,
-				07B7F136222FF5F800E22A27 /* Gastro_Places.xcdatamodeld */,
 				075FE17A2232A6A5007EC555 /* Assets.xcassets */,
 			);
 			path = "Gastro Places";
@@ -126,6 +139,7 @@
 				07B7F14922302B4200E22A27 /* GeoContext.swift */,
 				075FE1712232659C007EC555 /* FetchGeoContext.swift */,
 				075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */,
+				07A5F8932232DCFD0071FB3A /* PlaceContext.swift */,
 				07B7F14D2230802500E22A27 /* AsyncOperation.swift */,
 			);
 			path = Model;
@@ -198,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07B7F13D222FF5F900E22A27 /* LaunchScreen.storyboard in Resources */,
+				07956E3C2233AAB4001F1449 /* Default-568h@2x.png in Resources */,
 				075FE17B2232A6A5007EC555 /* Assets.xcassets in Resources */,
 				07B7F135222FF5F800E22A27 /* Main.storyboard in Resources */,
 			);
@@ -211,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07B7F138222FF5F800E22A27 /* Gastro_Places.xcdatamodeld in Sources */,
+				07A5F8942232DCFD0071FB3A /* PlaceContext.swift in Sources */,
 				07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */,
 				075FE1722232659C007EC555 /* FetchGeoContext.swift in Sources */,
 				075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */,

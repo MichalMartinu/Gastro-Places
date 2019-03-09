@@ -29,7 +29,7 @@ class GeoContext: GeocontextOperations {
     private let operationQueue = OperationQueue()
     private var fetchGeocontext: FetchGeoContext?
     
-    weak var delegate: GeocontextDelegate?
+    weak var delegate: GeoContextDelegate?
     
     init(location: CLLocation, radius: CLLocationDistance) {
         self.location = location
@@ -62,7 +62,7 @@ class GeoContext: GeocontextOperations {
         
         state = .finished
         DispatchQueue.main.async {
-            self.delegate?.geocontextDidLoadAnnotations()
+            self.delegate?.geoContextDidLoadAnnotations()
         }
     }
     

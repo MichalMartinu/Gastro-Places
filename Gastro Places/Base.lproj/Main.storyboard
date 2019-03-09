@@ -22,7 +22,104 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBz-80-zlY">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="WnN-ME-R4t" appends="YES" id="sxx-Zx-bBn"/>
+                                </connections>
                             </mapView>
+                            <view hidden="YES" alpha="0.94999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="He4-hR-5vb">
+                                <rect key="frame" x="15" y="543" width="345" height="200"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="82g-K1-dCX">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="200"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CgZ-at-buF">
+                                                <rect key="frame" x="0.0" y="0.0" width="345" height="200"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait a moment..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9SY-n4-nyd">
+                                                        <rect key="frame" x="82" y="0.0" width="181" height="71"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="FpY-Md-7SR">
+                                                        <rect key="frame" x="154" y="71" width="37" height="129"/>
+                                                        <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </activityIndicatorView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="CgZ-at-buF" firstAttribute="top" secondItem="82g-K1-dCX" secondAttribute="top" id="5XQ-zV-di3"/>
+                                            <constraint firstAttribute="bottom" secondItem="CgZ-at-buF" secondAttribute="bottom" id="HeL-Qb-KXW"/>
+                                            <constraint firstItem="CgZ-at-buF" firstAttribute="leading" secondItem="82g-K1-dCX" secondAttribute="leading" id="PNu-Pe-QkY"/>
+                                            <constraint firstAttribute="trailing" secondItem="CgZ-at-buF" secondAttribute="trailing" id="pQz-7m-Pl8"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="waJ-98-Xxf">
+                                        <rect key="frame" x="13.666666666666657" y="35" width="318" height="130.33333333333334"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you really want to add place here?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agn-Fq-gaf">
+                                                <rect key="frame" x="0.0" y="0.0" width="318" height="23"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0t-Dk-pAX">
+                                                <rect key="frame" x="127.33333333333331" y="49" width="63" height="20.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="DPt-fW-Q6S">
+                                                <rect key="frame" x="41.333333333333314" y="95.333333333333371" width="235" height="35"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUj-2J-uZO">
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="35"/>
+                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="hXU-bV-2fB"/>
+                                                            <constraint firstAttribute="height" constant="35" id="kfi-Kw-gZe"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <state key="normal" title="No">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="createPlaceDialogNoButtonPressed:" destination="1YZ-Al-IQI" eventType="touchUpInside" id="Zap-U0-lUp"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qni-Sz-VtG">
+                                                        <rect key="frame" x="135" y="0.0" width="100" height="35"/>
+                                                        <color key="backgroundColor" red="0.35958072540000002" green="0.78378111120000005" blue="0.49015051129999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="LFS-u5-Zvr"/>
+                                                            <constraint firstAttribute="height" constant="35" id="iAf-qW-Was"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <state key="normal" title="Yes">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="createPlaceDialogYesButtonPressed:" destination="1YZ-Al-IQI" eventType="touchUpInside" id="SjG-pu-6on"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="waJ-98-Xxf" firstAttribute="centerY" secondItem="He4-hR-5vb" secondAttribute="centerY" id="HTJ-Wa-n0x"/>
+                                    <constraint firstAttribute="height" constant="200" id="OJJ-nV-899"/>
+                                    <constraint firstItem="82g-K1-dCX" firstAttribute="top" secondItem="He4-hR-5vb" secondAttribute="top" id="Qbu-kH-ICM"/>
+                                    <constraint firstAttribute="trailing" secondItem="82g-K1-dCX" secondAttribute="trailing" id="Yr4-4b-gkj"/>
+                                    <constraint firstItem="waJ-98-Xxf" firstAttribute="centerX" secondItem="He4-hR-5vb" secondAttribute="centerX" id="mqT-lg-xaC"/>
+                                    <constraint firstItem="82g-K1-dCX" firstAttribute="leading" secondItem="He4-hR-5vb" secondAttribute="leading" id="qSm-8Q-YEJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="82g-K1-dCX" secondAttribute="bottom" id="qgR-Zw-Dct"/>
+                                </constraints>
+                            </view>
                             <view hidden="YES" alpha="0.84999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bW9-ue-3cg">
                                 <rect key="frame" x="70" y="113" width="235" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -69,6 +166,9 @@
                             <constraint firstItem="rLW-st-mqA" firstAttribute="trailing" secondItem="Btq-ln-y7V" secondAttribute="trailing" constant="30" id="EBo-Kv-uUA"/>
                             <constraint firstItem="rLW-st-mqA" firstAttribute="bottom" secondItem="Btq-ln-y7V" secondAttribute="bottom" constant="50" id="Q0s-7n-nU0"/>
                             <constraint firstItem="RBz-80-zlY" firstAttribute="leading" secondItem="rLW-st-mqA" secondAttribute="leading" id="VB0-ao-Txe"/>
+                            <constraint firstItem="He4-hR-5vb" firstAttribute="leading" secondItem="rLW-st-mqA" secondAttribute="leading" constant="15" id="VqN-FJ-4oE"/>
+                            <constraint firstItem="rLW-st-mqA" firstAttribute="bottom" secondItem="He4-hR-5vb" secondAttribute="bottom" constant="35" id="mOQ-WC-PGo"/>
+                            <constraint firstItem="rLW-st-mqA" firstAttribute="trailing" secondItem="He4-hR-5vb" secondAttribute="trailing" constant="15" id="wwv-wN-DVv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rLW-st-mqA"/>
                     </view>
@@ -81,12 +181,24 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="centerOnLocationButton" destination="Btq-ln-y7V" id="e6A-wl-UKQ"/>
+                        <outlet property="createPlaceActivityIndicatorView" destination="82g-K1-dCX" id="1bh-qc-Mze"/>
+                        <outlet property="createPlaceAddress" destination="p0t-Dk-pAX" id="pOk-QU-7Ch"/>
+                        <outlet property="createPlaceDialogStackView" destination="waJ-98-Xxf" id="ebe-6f-DYA"/>
+                        <outlet property="createPlaceDialogView" destination="He4-hR-5vb" id="uvb-0n-UHD"/>
+                        <outlet property="createPlaceDialogViewNoButton" destination="rUj-2J-uZO" id="nry-3b-nFL"/>
+                        <outlet property="createPlaceDialogYesButton" destination="Qni-Sz-VtG" id="b65-3S-V8M"/>
                         <outlet property="loadingIndicatorView" destination="bW9-ue-3cg" id="gY0-GK-6K2"/>
                         <outlet property="loadingPlacesView" destination="bW9-ue-3cg" id="yB4-JF-CdE"/>
                         <outlet property="mapView" destination="RBz-80-zlY" id="n2v-7W-HfA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7y0-C4-1QT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="WnN-ME-R4t">
+                    <connections>
+                        <action selector="longPressGestureAction:" destination="1YZ-Al-IQI" id="Ipz-b8-YUr"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2096.8000000000002" y="113.79310344827587"/>
         </scene>

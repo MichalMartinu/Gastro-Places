@@ -10,29 +10,39 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, GeocontextDelegate {
-
+class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContextDelegate, PlaceContextDelegate, MKMapViewDelegate {
+    
     @IBOutlet weak var loadingIndicatorView: UIView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var loadingPlacesView: UIView!
-        
+    @IBOutlet weak var createPlaceDialogView: UIView!
+    @IBOutlet weak var createPlaceDialogStackView: UIStackView!
+    @IBOutlet weak var createPlaceAddress: UILabel!
+    @IBOutlet weak var createPlaceActivityIndicatorView: UIView!
+    @IBOutlet weak var centerOnLocationButton: UIButton!
+    @IBOutlet weak var createPlaceDialogViewNoButton: UIButton!
+    @IBOutlet weak var createPlaceDialogYesButton: UIButton!
+    
     let locationManager = CLLocationManager()
     var mapCentered = false
     let regionRadius: CLLocationDistance = 1000
     
     var geoContext: GeoContext?
-
+    var placeContext: PlaceContext?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        mapView.delegate = self
         roundButtonsAndViews()
-        
         initLocationManager()
+        initLongPressGestureRecognizer()
     }
     
     func roundButtonsAndViews() {
         loadingPlacesView.roundCornersLarge()
-        
+        createPlaceDialogView.roundCornersLarge()
+        createPlaceDialogYesButton.roundCornersLittle()
+        createPlaceDialogViewNoButton.roundCornersLittle()
     }
     
     // MARK: Location manager
@@ -67,7 +77,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Geocontext
         }
     }
     
-     // MARK: Map
+    // MARK: Map
     
     func centerMapOnUserLocation(location: CLLocation, radius: CLLocationDistance) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius, longitudinalMeters: radius)
@@ -87,7 +97,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Geocontext
     }
     
     // Mark: Geocontext
-    func geocontextDidLoadAnnotations() {
+    func geoContextDidLoadAnnotations() {
         mountGeocontext()
     }
     
@@ -119,7 +129,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Geocontext
         let radius = getRadiusFromMapView(mapView)
         geoContext = GeoContext(location: location, radius: radius)
         geoContext?.delegate = self
-
+        
     }
     
     func getRadiusFromMapView(_ mapView: MKMapView) -> CLLocationDistance{
@@ -132,9 +142,85 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, Geocontext
         
         return radius
     }
+    
+    // Mark: Create new place
+    
+    private func initLongPressGestureRecognizer() {
+        let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapGesturePressed))
+        longTapGesture.delaysTouchesBegan = true
+        mapView.addGestureRecognizer(longTapGesture)
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if view.annotation is MKUserLocation {
+            guard let location = locationManager.location?.coordinate else {
+                return
+            }
+            
+            showCreateNewPlaceDialog(coordinate: location)
+        }
+    }
+    
+    @objc func longTapGesturePressed(sender: UILongPressGestureRecognizer) {
+        if sender.state == .ended {
+            let locationInView = sender.location(in: mapView)
+            let locationOnMap = mapView.convert(locationInView, toCoordinateFrom: mapView)
+            showCreateNewPlaceDialog(coordinate: locationOnMap)
+        }
+    }
+    
+    func showCreateNewPlaceDialog(coordinate: CLLocationCoordinate2D) {
+        createPlaceDialogView.isHidden = false
+        centerOnLocationButton.isHidden = true
+        
+        if placeContext != nil {
+            unmountPlaceContext()
+        }
+        
+        let location = CLLocation.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        placeContext = PlaceContext.init(location: location)
+        placeContext?.delegate = self
+        mountPlaceContext(placeContext: placeContext)
+        placeContext?.getAddress()
+    }
+    
+    func placeContextDidDecodeAddress(address: String) {
+        createPlaceActivityIndicatorView.isHidden = true
+        createPlaceAddress.text = address
+        createPlaceDialogStackView.isHidden = false
+    }
+    
+    func mountPlaceContext(placeContext: PlaceContext?) {
+        guard let annotation = placeContext?.annotation else {
+            return
+        }
+        mapView.addAnnotation(annotation)
+    }
+    
+    func unmountPlaceContext() {
+        guard let annotation = placeContext?.annotation else {
+            return
+        }
+        placeContext?.cancel()
+        placeContext = nil
+        mapView.removeAnnotation(annotation)
+    }
+    
+    @IBAction func createPlaceDialogNoButtonPressed(_ sender: UIButton) {
+        unmountPlaceContext()
+        createPlaceDialogView.isHidden = true
+        centerOnLocationButton.isHidden = false
+    }
+    
+    @IBAction func createPlaceDialogYesButtonPressed(_ sender: UIButton) {
+    }
 }
 
 
-protocol GeocontextDelegate: AnyObject {
-    func geocontextDidLoadAnnotations()
+protocol GeoContextDelegate: AnyObject {
+    func geoContextDidLoadAnnotations()
+}
+
+protocol PlaceContextDelegate: AnyObject {
+    func placeContextDidDecodeAddress(address: String)
 }
