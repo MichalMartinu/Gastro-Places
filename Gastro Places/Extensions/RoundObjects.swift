@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     func roundCornersLarge() {
-        self.layer.cornerRadius = 15
+        self.layer.cornerRadius = 10
     }
     func roundCornersLittle() {
         self.layer.cornerRadius = 5

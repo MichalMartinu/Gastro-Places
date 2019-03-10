@@ -15,7 +15,6 @@ protocol PlaceContextProtocol: AnyObject {
     func finishedDecodingAddress(city: String?, street: String?)
 }
 
-
 class PlaceContext: PlaceContextProtocol {
     
     let location: CLLocation

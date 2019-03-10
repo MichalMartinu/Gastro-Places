@@ -15,15 +15,17 @@ class FetchGeoContext: AsyncOperation {
     var placeAnnotations = [PlaceAnnotationItem]()
     let location: CLLocation
     let radius: CLLocationDistance
+    let cathegory: String
     
     let container: CKContainer
     let publicDB: CKDatabase
     
     weak var delegate: GeocontextOperations?
     
-    init(location: CLLocation, radius: CLLocationDistance) {
+    init(location: CLLocation, radius: CLLocationDistance, cathegory: String) {
         self.location = location
         self.radius = radius
+        self.cathegory = cathegory
         container = CKContainer.default()
         publicDB = container.publicCloudDatabase
     }
@@ -33,12 +35,13 @@ class FetchGeoContext: AsyncOperation {
             state = .Finished
             return
         }
-        fetchCloudKitPlaces()
+        fetchCloudKitPlaces(location: location, radius: radius, cathegory: cathegory)
     }
     
-    func fetchCloudKitPlaces() {
-        let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(location, %@) < %f",  location, Double(radius))
-        let query = CKQuery(recordType: "Place", predicate: locationPredicate)
+    func fetchCloudKitPlaces(location: CLLocation, radius: CLLocationDistance, cathegory: String) {
+        let predicate = createPredicateToFetchPlaces(location: location, radius: radius, cathegory: cathegory)
+        let query = CKQuery(recordType: placeRecord.record, predicate: predicate)
+       
         publicDB.perform(query, inZoneWith: nil) { results, error in
             if self.isCancelled {
                 self.state = .Finished
@@ -60,8 +63,8 @@ class FetchGeoContext: AsyncOperation {
                     return
                 }
 
-                guard let name = record[placeRecordNames.name] as? String, let cathegory = record[placeRecordNames.cathegory] as? String,
-                    let placeLoacation = record[placeRecordNames.location] as? CLLocation else {
+                guard let name = record[placeRecord.name] as? String, let cathegory = record[placeRecord.cathegory] as? String,
+                    let placeLoacation = record[placeRecord.location] as? CLLocation else {
                         continue
                 }
                 
@@ -76,6 +79,19 @@ class FetchGeoContext: AsyncOperation {
             self.state = .Finished
             self.delegate?.finishedLoadingData(placeAnnotation: self.placeAnnotations, error: nil)
         }
+    }
+    
+    func createPredicateToFetchPlaces(location: CLLocation, radius: CLLocationDistance, cathegory: String) ->  NSCompoundPredicate {
+        
+        let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(\(placeRecord.location), %@) < %f",  location, Double(radius))
+        var cathegoryPredicate = NSPredicate(value: true)
+        
+        if cathegory != "All" {
+            cathegoryPredicate = NSPredicate(format: "\(placeRecord.cathegory) = %@", cathegory)
+        }
+        
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [locationPredicate, cathegoryPredicate])
+        return predicate
     }
     
     func savePlaceToCoreData(record: CKRecord) {

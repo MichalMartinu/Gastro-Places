@@ -22,6 +22,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     @IBOutlet weak var centerOnLocationButton: UIButton!
     @IBOutlet weak var createPlaceDialogViewNoButton: UIButton!
     @IBOutlet weak var createPlaceDialogYesButton: UIButton!
+    @IBOutlet weak var cathegoryCollectionView: UICollectionView!
+    @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var cathegoryView: UIView!
     
     let locationManager = CLLocationManager()
     var mapCentered = false
@@ -29,10 +32,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     var geoContext: GeoContext?
     var placeContext: PlaceContext?
-    
+    var cathegories = Cathegories.init(type: .all)
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         mapView.delegate = self
+        cathegoryCollectionView.dataSource = self.cathegories
+        cathegoryCollectionView.delegate = self
+        
         roundButtonsAndViews()
         initLocationManager()
         initLongPressGestureRecognizer()
@@ -43,6 +51,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         createPlaceDialogView.roundCornersLarge()
         createPlaceDialogYesButton.roundCornersLittle()
         createPlaceDialogViewNoButton.roundCornersLittle()
+        cathegoryView.roundCornersLarge()
     }
     
     // MARK: Location manager
@@ -70,7 +79,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if mapCentered == false, let location = locations.first {
-            geoContext = GeoContext(location: location, radius: regionRadius)
+            let cathegory = cathegories.selectedCathegory()
+            geoContext = GeoContext(location: location, radius: regionRadius, cathegory: cathegory)
             geoContext?.delegate = self
             centerMapOnUserLocation(location: location, radius: regionRadius)
             mapCentered = true
@@ -115,21 +125,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         mapView.removeAnnotations(annotations)
     }
     
-    
-    @IBAction func searchButtonIsPressed(_ sender: Any) {
+    func newGeocontext() {
+        let coordinate = mapView.region.center
+        let location = CLLocation.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let radius = getRadiusFromMapView(mapView)
+        let cathegory = cathegories.selectedCathegory()
+        
         if let _geoContext = geoContext {
             if _geoContext.state == .finished {
                 unmountGeocontext(_geoContext)
+                placeContext?.cancel()
+                placeContext = nil
             }
             _geoContext.cancel()
         }
         
-        let coordinate = mapView.region.center
-        let location = CLLocation.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        let radius = getRadiusFromMapView(mapView)
-        geoContext = GeoContext(location: location, radius: radius)
+        geoContext = GeoContext(location: location, radius: radius, cathegory: cathegory)
         geoContext?.delegate = self
-        
+    }
+    
+    @IBAction func searchButtonIsPressed(_ sender: Any) {
+        newGeocontext()
     }
     
     func getRadiusFromMapView(_ mapView: MKMapView) -> CLLocationDistance{
@@ -161,7 +177,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         }
     }
     
-    @objc func longTapGesturePressed(sender: UILongPressGestureRecognizer) {
+    @objc public func longTapGesturePressed(sender: UILongPressGestureRecognizer) {
         if sender.state == .ended {
             let locationInView = sender.location(in: mapView)
             let locationOnMap = mapView.convert(locationInView, toCoordinateFrom: mapView)
@@ -195,14 +211,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
             return
         }
         mapView.addAnnotation(annotation)
+        mapView.setCenter(annotation.coordinate, animated: true)
     }
     
     func unmountPlaceContext() {
         guard let annotation = placeContext?.annotation else {
             return
         }
-        placeContext?.cancel()
-        placeContext = nil
         mapView.removeAnnotation(annotation)
     }
     
@@ -213,9 +228,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     }
     
     @IBAction func createPlaceDialogYesButtonPressed(_ sender: UIButton) {
+        unmountPlaceContext()
+        createPlaceDialogView.isHidden = true
     }
 }
 
+extension MapViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        cathegories.selectedIndex = indexPath.row
+        collectionView.reloadData()
+        newGeocontext()
+    }
+}
+
+extension MapViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let data = cathegories.cathegories[indexPath.row]
+        var font =  UIFont.systemFont(ofSize: 16)
+        if indexPath.row == cathegories.selectedIndex {
+             font = UIFont.boldSystemFont(ofSize: 18)
+        }
+        let width = data.name.width(withConstrainedHeight: 35, font: font)
+        return CGSize(width: width, height: 35)
+    }
+}
 
 protocol GeoContextDelegate: AnyObject {
     func geoContextDidLoadAnnotations()

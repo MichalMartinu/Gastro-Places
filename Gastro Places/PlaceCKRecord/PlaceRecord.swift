@@ -9,9 +9,10 @@
 import Foundation
 import CloudKit
 
-let placeRecordNames = PlaceCKRecordNames()
+let placeRecord = PlaceCKRecordNames()
 
 struct PlaceCKRecordNames {
+    let record = "Place"
     let name = "name"
     let cathegory = "cathegory"
     let city = "city"
@@ -22,28 +23,3 @@ struct PlaceCKRecordNames {
     let web = "web"
     let placeID = "recordName"
 }
-
-/*struct PlaceCKRecord {
-    let identifier = PlaceCKRecordNames()
-    
-    var name: String?
-    var cathegory: String?
-    var city: String?
-    var street: String?
-    var email: String?
-    var location: CLLocation?
-    var phone: String?
-    var web: String?
-    var placeID: String?
-    
-    
-    
-    init(_ record: CKRecord) {
-        if let name = record[identifier.name] as? String {
-            self.name = name
-        }
-        
-        if let cathegory
-        
-    }
-}*/

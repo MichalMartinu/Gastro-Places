@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0733D6C022350E59001F31C2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0733D6BF22350E59001F31C2 /* String.swift */; };
 		075FE17022326246007EC555 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 075FE16F22326246007EC555 /* CloudKit.framework */; };
 		075FE1722232659C007EC555 /* FetchGeoContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE1712232659C007EC555 /* FetchGeoContext.swift */; };
 		075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */; };
 		075FE1762232811B007EC555 /* PlaceRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE1752232811B007EC555 /* PlaceRecord.swift */; };
 		075FE17B2232A6A5007EC555 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 075FE17A2232A6A5007EC555 /* Assets.xcassets */; };
 		07956E3C2233AAB4001F1449 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07956E3B2233AAB4001F1449 /* Default-568h@2x.png */; };
+		07956E3E223411CE001F1449 /* Cathegories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07956E3D223411CE001F1449 /* Cathegories.swift */; };
+		07956E41223418DD001F1449 /* CathegoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07956E40223418DD001F1449 /* CathegoryCollectionViewCell.swift */; };
 		07A5F8942232DCFD0071FB3A /* PlaceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A5F8932232DCFD0071FB3A /* PlaceContext.swift */; };
 		07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F12F222FF5F800E22A27 /* AppDelegate.swift */; };
 		07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F131222FF5F800E22A27 /* MapViewController.swift */; };
@@ -25,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0733D6BF22350E59001F31C2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		074E9AAA2232616B00F8E494 /* Gastro Places.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Gastro Places.entitlements"; sourceTree = "<group>"; };
 		075FE16F22326246007EC555 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		075FE1712232659C007EC555 /* FetchGeoContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGeoContext.swift; sourceTree = "<group>"; };
@@ -32,6 +36,8 @@
 		075FE1752232811B007EC555 /* PlaceRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceRecord.swift; sourceTree = "<group>"; };
 		075FE17A2232A6A5007EC555 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07956E3B2233AAB4001F1449 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		07956E3D223411CE001F1449 /* Cathegories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cathegories.swift; sourceTree = "<group>"; };
+		07956E40223418DD001F1449 /* CathegoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CathegoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		07A5F8932232DCFD0071FB3A /* PlaceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceContext.swift; sourceTree = "<group>"; };
 		07B7F12C222FF5F800E22A27 /* Gastro Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gastro Places.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B7F12F222FF5F800E22A27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +88,14 @@
 			path = "Supporting files";
 			sourceTree = "<group>";
 		};
+		07956E3F223418BA001F1449 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				07956E40223418DD001F1449 /* CathegoryCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		07B7F123222FF5F800E22A27 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +120,7 @@
 				074E9AAA2232616B00F8E494 /* Gastro Places.entitlements */,
 				07B7F14822302B3100E22A27 /* Model */,
 				07B7F14422301A8900E22A27 /* ViewControllers */,
+				07956E3F223418BA001F1449 /* View */,
 				07B7F14522301A9E00E22A27 /* Extensions */,
 				075FE17722328120007EC555 /* PlaceCKRecord */,
 				07B7F133222FF5F800E22A27 /* Main.storyboard */,
@@ -129,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				07B7F14622301AD000E22A27 /* RoundObjects.swift */,
+				0733D6BF22350E59001F31C2 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -141,6 +157,7 @@
 				075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */,
 				07A5F8932232DCFD0071FB3A /* PlaceContext.swift */,
 				07B7F14D2230802500E22A27 /* AsyncOperation.swift */,
+				07956E3D223411CE001F1449 /* Cathegories.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -225,10 +242,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07956E3E223411CE001F1449 /* Cathegories.swift in Sources */,
 				07B7F138222FF5F800E22A27 /* Gastro_Places.xcdatamodeld in Sources */,
 				07A5F8942232DCFD0071FB3A /* PlaceContext.swift in Sources */,
 				07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */,
+				0733D6C022350E59001F31C2 /* String.swift in Sources */,
 				075FE1722232659C007EC555 /* FetchGeoContext.swift in Sources */,
+				07956E41223418DD001F1449 /* CathegoryCollectionViewCell.swift in Sources */,
 				075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */,
 				07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */,
 				07B7F14722301AD000E22A27 /* RoundObjects.swift in Sources */,

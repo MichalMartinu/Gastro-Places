@@ -25,20 +25,22 @@ class GeoContext: GeocontextOperations {
     
     let location: CLLocation
     let radius: CLLocationDistance
+    let cathegory: String
     
     private let operationQueue = OperationQueue()
     private var fetchGeocontext: FetchGeoContext?
     
     weak var delegate: GeoContextDelegate?
     
-    init(location: CLLocation, radius: CLLocationDistance) {
+    init(location: CLLocation, radius: CLLocationDistance, cathegory: String) {
         self.location = location
         self.radius = radius
+        self.cathegory = cathegory
         getData()
     }
     
     func getData() {
-        fetchGeocontext = FetchGeoContext(location: location, radius: radius)
+        fetchGeocontext = FetchGeoContext(location: location, radius: radius, cathegory: cathegory)
         fetchGeocontext?.delegate = self
         operationQueue.addOperation(fetchGeocontext!)
     }
