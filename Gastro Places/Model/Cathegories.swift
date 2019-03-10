@@ -22,6 +22,8 @@ struct CathegoryAndColor {
     }
 }
 
+let placesCathegories = PlacesCathegories()
+
 struct PlacesCathegories {
     let all = CathegoryAndColor(name: "All", color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
     let restaurant = CathegoryAndColor(name: "Restaurant", color: #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1))
@@ -31,7 +33,28 @@ struct PlacesCathegories {
     let fastfood = CathegoryAndColor(name: "FastFood", color: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1))
     let shop = CathegoryAndColor(name: "Shop", color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
     
-    var cathegories : [CathegoryAndColor] {
+    func colorForCathegory(cathegory: String) -> UIColor {
+        switch cathegory {
+        case all.name:
+            return all.color
+        case restaurant.name:
+            return restaurant.color
+        case caffe.name:
+            return caffe.color
+        case pub.name:
+            return pub.color
+        case pizzeria.name:
+            return pizzeria.color
+        case fastfood.name:
+            return fastfood.color
+        case shop.name:
+            return shop.color
+        default:
+            return UIColor.red
+        }
+    }
+    
+    var cathegories: [CathegoryAndColor] {
         var result = [CathegoryAndColor]()
         
         result.append(restaurant)
@@ -58,7 +81,6 @@ class Cathegories: NSObject {
     var selectedIndex = 0
     
     init(type: CathegoryType) {
-        let placesCathegories = PlacesCathegories()
         if type == .all{
             cathegories = placesCathegories.cathegoriesWithAll
         } else

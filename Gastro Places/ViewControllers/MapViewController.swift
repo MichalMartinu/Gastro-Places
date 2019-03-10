@@ -37,6 +37,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapView.register(PlaceAnnotationView.self,
+                         forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         mapView.delegate = self
         cathegoryCollectionView.dataSource = self.cathegories
         cathegoryCollectionView.delegate = self

@@ -11,6 +11,34 @@ import CoreLocation
 import MapKit
 import CloudKit
 
+class PlaceAnnotation: NSObject, MKAnnotation {
+    let title: String?
+    let cathegory: String
+    let coordinate: CLLocationCoordinate2D
+    
+    init(title: String, cathegory: String, coordinate: CLLocationCoordinate2D) {
+        self.title = title
+        self.cathegory = cathegory
+        self.coordinate = coordinate
+        
+        super.init()
+    }
+    
+    var subtitle: String? {
+        return cathegory
+    }
+}
+
+class PlaceAnnotationView: MKMarkerAnnotationView {
+    override var annotation: MKAnnotation? {
+        willSet {
+            guard let place = newValue as? PlaceAnnotation else { return }
+            markerTintColor = placesCathegories.colorForCathegory(cathegory: place.cathegory)
+            glyphText = String(place.cathegory.first!)
+        }
+    }
+}
+
 struct PlaceAnnotationItem {
     var name: String
     var cathegory: String

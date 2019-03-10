@@ -12,7 +12,7 @@ import CloudKit
 import CoreData
 
 class FetchGeoContext: AsyncOperation {
-    var placeAnnotations = [PlaceAnnotationItem]()
+    var placeAnnotations = [PlaceAnnotation]()
     let location: CLLocation
     let radius: CLLocationDistance
     let cathegory: String
@@ -68,7 +68,7 @@ class FetchGeoContext: AsyncOperation {
                         continue
                 }
                 
-                let placeAnnotationItem = PlaceAnnotationItem.init(name: name, cathegory: cathegory, location: placeLoacation)
+                let placeAnnotationItem = PlaceAnnotation.init(title: name, cathegory: cathegory, coordinate: placeLoacation.coordinate)
                 self.placeAnnotations.append(placeAnnotationItem)
                 
                 DispatchQueue.main.async {

@@ -11,7 +11,7 @@ import CoreLocation
 import MapKit
 
 protocol GeocontextOperations: AnyObject {
-    func finishedLoadingData(placeAnnotation: [PlaceAnnotationItem], error: Error?)
+    func finishedLoadingData(placeAnnotation: [PlaceAnnotation], error: Error?)
 }
 
 enum GeoContextState {
@@ -20,7 +20,7 @@ enum GeoContextState {
 
 class GeoContext: GeocontextOperations {
     
-    var annotations = [MKAnnotation]()
+    var annotations = [PlaceAnnotation]()
     var state = GeoContextState.ready
     
     let location: CLLocation
@@ -45,7 +45,7 @@ class GeoContext: GeocontextOperations {
         operationQueue.addOperation(fetchGeocontext!)
     }
     
-    func finishedLoadingData(placeAnnotation: [PlaceAnnotationItem], error: Error?) {
+    func finishedLoadingData(placeAnnotation: [PlaceAnnotation], error: Error?) {
         fetchGeocontext = nil
         
         if error != nil {
@@ -59,7 +59,7 @@ class GeoContext: GeocontextOperations {
         }
         
         for placeAnnotation in placeAnnotation {
-            self.annotations.append(placeAnnotation.annotation)
+            self.annotations.append(placeAnnotation)
         }
         
         state = .finished
