@@ -28,12 +28,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     let locationManager = CLLocationManager()
     var mapCentered = false
-    let regionRadius: CLLocationDistance = 1000
+    let regionRadius: CLLocationDistance = 1000 // meters
     
     var geoContext: GeoContext?
     var placeContext: PlaceContext?
     var cathegories = Cathegories.init(type: .all)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,10 +79,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if mapCentered == false, let location = locations.first {
-            let cathegory = cathegories.selectedCathegory()
-            geoContext = GeoContext(location: location, radius: regionRadius, cathegory: cathegory)
-            geoContext?.delegate = self
             centerMapOnUserLocation(location: location, radius: regionRadius)
+            let cathegory = cathegories.selectedCathegory()
+            newGeocontext(coordinate: location.coordinate, radius: regionRadius, cathegory: cathegory)
             mapCentered = true
         }
     }
@@ -108,6 +107,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     // Mark: Geocontext
     func geoContextDidLoadAnnotations() {
+        loadingIndicatorView.isHidden = true
         mountGeocontext()
     }
     
@@ -125,13 +125,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         mapView.removeAnnotations(annotations)
     }
     
-    func newGeocontext() {
-        let coordinate = mapView.region.center
+    func newGeocontext(coordinate: CLLocationCoordinate2D, radius: CLLocationDistance, cathegory: String) {
         let location = CLLocation.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        let radius = getRadiusFromMapView(mapView)
-        let cathegory = cathegories.selectedCathegory()
         
         if let _geoContext = geoContext {
+            let distanceThreshold = 2.0 // meters
+            
+            if cathegory == _geoContext.cathegory,
+                location.distance(from: _geoContext.location) < distanceThreshold,
+                radius.rounded() <= _geoContext.radius.rounded() {
+                return
+            }
+            
+            loadingIndicatorView.isHidden = false
+
             if _geoContext.state == .finished {
                 unmountGeocontext(_geoContext)
                 placeContext?.cancel()
@@ -145,7 +152,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     }
     
     @IBAction func searchButtonIsPressed(_ sender: Any) {
-        newGeocontext()
+        let coordinate = mapView.region.center
+        let radius = getRadiusFromMapView(mapView)
+        let cathegory = cathegories.selectedCathegory()
+        
+        newGeocontext(coordinate: coordinate, radius: radius, cathegory: cathegory)
     }
     
     func getRadiusFromMapView(_ mapView: MKMapView) -> CLLocationDistance{
@@ -154,6 +165,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         
         let locationCenter = CLLocation(latitude: center.latitude, longitude: center.longitude)
         let locationUpperRight = CLLocation(latitude: center.latitude + span.latitudeDelta * 0.5, longitude: center.longitude + span.longitudeDelta * 0.5)
+        
         let radius = locationCenter.distance(from: locationUpperRight)
         
         return radius
@@ -237,7 +249,11 @@ extension MapViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         cathegories.selectedIndex = indexPath.row
         collectionView.reloadData()
-        newGeocontext()
+        let coordinate = mapView.region.center
+        let radius = getRadiusFromMapView(mapView)
+        let cathegory = cathegories.selectedCathegory()
+        
+        newGeocontext(coordinate: coordinate, radius: radius, cathegory: cathegory)
     }
 }
 
@@ -246,7 +262,7 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
         let data = cathegories.cathegories[indexPath.row]
         var font =  UIFont.systemFont(ofSize: 16)
         if indexPath.row == cathegories.selectedIndex {
-             font = UIFont.boldSystemFont(ofSize: 18)
+            font = UIFont.boldSystemFont(ofSize: 18)
         }
         let width = data.name.width(withConstrainedHeight: 35, font: font)
         return CGSize(width: width, height: 35)
