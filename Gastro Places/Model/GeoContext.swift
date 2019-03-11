@@ -15,7 +15,7 @@ protocol GeocontextOperations: AnyObject {
 }
 
 enum GeoContextState {
-    case ready, exectuting, finished, noData, failed, canceled
+    case ready, exectuting, finished, failed, canceled
 }
 
 class GeoContext: GeocontextOperations {
@@ -50,11 +50,6 @@ class GeoContext: GeocontextOperations {
         
         if error != nil {
             state = .failed
-            return
-        }
-        
-        if placeAnnotation.count == 0 {
-            state = .noData
             return
         }
         

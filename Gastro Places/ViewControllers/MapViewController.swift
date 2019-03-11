@@ -9,9 +9,11 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CloudKit
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContextDelegate, PlaceContextDelegate, MKMapViewDelegate {
     
+    @IBOutlet weak var noPlacesInAreaView: UIView!
     @IBOutlet weak var loadingIndicatorView: UIView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var loadingPlacesView: UIView!
@@ -36,16 +38,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initLongPressGestureRecognizer()
         
         mapView.register(PlaceAnnotationView.self,
                          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         mapView.delegate = self
+        
         cathegoryCollectionView.dataSource = self.cathegories
         cathegoryCollectionView.delegate = self
         
         roundButtonsAndViews()
         initLocationManager()
-        initLongPressGestureRecognizer()
     }
     
     func roundButtonsAndViews() {
@@ -54,6 +57,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         createPlaceDialogYesButton.roundCornersLittle()
         createPlaceDialogViewNoButton.roundCornersLittle()
         cathegoryView.roundCornersLarge()
+        noPlacesInAreaView.roundCornersLarge()
     }
     
     // MARK: Location manager
@@ -117,6 +121,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         guard let annotations = geoContext?.annotations else {
             return
         }
+        
+        if annotations.count == 0 {
+            noPlacesInAreaView.isHidden = false
+        }
+        
         mapView.addAnnotations(annotations)
     }
     
@@ -139,12 +148,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
                 return
             }
             
+            noPlacesInAreaView.isHidden = true
             loadingIndicatorView.isHidden = false
 
             if _geoContext.state == .finished {
                 unmountGeocontext(_geoContext)
-                placeContext?.cancel()
-                placeContext = nil
             }
             _geoContext.cancel()
         }
@@ -175,6 +183,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     // Mark: Create new place
     
+    @objc func longTapGesturePressed(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .ended {
+            let locationInView = sender.location(in: mapView)
+            let locationOnMap = mapView.convert(locationInView, toCoordinateFrom: mapView)
+            showCreateNewPlaceDialog(coordinate: locationOnMap)
+        }
+    }
+    
     private func initLongPressGestureRecognizer() {
         let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapGesturePressed))
         longTapGesture.delaysTouchesBegan = true
@@ -188,14 +204,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
             }
             
             showCreateNewPlaceDialog(coordinate: location)
-        }
-    }
-    
-    @objc public func longTapGesturePressed(sender: UILongPressGestureRecognizer) {
-        if sender.state == .ended {
-            let locationInView = sender.location(in: mapView)
-            let locationOnMap = mapView.convert(locationInView, toCoordinateFrom: mapView)
-            showCreateNewPlaceDialog(coordinate: locationOnMap)
         }
     }
     
@@ -233,6 +241,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
             return
         }
         mapView.removeAnnotation(annotation)
+        placeContext = nil
     }
     
     @IBAction func createPlaceDialogNoButtonPressed(_ sender: UIButton) {
@@ -242,9 +251,39 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     }
     
     @IBAction func createPlaceDialogYesButtonPressed(_ sender: UIButton) {
-        unmountPlaceContext()
-        createPlaceDialogView.isHidden = true
+        if isICloudKitContainerAvailable() {
+            unmountPlaceContext()
+            createPlaceDialogView.isHidden = true
+            performSegue(withIdentifier: "createPlaceDialog", sender: self)
+        } else {
+            showAlert(title: "No iCloud account!", message: "To create new place you need to login to your iCloud account in your settings.", confirmTitle: "Ok")
+        }
     }
+    
+    func isICloudKitContainerAvailable()->Bool {
+        if FileManager.default.ubiquityIdentityToken != nil {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "createPlaceDialog" {
+            centerOnLocationButton.isHidden = false
+            if let vc = segue.destination as? CreatePlaceViewController {
+                vc.placeContext = placeContext
+            }
+        }
+    }
+    
+    @IBAction func unwindToMapViewController(segue: UIStoryboardSegue) {
+        if segue.source is CreatePlaceViewController {
+            mountGeocontext()
+        }
+    }
+
 }
 
 extension MapViewController: UICollectionViewDelegate {
@@ -273,8 +312,4 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
 
 protocol GeoContextDelegate: AnyObject {
     func geoContextDidLoadAnnotations()
-}
-
-protocol PlaceContextDelegate: AnyObject {
-    func placeContextDidDecodeAddress(address: String)
 }

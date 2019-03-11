@@ -12,13 +12,13 @@ import CloudKit
 import CoreData
 
 class FetchGeoContext: AsyncOperation {
-    var placeAnnotations = [PlaceAnnotation]()
-    let location: CLLocation
-    let radius: CLLocationDistance
-    let cathegory: String
+    private var placeAnnotations = [PlaceAnnotation]()
+    private let location: CLLocation
+    private let radius: CLLocationDistance
+    private let cathegory: String
     
-    let container: CKContainer
-    let publicDB: CKDatabase
+    private let container: CKContainer
+    private let publicDB: CKDatabase
     
     weak var delegate: GeocontextOperations?
     
@@ -38,7 +38,7 @@ class FetchGeoContext: AsyncOperation {
         fetchCloudKitPlaces(location: location, radius: radius, cathegory: cathegory)
     }
     
-    func fetchCloudKitPlaces(location: CLLocation, radius: CLLocationDistance, cathegory: String) {
+    private func fetchCloudKitPlaces(location: CLLocation, radius: CLLocationDistance, cathegory: String) {
         let predicate = createPredicateToFetchPlaces(location: location, radius: radius, cathegory: cathegory)
         let query = CKQuery(recordType: placeRecord.record, predicate: predicate)
        
@@ -81,7 +81,7 @@ class FetchGeoContext: AsyncOperation {
         }
     }
     
-    func createPredicateToFetchPlaces(location: CLLocation, radius: CLLocationDistance, cathegory: String) ->  NSCompoundPredicate {
+    private func createPredicateToFetchPlaces(location: CLLocation, radius: CLLocationDistance, cathegory: String) ->  NSCompoundPredicate {
         
         let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(\(placeRecord.location), %@) < %f",  location, Double(radius))
         var cathegoryPredicate = NSPredicate(value: true)
@@ -94,7 +94,7 @@ class FetchGeoContext: AsyncOperation {
         return predicate
     }
     
-    func savePlaceToCoreData(record: CKRecord) {
+    private func savePlaceToCoreData(record: CKRecord) {
         //TODO: save
     }
 }

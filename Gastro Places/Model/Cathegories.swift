@@ -31,7 +31,7 @@ struct PlacesCathegories {
     let pub = CathegoryAndColor(name: "Pub", color: #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1))
     let pizzeria = CathegoryAndColor(name: "Pizzeria", color: #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1))
     let fastfood = CathegoryAndColor(name: "FastFood", color: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1))
-    let shop = CathegoryAndColor(name: "Shop", color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
+    //let shop = CathegoryAndColor(name: "Shop", color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
     
     func colorForCathegory(cathegory: String) -> UIColor {
         switch cathegory {
@@ -47,8 +47,8 @@ struct PlacesCathegories {
             return pizzeria.color
         case fastfood.name:
             return fastfood.color
-        case shop.name:
-            return shop.color
+        //case shop.name:
+            //return shop.color
         default:
             return UIColor.red
         }
@@ -62,7 +62,7 @@ struct PlacesCathegories {
         result.append(pub)
         result.append(pizzeria)
         result.append(fastfood)
-        result.append(shop)
+        //result.append(shop)
         
         return result
     }
@@ -109,4 +109,19 @@ extension Cathegories: UICollectionViewDataSource {
         cell.initData(color: data.color, text: data.name, selected: selected)
         return cell
     }
+}
+
+extension Cathegories: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return cathegories.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return cathegories[row].name
+    }
+    
 }

@@ -34,27 +34,12 @@ class PlaceAnnotationView: MKMarkerAnnotationView {
         willSet {
             guard let place = newValue as? PlaceAnnotation else { return }
             markerTintColor = placesCathegories.colorForCathegory(cathegory: place.cathegory)
-            glyphText = String(place.cathegory.first!)
+            if place.cathegory.count > 0 {
+                glyphText = String(place.cathegory.first!)
+            } else {
+                glyphText = ""
+            }
         }
     }
 }
 
-struct PlaceAnnotationItem {
-    var name: String
-    var cathegory: String
-    var location: CLLocation
-    
-    var annotation: MKPointAnnotation {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = location.coordinate
-        annotation.title = name
-        annotation.subtitle = cathegory
-        return annotation
-    }
-    
-    init(name: String, cathegory: String, location: CLLocation) {
-        self.name = name
-        self.cathegory = cathegory
-        self.location = location
-    }
-}
