@@ -37,7 +37,7 @@ class PlaceAnnotationView: MKMarkerAnnotationView {
             if place.cathegory.count > 0 {
                 glyphText = String(place.cathegory.first!)
             } else {
-                glyphText = ""
+                glyphText = "New"
             }
         }
     }

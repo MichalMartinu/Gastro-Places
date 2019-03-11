@@ -183,7 +183,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     // Mark: Create new place
     
-    @objc func longTapGesturePressed(_ sender: UILongPressGestureRecognizer) {
+    @objc func longTapGesture(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .ended {
             let locationInView = sender.location(in: mapView)
             let locationOnMap = mapView.convert(locationInView, toCoordinateFrom: mapView)
@@ -192,7 +192,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     }
     
     private func initLongPressGestureRecognizer() {
-        let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapGesturePressed))
+        let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longTapGesture))
         longTapGesture.delaysTouchesBegan = true
         mapView.addGestureRecognizer(longTapGesture)
     }
