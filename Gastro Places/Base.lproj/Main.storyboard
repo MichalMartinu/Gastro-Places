@@ -346,8 +346,8 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="FQM-87-z4h">
                                                     <rect key="frame" x="20" y="10" width="335" height="285.66666666666669"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creating new place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZQ-J3-Owu">
-                                                            <rect key="frame" x="0.0" y="0.0" width="181" height="30"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to create new place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZQ-J3-Owu">
+                                                            <rect key="frame" x="0.0" y="0.0" width="230.33333333333334" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="I9l-Xh-Vff"/>
                                                             </constraints>
@@ -392,7 +392,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7bc-ss-UKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2744.8000000000002" y="-575.61576354679801"/>
+            <point key="canvasLocation" x="2097" y="845"/>
         </scene>
         <!--Create New Place-->
         <scene sceneID="Vet-NN-5Ih">
@@ -702,7 +702,7 @@
                                         <rect key="frame" x="0.0" y="794" width="375" height="104"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K7o-R3-lzB" id="ofo-Vs-gGu">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="103.66666666666667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="103.66666666666667"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="t9G-AN-V6X">
@@ -747,7 +747,7 @@
                                         <rect key="frame" x="0.0" y="898" width="375" height="104"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xlZ-dj-mAS" id="tWO-uB-N1s">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="103.66666666666667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="103.66666666666667"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="VfH-kU-0vY">
@@ -820,7 +820,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JL6-KF-cck" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Rdw-gR-KsV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2988" y="113.79310344827587"/>
+            <point key="canvasLocation" x="2972" y="114"/>
         </scene>
     </scenes>
     <resources>

@@ -12,7 +12,7 @@ import MapKit
 
 
 protocol PlaceContextProtocol: AnyObject {
-    func finishedDecodingAddress(city: String?, street: String?)
+    func finishedDecodingAddress(address: Address)
     func placeSaved(place: Place, error: Error?)
 }
 
@@ -31,14 +31,13 @@ enum InputTypes {
 
 struct Place {
     let location: CLLocation
-    var street: String?
-    var city: String?
     var placeID: String?
     var cathegory: String?
     var name: String?
     var phone: String?
     var email: String?
     var web: String?
+    var address: Address?
     
     init(location: CLLocation) {
         self.location = location
@@ -50,17 +49,6 @@ class PlaceContext: PlaceContextProtocol {
     var place: Place
     
     weak var delegate: PlaceContextDelegate?
-    
-    var address: String {
-        var address = ""
-        if let _street = place.street {
-            address += _street
-        }
-        if let _city = place.city {
-            address += " \(_city)"
-        }
-        return address
-    }
     
     let annotation: PlaceAnnotation
     
@@ -95,11 +83,10 @@ class PlaceContext: PlaceContextProtocol {
         operationQueue.addOperation(savePlace)
     }
     
-    func finishedDecodingAddress(city: String?, street: String?) {
-        self.place.street = street
-        self.place.city = city
+    func finishedDecodingAddress(address: Address) {
+        self.place.address = address
         DispatchQueue.main.async {
-            self.delegate?.placeContextDidDecodeAddress!(address: self.address)
+            self.delegate?.placeContextDidDecodeAddress!(address: address.full)
         }
     }
     
@@ -131,8 +118,9 @@ class DecodePlaceAddress: AsyncOperation {
     }
     
     private func decodePlaceItemAddress() {
-        var street: String?
-        var city: String?
+        var street = ""
+        var city = ""
+        var zipCode = ""
         let geoCoder = CLGeocoder()
         geoCoder.reverseGeocodeLocation(location, completionHandler:
             {
@@ -145,21 +133,21 @@ class DecodePlaceAddress: AsyncOperation {
                     city = _city
                 }
                 if let _zipCode = placeMark.postalCode {
-                    city?.append(contentsOf: " \(_zipCode)")
+                    zipCode = _zipCode
                 }
                 if let _street = placeMark.thoroughfare {
                     street = _street
                 }
                 if let _streetNumber = placeMark.subThoroughfare{
-                    street?.append(contentsOf: " \(_streetNumber)")
+                    street.append(contentsOf: " \(_streetNumber)")
                 }
                 
                 if self.isCancelled {
                     self.state = .Finished
                     return
                 }
-                
-                self.delegate?.finishedDecodingAddress(city: city, street: street)
+                let address = Address.init(city: city, zipCode: zipCode, street: street)
+                self.delegate?.finishedDecodingAddress(address: address)
                 self.state = .Finished
         })
     }

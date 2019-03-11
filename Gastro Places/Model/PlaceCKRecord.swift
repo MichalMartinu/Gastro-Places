@@ -22,7 +22,7 @@ struct PlaceCKRecord {
         }
         
         
-        record = CKRecord(recordType: "Place", recordID: recordID)
+        record = CKRecord(recordType: placeRecord.record, recordID: recordID)
         
         initItems(place: place)
     }
@@ -36,11 +36,14 @@ struct PlaceCKRecord {
         if let cathegory = place.cathegory {
             record[placeRecord.cathegory] = cathegory
         }
-        if let city = place.city {
+        if let city = place.address?.city {
             record[placeRecord.city] = city
         }
-        if let street = place.street {
+        if let street = place.address?.street {
             record[placeRecord.street] = street
+        }
+        if let zipCode = place.address?.zipCode {
+            record[placeRecord.zipCode] = zipCode
         }
         if let web = place.web {
             record[placeRecord.web] = web

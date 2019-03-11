@@ -75,15 +75,14 @@ class FetchGeoContext: AsyncOperation {
                     self.savePlaceToCoreData(record: record)
                 }
             }
-            
+
             self.state = .Finished
             self.delegate?.finishedLoadingData(placeAnnotation: self.placeAnnotations, error: nil)
         }
     }
     
     private func createPredicateToFetchPlaces(location: CLLocation, radius: CLLocationDistance, cathegory: String) ->  NSCompoundPredicate {
-        
-        let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(\(placeRecord.location), %@) < %f",  location, Double(radius))
+        let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(location, %@) < %f",  location, Double(radius))
         var cathegoryPredicate = NSPredicate(value: true)
         
         if cathegory != "All" {
@@ -95,7 +94,9 @@ class FetchGeoContext: AsyncOperation {
     }
     
     private func savePlaceToCoreData(record: CKRecord) {
-        //TODO: save
+        let context = AppDelegate.viewContext
+        PlaceCoreData.findOrCreatePlace(record: record, context: context)
+        try? context.save()
     }
 }
 

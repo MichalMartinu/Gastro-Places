@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import CloudKit
+import CoreData
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContextDelegate, PlaceContextDelegate, MKMapViewDelegate {
     
@@ -30,7 +31,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     let locationManager = CLLocationManager()
     var mapCentered = false
-    let regionRadius: CLLocationDistance = 1000 // meters
+    let regionRadius: CLLocationDistance = 2000 // meters
     
     var geoContext: GeoContext?
     var placeContext: PlaceContext?
@@ -138,13 +139,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     func newGeocontext(coordinate: CLLocationCoordinate2D, radius: CLLocationDistance, cathegory: String) {
         let location = CLLocation.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        var updatedRadius: CLLocationDistance = 10000
         
+        if radius > 10000 {
+            updatedRadius = radius
+        }
+
         if let _geoContext = geoContext {
-            let distanceThreshold = 2.0 // meters
+            let locationDistance = location.distance(from: _geoContext.location)
+            let newArea = locationDistance + radius
             
-            if cathegory == _geoContext.cathegory,
-                location.distance(from: _geoContext.location) < distanceThreshold,
-                radius.rounded() <= _geoContext.radius.rounded() {
+            if _geoContext.cathegory == cathegory, newArea < _geoContext.radius {
                 return
             }
             
@@ -157,7 +162,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
             _geoContext.cancel()
         }
         
-        geoContext = GeoContext(location: location, radius: radius, cathegory: cathegory)
+        geoContext = GeoContext(location: location, radius: updatedRadius, cathegory: cathegory)
         geoContext?.delegate = self
     }
     
@@ -241,7 +246,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
             return
         }
         mapView.removeAnnotation(annotation)
-        placeContext = nil
     }
     
     @IBAction func createPlaceDialogNoButtonPressed(_ sender: UIButton) {
@@ -252,8 +256,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     @IBAction func createPlaceDialogYesButtonPressed(_ sender: UIButton) {
         if isICloudKitContainerAvailable() {
-            unmountPlaceContext()
             createPlaceDialogView.isHidden = true
+            unmountPlaceContext()
             performSegue(withIdentifier: "createPlaceDialog", sender: self)
         } else {
             showAlert(title: "No iCloud account!", message: "To create new place you need to login to your iCloud account in your settings.", confirmTitle: "Ok")

@@ -42,11 +42,28 @@ class SavePlace: AsyncOperation {
         let saveOperation = CKModifyRecordsOperation(recordsToSave: records)
         saveOperation.savePolicy = .changedKeys
         saveOperation.modifyRecordsCompletionBlock = { (records, recordsID, error) in
+            if let _records = records {
+                DispatchQueue.main.async {
+                    self.savePlacesToCoreData(records: _records)
+                }
+            }
             self.delegate?.placeSaved(place: self.place, error: error)
         }
         
         publicDB.add(saveOperation)
         
         state = .Finished
+    }
+    
+    private func savePlacesToCoreData(records: [CKRecord]) {
+        let context = AppDelegate.viewContext
+        
+        for record in records {
+            if record.recordType == placeRecord.record {
+                PlaceCoreData.findOrCreatePlace(record: record, context: context)
+            }
+        }
+        
+        try? context.save()
     }
 }
