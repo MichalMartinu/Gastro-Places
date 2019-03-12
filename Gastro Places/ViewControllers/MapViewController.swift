@@ -227,9 +227,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         placeContext?.getAddress()
     }
     
-    func placeContextDidDecodeAddress(address: String) {
+    func placeContextDidDecodeAddress(address: String?, error: Error?) {
         createPlaceActivityIndicatorView.isHidden = true
-        createPlaceAddress.text = address
+
+        if error != nil {
+            createPlaceDialogView.isHidden = true
+            unmountPlaceContext()
+            showAlert(title: "Could not create new place!", message: "Connection error!", confirmTitle: "Ok")
+            return
+        }
+        
+        createPlaceAddress.text = address!
         createPlaceDialogStackView.isHidden = false
     }
     

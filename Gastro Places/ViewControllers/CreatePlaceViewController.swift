@@ -13,17 +13,24 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
     
     @IBOutlet weak var cathegoryPickerView: UIPickerView!
     
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var nameTextFieldLine: UIView!
     
+    @IBOutlet weak var webpageLabel: UILabel!
     @IBOutlet weak var webpageTextField: UITextField!
     @IBOutlet weak var webpageTextFieldLine: UIView!
     
+    @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var phoneNumberTextFieldLine: UIView!
     
+    @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var emailTextFieldLine: UIView!
+    
+    let wrongInputColor = #colorLiteral(red: 0.8823529412, green: 0.3450980392, blue: 0.1607843137, alpha: 1)
+    let blackColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     
     var placeContext: PlaceContext? {
         didSet {
@@ -49,35 +56,84 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
         super.viewWillDisappear(animated)
         navigationController?.setToolbarHidden(true, animated: false)
     }
-
-    func checkInputName() -> String {
-       return nameTextField.text!
-    }
     
-    func checkInputWebpage() -> String {
-      return webpageTextField.text!
-    }
-    
-    func checkInputPhone() -> String {
-       return phoneNumberTextField.text!
-    }
-    
-    func checkInputEmail() -> String {
-       return emailTextField.text!
+    func resetWrongInputErrors() {
+        nameLabel.textColor = blackColor
+        nameTextFieldLine.backgroundColor = blackColor
+        
+        webpageLabel.textColor = blackColor
+        webpageTextFieldLine.backgroundColor = blackColor
+        
+        phoneLabel.textColor = blackColor
+        phoneNumberTextFieldLine.backgroundColor = blackColor
+        
+        emailLabel.textColor = blackColor
+        emailTextFieldLine.backgroundColor = blackColor
     }
     
     func getCathegory() -> String {
         return cathegories.cathegories[cathegoryPickerView.selectedRow(inComponent: 0)].name
     }
     
+    func wrongName() {
+        nameLabel.textColor = wrongInputColor
+        nameTextFieldLine.backgroundColor = wrongInputColor
+    }
+    
+    func wrongWeb() {
+        webpageLabel.textColor = wrongInputColor
+        webpageTextFieldLine.backgroundColor = wrongInputColor
+    }
+    
+    func wrongPhone() {
+        phoneLabel.textColor = wrongInputColor
+        phoneNumberTextFieldLine.backgroundColor = wrongInputColor
+    }
+    
+    func wrongEmail() {
+        emailLabel.textColor = wrongInputColor
+        emailTextFieldLine.backgroundColor = wrongInputColor
+    }
+    
+    
+    
     @IBAction func saveButtonIsPressed(_ sender: UIBarButtonItem) {
-        let name = checkInputName()
-        let web = checkInputWebpage()
-        let email = checkInputEmail()
-        let phone = checkInputPhone()
+        let name = nameTextField.text!
+        let web = webpageTextField.text!
+        let email = emailTextField.text!
+        let phone = phoneNumberTextField.text!
         let cathegory = getCathegory()
         
+        resetWrongInputErrors()
+        
         placeContext?.changeData(cathegory: cathegory, name: name, phone: phone, email: email, web: web)
+        
+        let wrongInput = placeContext?.checkInput()
+        if let _wrongInput = wrongInput, _wrongInput.count > 0 {
+            var wrongInputString = "Invalid:"
+            var firstFlag = true
+            for input in _wrongInput {
+                if firstFlag != true {
+                    wrongInputString += ","
+                }
+                firstFlag = false
+                
+                switch input {
+                case .name:
+                    wrongName()
+                case .web:
+                    wrongWeb()
+                case .phone:
+                    wrongPhone()
+                case .email:
+                    wrongEmail()
+                }
+                wrongInputString += " \(input.rawValue)"
+            }
+            
+            showAlert(title: "Invalid input", message: wrongInputString, confirmTitle: "Ok")
+            return
+        }
         placeContext?.save()
     }
     

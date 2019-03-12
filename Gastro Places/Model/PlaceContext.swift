@@ -12,21 +12,21 @@ import MapKit
 
 
 protocol PlaceContextProtocol: AnyObject {
-    func finishedDecodingAddress(address: Address)
+    func finishedDecodingAddress(address: Address?, error: Error?)
     func placeSaved(place: Place, error: Error?)
 }
 
 @objc protocol PlaceContextDelegate: AnyObject {
-    @objc optional func placeContextDidDecodeAddress(address: String)
+    @objc optional func placeContextDidDecodeAddress(address: String?, error: Error?)
     @objc optional func placeContextSaved(annotation: PlaceAnnotation, error: Error?)
 }
 
 
-enum InputTypes {
-    case email
-    case web
-    case phone
-    case name
+enum InputTypes: String {
+    case email = "email"
+    case web = "web"
+    case phone = "phone"
+    case name = "name"
 }
 
 struct Place {
@@ -83,10 +83,37 @@ class PlaceContext: PlaceContextProtocol {
         operationQueue.addOperation(savePlace)
     }
     
-    func finishedDecodingAddress(address: Address) {
-        self.place.address = address
+    func checkInput() -> [InputTypes] {
+        var error = [InputTypes]()
+        if let _name = place.name {
+            if _name.isValidInput(type: .name) == false {
+                error.append(.name)
+            }
+        }
+        if let _web = place.web, _web.count > 0 {
+            if _web.isValidInput(type: .web) == false {
+                error.append(.web)
+            }
+        }
+        if let _phone = place.phone, _phone.count > 0 {
+            if _phone.isValidInput(type: .phone) == false {
+                error.append(.phone)
+            }
+        }
+        if let _email = place.email, _email.count > 0 {
+            if _email.isValidInput(type: .email) == false {
+                error.append(.email)
+            }
+        }
+        return error
+    }
+    
+    func finishedDecodingAddress(address: Address?, error: Error?) {
+        if let _address = address {
+            self.place.address = _address
+        }
         DispatchQueue.main.async {
-            self.delegate?.placeContextDidDecodeAddress!(address: address.full)
+            self.delegate?.placeContextDidDecodeAddress!(address: address?.full, error: error)
         }
     }
     
@@ -127,7 +154,10 @@ class DecodePlaceAddress: AsyncOperation {
                 placemarks, error -> Void in
                 
                 // Place details
-                guard let placeMark = placemarks?.first else { return }
+                guard let placeMark = placemarks?.first else {
+                    self.delegate?.finishedDecodingAddress(address: nil, error: error)
+                    return
+                }
                 
                 if let _city = placeMark.locality {
                     city = _city
@@ -147,7 +177,7 @@ class DecodePlaceAddress: AsyncOperation {
                     return
                 }
                 let address = Address.init(city: city, zipCode: zipCode, street: street)
-                self.delegate?.finishedDecodingAddress(address: address)
+                self.delegate?.finishedDecodingAddress(address: address, error: error)
                 self.state = .Finished
         })
     }

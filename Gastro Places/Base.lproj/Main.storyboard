@@ -637,6 +637,9 @@
                                                                 <constraint firstAttribute="height" constant="35" id="3Ur-dj-HsL"/>
                                                             </constraints>
                                                             <state key="normal" title="Edit opening hours"/>
+                                                            <connections>
+                                                                <segue destination="Jly-9T-vpQ" kind="show" id="Qra-9Q-8jX"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -706,25 +709,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="t9G-AN-V6X">
-                                                    <rect key="frame" x="8" y="8" width="304" height="87.666666666666671"/>
+                                                    <rect key="frame" x="8" y="8" width="359" height="87.666666666666671"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Phone number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJA-XR-SqL">
-                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OoL-CC-VAc">
-                                                            <rect key="frame" x="0.0" y="44" width="304" height="43.666666666666657"/>
+                                                            <rect key="frame" x="0.0" y="44" width="359" height="43.666666666666657"/>
                                                             <subviews>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WFh-jH-aYm">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="304" height="42.666666666666664"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="42.666666666666664"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xM8-TG-9Yu">
-                                                                    <rect key="frame" x="0.0" y="42.666666666666671" width="304" height="1"/>
+                                                                    <rect key="frame" x="0.0" y="42.666666666666671" width="359" height="1"/>
                                                                     <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="ibO-An-12M"/>
@@ -751,25 +754,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="VfH-kU-0vY">
-                                                    <rect key="frame" x="8" y="8" width="304" height="87.666666666666671"/>
+                                                    <rect key="frame" x="8" y="8" width="359" height="87.666666666666671"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YME-lI-s6H">
-                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="MLq-OP-iTP">
-                                                            <rect key="frame" x="0.0" y="44" width="304" height="43.666666666666657"/>
+                                                            <rect key="frame" x="0.0" y="44" width="359" height="43.666666666666657"/>
                                                             <subviews>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="naP-B0-QPh">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="304" height="42.666666666666664"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="42.666666666666664"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GyM-4i-kFc">
-                                                                    <rect key="frame" x="0.0" y="42.666666666666671" width="304" height="1"/>
+                                                                    <rect key="frame" x="0.0" y="42.666666666666671" width="359" height="1"/>
                                                                     <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="W5g-9P-YzD"/>
@@ -806,12 +809,16 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="cathegoryPickerView" destination="DmN-lH-7iD" id="nVB-sK-m3e"/>
+                        <outlet property="emailLabel" destination="YME-lI-s6H" id="cKd-TF-1OT"/>
                         <outlet property="emailTextField" destination="naP-B0-QPh" id="pn4-RE-nIX"/>
                         <outlet property="emailTextFieldLine" destination="GyM-4i-kFc" id="0Hi-yR-71S"/>
+                        <outlet property="nameLabel" destination="qgx-Cf-zJO" id="bln-5c-Dlh"/>
                         <outlet property="nameTextField" destination="y8m-sR-Enq" id="591-kt-6R9"/>
                         <outlet property="nameTextFieldLine" destination="HYP-Ak-Doa" id="aRA-oG-x1v"/>
+                        <outlet property="phoneLabel" destination="jJA-XR-SqL" id="c8Q-S5-df8"/>
                         <outlet property="phoneNumberTextField" destination="WFh-jH-aYm" id="rHg-pY-O1I"/>
                         <outlet property="phoneNumberTextFieldLine" destination="xM8-TG-9Yu" id="KzH-lc-Xon"/>
+                        <outlet property="webpageLabel" destination="K6y-93-M6w" id="YzS-JE-Ptb"/>
                         <outlet property="webpageTextField" destination="Jyo-IB-TOi" id="XlS-qt-ysf"/>
                         <outlet property="webpageTextFieldLine" destination="Kkb-6Z-SrK" id="9vI-hQ-qrn"/>
                         <segue destination="Rdw-gR-KsV" kind="unwind" identifier="unwindToMapViewController" unwindAction="unwindToMapViewControllerWithSegue:" id="h9u-f1-0Ey"/>
@@ -821,6 +828,34 @@
                 <exit id="Rdw-gR-KsV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2972" y="114"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="SWw-uv-0Cx">
+            <objects>
+                <tableViewController id="Jly-9T-vpQ" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DWs-dN-Ikp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="WRl-0h-Gsh">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WRl-0h-Gsh" id="0QK-M9-E0V">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Jly-9T-vpQ" id="fuq-zR-eL9"/>
+                            <outlet property="delegate" destination="Jly-9T-vpQ" id="mee-JK-2fm"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bBa-pN-A3C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3836" y="114"/>
         </scene>
     </scenes>
     <resources>
