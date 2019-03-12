@@ -638,7 +638,7 @@
                                                             </constraints>
                                                             <state key="normal" title="Edit opening hours"/>
                                                             <connections>
-                                                                <segue destination="Jly-9T-vpQ" kind="show" id="Qra-9Q-8jX"/>
+                                                                <segue destination="aGM-fW-scw" kind="show" id="arf-TE-kV4"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -829,33 +829,92 @@
             </objects>
             <point key="canvasLocation" x="2972" y="114"/>
         </scene>
-        <!--Table View Controller-->
-        <scene sceneID="SWw-uv-0Cx">
+        <!--Opening Time Table View Controller-->
+        <scene sceneID="VjP-EA-iRf">
             <objects>
-                <tableViewController id="Jly-9T-vpQ" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DWs-dN-Ikp">
+                <tableViewController id="aGM-fW-scw" customClass="OpeningTimeTableViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="690-d5-LUp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="WRl-0h-Gsh">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OpeningHoursTableViewCell" rowHeight="146" id="q5J-NI-L5O" customClass="OpeningHoursTableViewCell" customModule="Gastro_Places" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="146"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WRl-0h-Gsh" id="0QK-M9-E0V">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q5J-NI-L5O" id="0av-JC-zph">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="145.66666666666666"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="X81-Se-B4d">
+                                            <rect key="frame" x="16" y="11" width="343" height="124"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="iDc-gg-iWl">
+                                                    <rect key="frame" x="0.0" y="0.0" width="174" height="31"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Su-SY-Gio">
+                                                            <rect key="frame" x="0.0" y="5.3333333333333321" width="100" height="20.333333333333332"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="5CQ-kY-CCj"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pP3-nP-a9K">
+                                                            <rect key="frame" x="125" y="0.0" width="51" height="31"/>
+                                                            <connections>
+                                                                <action selector="daySwitchTapped:" destination="q5J-NI-L5O" eventType="valueChanged" id="nKa-j6-Qfu"/>
+                                                            </connections>
+                                                        </switch>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="u3F-sx-1xM">
+                                                    <rect key="frame" x="0.0" y="31" width="343" height="93"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qF6-OF-tJk">
+                                                            <rect key="frame" x="171.66666666666666" y="0.0" width="0.0" height="93"/>
+                                                            <subviews>
+                                                                <pickerView hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f2d-Ib-OAM">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="110"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="170" id="2QF-NL-eCr"/>
+                                                                        <constraint firstAttribute="height" priority="999" constant="110" id="6Tf-NN-anT"/>
+                                                                    </constraints>
+                                                                </pickerView>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="u3F-sx-1xM" firstAttribute="leading" secondItem="X81-Se-B4d" secondAttribute="leading" id="OcB-j6-Iiy"/>
+                                                <constraint firstAttribute="trailing" secondItem="u3F-sx-1xM" secondAttribute="trailing" id="yRW-90-b8c"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="X81-Se-B4d" secondAttribute="trailing" id="ELc-l6-dmK"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="X81-Se-B4d" secondAttribute="bottom" id="e8d-3y-FGF"/>
+                                        <constraint firstItem="X81-Se-B4d" firstAttribute="leading" secondItem="0av-JC-zph" secondAttribute="leadingMargin" id="hkD-1K-mdv"/>
+                                        <constraint firstItem="X81-Se-B4d" firstAttribute="top" secondItem="0av-JC-zph" secondAttribute="topMargin" id="kE5-oN-hHv"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dayLabel" destination="6Su-SY-Gio" id="eKo-jh-4ZT"/>
+                                    <outlet property="hourPickerView" destination="f2d-Ib-OAM" id="MNn-vz-dt5"/>
+                                    <outlet property="switchLabel" destination="pP3-nP-a9K" id="nUs-65-Mz0"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="Jly-9T-vpQ" id="fuq-zR-eL9"/>
-                            <outlet property="delegate" destination="Jly-9T-vpQ" id="mee-JK-2fm"/>
+                            <outlet property="dataSource" destination="aGM-fW-scw" id="9Lw-J0-Yeb"/>
+                            <outlet property="delegate" destination="aGM-fW-scw" id="hsQ-US-Q2q"/>
                         </connections>
                     </tableView>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bBa-pN-A3C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZxL-cM-Sjz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3836" y="114"/>
+            <point key="canvasLocation" x="3932" y="113.79310344827587"/>
         </scene>
     </scenes>
     <resources>

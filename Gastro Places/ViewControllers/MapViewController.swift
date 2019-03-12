@@ -39,7 +39,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initLongPressGestureRecognizer()
         
         mapView.register(PlaceAnnotationView.self,
                          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
@@ -50,6 +49,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         
         roundButtonsAndViews()
         initLocationManager()
+        initLongPressGestureRecognizer()
     }
     
     func roundButtonsAndViews() {

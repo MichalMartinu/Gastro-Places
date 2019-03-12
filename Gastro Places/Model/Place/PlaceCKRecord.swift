@@ -55,5 +55,4 @@ struct PlaceCKRecord {
             record[placeRecord.phone] = phone
         }
     }
-        
 }
