@@ -46,7 +46,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         
         cathegoryCollectionView.dataSource = self.cathegories
         cathegoryCollectionView.delegate = self
-        
         roundButtonsAndViews()
         initLocationManager()
         initLongPressGestureRecognizer()
@@ -197,9 +196,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     }
     
     private func initLongPressGestureRecognizer() {
-        let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longTapGesture))
-        longTapGesture.delaysTouchesBegan = true
-        mapView.addGestureRecognizer(longTapGesture)
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longTapGesture))
+        mapView.addGestureRecognizer(gesture)
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
