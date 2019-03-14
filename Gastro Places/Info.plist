@@ -43,5 +43,7 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please enable location service to show your location on map.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Enable to get get photos.</string>
 </dict>
 </plist>

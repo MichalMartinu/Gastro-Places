@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		071E458422380FAF0087453B /* OpeningTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E458322380FAF0087453B /* OpeningTimeTableViewController.swift */; };
 		0733D6C022350E59001F31C2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0733D6BF22350E59001F31C2 /* String.swift */; };
+		07423120223B1402003B5304 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0742311F223B1402003B5304 /* ImageIO.framework */; };
 		075154F9223ACDCB00D3E7FE /* ImageContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075154F8223ACDCB00D3E7FE /* ImageContext.swift */; };
 		075154FB223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075154FA223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift */; };
 		075154FD223ACF8100D3E7FE /* CreateImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075154FC223ACF8100D3E7FE /* CreateImageTableViewCell.swift */; };
@@ -46,6 +47,8 @@
 /* Begin PBXFileReference section */
 		071E458322380FAF0087453B /* OpeningTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeTableViewController.swift; sourceTree = "<group>"; };
 		0733D6BF22350E59001F31C2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		0742311D223B13DE003B5304 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		0742311F223B1402003B5304 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		074E9AAA2232616B00F8E494 /* Gastro Places.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Gastro Places.entitlements"; sourceTree = "<group>"; };
 		075154F8223ACDCB00D3E7FE /* ImageContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContext.swift; sourceTree = "<group>"; };
 		075154FA223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesToSaveTableViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07423120223B1402003B5304 /* ImageIO.framework in Frameworks */,
 				075EEF56223692E900FA5869 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,6 +167,8 @@
 		075FE16E22326246007EC555 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0742311F223B1402003B5304 /* ImageIO.framework */,
+				0742311D223B13DE003B5304 /* CoreImage.framework */,
 				075EEF55223692E900FA5869 /* CloudKit.framework */,
 			);
 			name = Frameworks;

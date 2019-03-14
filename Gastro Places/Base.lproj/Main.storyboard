@@ -265,7 +265,7 @@
                         <viewLayoutGuide key="safeArea" id="rLW-st-mqA"/>
                     </view>
                     <navigationItem key="navigationItem" title="Gastro Places" id="Q9f-eI-gVy">
-                        <barButtonItem key="backBarButtonItem" title="cancel" id="5yW-Ie-1y2"/>
+                        <barButtonItem key="backBarButtonItem" title="Back" id="5yW-Ie-1y2"/>
                         <barButtonItem key="leftBarButtonItem" title="Help" id="IUw-LZ-XIr">
                             <connections>
                                 <segue destination="M4Q-CJ-quS" kind="show" id="I8a-kx-DJS"/>
@@ -299,20 +299,29 @@
             </objects>
             <point key="canvasLocation" x="3997.5999999999999" y="113.79310344827587"/>
         </scene>
-        <!--Search View Controller-->
+        <!--Search-->
         <scene sceneID="iH5-pR-6fA">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DWz-wK-aju" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Zmr-pF-Jja">
+                    <connections>
+                        <outlet property="delegate" destination="xzb-sk-Vui" id="hj2-Cl-TNS"/>
+                        <outlet property="searchContentsController" destination="xzb-sk-Vui" id="x6e-OZ-NhS"/>
+                        <outlet property="searchResultsDataSource" destination="xzb-sk-Vui" id="plP-ra-a4S"/>
+                        <outlet property="searchResultsDelegate" destination="xzb-sk-Vui" id="83V-f6-M9B"/>
+                    </connections>
+                </searchDisplayController>
                 <viewController id="xzb-sk-Vui" customClass="SearchViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JvX-gq-xc2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="tcM-nE-2bh">
-                                <rect key="frame" x="0.0" y="54" width="375" height="56"/>
+                                <rect key="frame" x="0.0" y="98" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="pBU-Fh-aaj">
-                                <rect key="frame" x="50" y="125" width="275" height="29"/>
+                                <rect key="frame" x="50" y="169" width="275" height="29"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <segments>
                                     <segment title="Place"/>
@@ -321,7 +330,7 @@
                                 <color key="tintColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fbk-dl-Kvs">
-                                <rect key="frame" x="0.0" y="168" width="375" height="561"/>
+                                <rect key="frame" x="0.0" y="212" width="375" height="517"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -340,7 +349,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uO8-dd-IEq"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="search" id="Slu-B9-HQ6"/>
+                    <navigationItem key="navigationItem" title="Search" id="POM-kN-wzZ"/>
                     <connections>
                         <outlet property="resultsTableView" destination="fbk-dl-Kvs" id="iCN-rO-dJz"/>
                         <outlet property="searchBar" destination="tcM-nE-2bh" id="D1F-qi-9zc"/>
@@ -348,19 +357,10 @@
                         <outlet property="searchTypePicker" destination="pBU-Fh-aaj" id="EE1-OP-Oau"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DWz-wK-aju" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="Zmr-pF-Jja">
-                    <connections>
-                        <outlet property="delegate" destination="xzb-sk-Vui" id="hj2-Cl-TNS"/>
-                        <outlet property="searchContentsController" destination="xzb-sk-Vui" id="x6e-OZ-NhS"/>
-                        <outlet property="searchResultsDataSource" destination="xzb-sk-Vui" id="plP-ra-a4S"/>
-                        <outlet property="searchResultsDelegate" destination="xzb-sk-Vui" id="83V-f6-M9B"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="3055" y="833"/>
+            <point key="canvasLocation" x="3998" y="791"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Help-->
         <scene sceneID="iM3-Bh-yIN">
             <objects>
                 <tableViewController id="M4Q-CJ-quS" sceneMemberID="viewController">
@@ -424,6 +424,7 @@
                             <outlet property="delegate" destination="M4Q-CJ-quS" id="XV5-kT-3of"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Help" id="YQ3-jQ-4dS"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7bc-ss-UKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -834,7 +835,7 @@
                         </sections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="USu-N1-48E">
+                    <navigationItem key="navigationItem" title="Create Place" id="USu-N1-48E">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="1JW-mq-Uze">
                             <color key="tintColor" red="0.88235294119999996" green="0.34509803919999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -849,7 +850,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="cathegoryPickerView" destination="DmN-lH-7iD" id="nVB-sK-m3e"/>
                         <outlet property="editImagesButton" destination="D2C-xe-eHx" id="5tC-UE-Jo8"/>
@@ -877,7 +878,7 @@
             </objects>
             <point key="canvasLocation" x="4857" y="114"/>
         </scene>
-        <!--Images To Save Table View Controller-->
+        <!--Images-->
         <scene sceneID="H5o-VS-TIL">
             <objects>
                 <tableViewController id="KLK-Fb-fog" customClass="ImagesToSaveTableViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
@@ -917,14 +918,14 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="MPb-c2-vpG">
+                    <navigationItem key="navigationItem" title="Images" id="MPb-c2-vpG">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="A6Z-0F-FAJ">
                                 <connections>
                                     <action selector="newImageButtonPressed:" destination="KLK-Fb-fog" id="ceK-l2-WbH"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem enabled="NO" systemItem="edit" id="2jQ-1K-3LA">
+                            <barButtonItem enabled="NO" title="Edit" id="2jQ-1K-3LA">
                                 <connections>
                                     <action selector="editButtonPressed:" destination="KLK-Fb-fog" id="qAQ-Ho-alt"/>
                                 </connections>
@@ -934,13 +935,14 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="editButton" destination="2jQ-1K-3LA" id="KIG-WV-3UT"/>
+                        <outlet property="editingButton" destination="2jQ-1K-3LA" id="K3d-0H-kEU"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYp-00-W2A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5770" y="502"/>
+            <point key="canvasLocation" x="6711.1999999999998" y="501.72413793103448"/>
         </scene>
-        <!--Opening Time Table View Controller-->
+        <!--Opening Time-->
         <scene sceneID="VjP-EA-iRf">
             <objects>
                 <tableViewController id="aGM-fW-scw" customClass="OpeningTimeTableViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
@@ -1022,6 +1024,7 @@
                             <outlet property="delegate" destination="aGM-fW-scw" id="hsQ-US-Q2q"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Opening Time" id="0NA-KS-FSk"/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZxL-cM-Sjz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1031,19 +1034,20 @@
         <!--Tab Bar Controller-->
         <scene sceneID="shH-JJ-Z5o">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8ge-Ye-TU0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="N7z-Z2-xGK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Wvw-12-20c"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YNh-hx-GOy">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="awb-fE-Gfa" kind="relationship" relationship="viewControllers" id="AnJ-M9-8FK"/>
-                        <segue destination="xzb-sk-Vui" kind="relationship" relationship="viewControllers" id="BT1-Ru-48A"/>
+                        <segue destination="xxi-9h-aFH" kind="relationship" relationship="viewControllers" id="BT1-Ru-48A"/>
                     </connections>
                 </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8ge-Ye-TU0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1615" y="502"/>
         </scene>
@@ -1065,6 +1069,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewt-na-P5K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3055.1999999999998" y="113.79310344827587"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="thV-2K-HZ6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xxi-9h-aFH" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="search" id="Slu-B9-HQ6"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Wf2-Is-DGx">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xzb-sk-Vui" kind="relationship" relationship="rootViewController" id="eow-om-Gb5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NW3-Si-p5s" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3055" y="791"/>
         </scene>
     </scenes>
     <resources>

@@ -53,9 +53,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     func addCompassButton() {
         let compassButton = MKCompassButton(mapView: mapView)
-        compassButton.frame.origin = CGPoint(x: mapView.frame.maxX-20 , y: 220)
-        compassButton.compassVisibility = .visible
+        compassButton.translatesAutoresizingMaskIntoConstraints = false
         mapView.addSubview(compassButton)
+        let margins = view.layoutMarginsGuide
+        compassButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: 130).isActive = true
+        compassButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -10).isActive = true
+        compassButton.compassVisibility = .visible
     }
     
     func initComponentsGraphic() {

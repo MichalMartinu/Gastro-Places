@@ -11,11 +11,9 @@ import UIKit
 class ImagesToSaveTableViewController: UITableViewController {
     
     @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var editingButton: UIBarButtonItem!
     
     var imageContext: ImageContext!
-    
-    let imagePicker = UIImagePickerController()
-    
     
     override func viewDidLoad() {
        enableOrDisableEditButton()
@@ -46,23 +44,21 @@ class ImagesToSaveTableViewController: UITableViewController {
     }
     
     @IBAction func newImageButtonPressed(_ sender: UIBarButtonItem) {
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            
-            imagePicker.delegate = self
-            imagePicker.sourceType = .savedPhotosAlbum;
-            imagePicker.allowsEditing = false
-            
-            self.present(imagePicker, animated: true, completion: nil)
-        } else {
-            // TODO error
-        }
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .savedPhotosAlbum
+        imagePicker.allowsEditing = false
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
     }
     
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         if tableView.isEditing {
             tableView.setEditing(false, animated: true)
+            editButton.title = "Edit"
+            
         } else {
             tableView.setEditing(true, animated: true)
+            editButton.title = "Done"
         }
     }
     
@@ -73,13 +69,30 @@ class ImagesToSaveTableViewController: UITableViewController {
             editButton.isEnabled = false
         }
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            imageContext.images.remove(at: indexPath.row)
+            // delete the table view row
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
 
 extension ImagesToSaveTableViewController: UINavigationControllerDelegate,  UIImagePickerControllerDelegate {
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        imageContext.insertImage(image: image)
+        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            dismiss(animated: true, completion: nil)
+            return
+        }
+
+        imageContext.insertImage(image: selectedImage)
         dismiss(animated: true, completion: nil) // Take image picker off the screen
         tableView.reloadData()
         enableOrDisableEditButton()
