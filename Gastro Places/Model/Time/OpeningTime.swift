@@ -14,10 +14,10 @@ struct Time {
     var string: String {
         if minutes == 0 {
             return "\(hours):\(minutes)0"
-
+            
         } else {
             return "\(hours):\(minutes)"
-
+            
         }
     }
     
@@ -25,9 +25,9 @@ struct Time {
         return hours * 60 + minutes
     }
     
-    init(hours: Int, minutes: Int) {
-        self.hours = hours
-        self.minutes = minutes
+    init(seconds: Int) {
+        self.hours = seconds / 60
+        self.minutes = seconds % 60
     }
 }
 
@@ -35,7 +35,14 @@ struct Day {
     var name: String
     var from: Time?
     var to: Time?
-
+    
+    var full: String? {
+        if let _from = from?.string, let _to = to?.string {
+            return "\(_from)-\(_to)"
+        }
+        return nil
+    }
+    
     init(day: String) {
         self.name = day
     }
@@ -47,16 +54,34 @@ struct Day {
     }
 }
 
-class OpeningTime: NSObject {
+class OpeningTime {
     var minuteInterval: Int
     var times = [Time]()
     let daysNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     var days = [Day]()
     
+    var stringHours: String {
+        var string = ""
+        for day in days {
+            if let _from = day.from?.string, let _to = day.to?.string {
+                string += "\(_from)-\(_to)\n"
+            } else {
+                string += "\n"
+            }
+        }
+        return string
+    }
+    
+    var stringDays: String {
+        var string = ""
+        for day in daysNames {
+            string += "\(day):\n"
+        }
+        return string
+    }
     
     init(intervalInMinutes: Int) {
         minuteInterval = intervalInMinutes
-        super.init()
         times = generateTime(interval: intervalInMinutes)
         initDays()
     }
@@ -64,14 +89,16 @@ class OpeningTime: NSObject {
     func generateTime(interval: Int) -> [Time] {
         var times = [Time]()
         
-        let sequence = stride(from: 0, to: 60, by: interval)
+        let sequence = stride(from: 0, to: 24 * 60, by: interval)
         
-        for hour in 0..<24 {
-            for minute in sequence {
-                let day = Time.init(hours: hour, minutes: minute)
-                times.append(day)
-            }
+        for seconds in sequence {
+            let time = Time.init(seconds: seconds)
+            times.append(time)
         }
+        
+        let midnigth = Time.init(seconds: 0)
+        times.append(midnigth)
+        
         return times
     }
     

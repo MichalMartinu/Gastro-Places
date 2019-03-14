@@ -12,6 +12,7 @@ import CloudKit
 class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
     
     @IBOutlet weak var cathegoryPickerView: UIPickerView!
+    @IBOutlet weak var imageCollectionView: UICollectionView!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
@@ -28,6 +29,13 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var emailTextFieldLine: UIView!
+   
+    @IBOutlet weak var openingHoursDaysLabel: UILabel!
+    @IBOutlet weak var openingHoursLabel: UILabel!
+    
+    @IBOutlet weak var editImagesButton: UIButton!
+    @IBOutlet weak var openingHoursButton: UIButton!
+    
     
     let wrongInputColor = #colorLiteral(red: 0.8823529412, green: 0.3450980392, blue: 0.1607843137, alpha: 1)
     let blackColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -41,20 +49,42 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
     
     var annotation: PlaceAnnotation?
     
+    let imageContext = ImageContext()
+    
+    let openingTime = OpeningTime.init(intervalInMinutes: 15)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         cathegoryPickerView.dataSource = cathegories
         cathegoryPickerView.delegate = cathegories
+        roundButtons()
+        imageCollectionView.delegate = self
+        imageCollectionView.dataSource = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setToolbarHidden(false, animated: false)
+        //navigationController?.setToolbarHidden(false, animated: false)
+        openingHoursDaysLabel.text = openingTime.stringDays
+        openingHoursLabel.text = openingTime.stringHours
+        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setToolbarHidden(true, animated: false)
+        //navigationController?.setToolbarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        imageCollectionView.reloadData()
+    }
+    
+    func roundButtons() {
+        editImagesButton.roundCornersLarge()
+        openingHoursButton.roundCornersLarge()
     }
     
     func resetWrongInputErrors() {
@@ -95,8 +125,6 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
         emailTextFieldLine.backgroundColor = wrongInputColor
     }
     
-    
-    
     @IBAction func saveButtonIsPressed(_ sender: UIBarButtonItem) {
         let name = nameTextField.text!
         let web = webpageTextField.text!
@@ -134,13 +162,14 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
             showAlert(title: "Invalid input", message: wrongInputString, confirmTitle: "Ok")
             return
         }
-        placeContext?.save()
+        placeContext?.save(days: openingTime.days)
     }
     
     func placeContextSaved(annotation: PlaceAnnotation, error: Error?) {
         if let _error = error {
             showAlert(title: "Cannot create place!", message: _error.localizedDescription, confirmTitle: "Ok")
             self.annotation = nil
+            return
         } else {
             self.annotation = annotation
         }
@@ -155,11 +184,48 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
                 }
             }
         }
+        
+        if segue.identifier == "openingTimeTableViewController" {
+            if let vc = segue.destination as? OpeningTimeTableViewController {
+               vc.openingTime = openingTime
+            }
+        }
+        
+        if segue.identifier == "createImages" {
+            if let vc = segue.destination as? ImagesToSaveTableViewController {
+                vc.imageContext = imageContext
+            }
+        }
     }
     
     func showAlert(title: String?, message: String?, confirmTitle: String?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func cancelButtonIsPressed(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+extension CreatePlaceViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if imageContext.images.count == 0 {
+            //Return at least one image
+            return 1
+        }
+        return imageContext.images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "createPlaceImageCollectionViewCell", for: indexPath) as! CreatePlaceImageCollectionViewCell
+        
+        if imageContext.images.count != 0 {
+            cell.displayImage(image: imageContext.images[indexPath.row])
+        }
+        
+        return cell
     }
 }

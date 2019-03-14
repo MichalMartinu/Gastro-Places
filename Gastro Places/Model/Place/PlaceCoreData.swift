@@ -13,7 +13,7 @@ import CoreLocation
 
 class PlaceCoreData: NSManagedObject{
     
-    class func findOrCreatePlace(record: CKRecord, context: NSManagedObjectContext) {
+    class func changeOrCreatePlace(record: CKRecord, context: NSManagedObjectContext) -> PlaceCoreData? {
         var recordToSave: PlaceCoreData?
         
         let query:NSFetchRequest<PlaceCoreData> = PlaceCoreData.fetchRequest()
@@ -41,6 +41,7 @@ class PlaceCoreData: NSManagedObject{
         recordToSave?.phone = record[placeRecord.phone]
         recordToSave?.longitude = location.coordinate.longitude
         recordToSave?.latitude = location.coordinate.latitude
-
+        
+        return recordToSave
     }
 }

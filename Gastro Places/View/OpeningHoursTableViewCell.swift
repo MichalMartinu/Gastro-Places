@@ -23,6 +23,8 @@ class OpeningHoursTableViewCell: UITableViewCell {
         hourPickerView.delegate = self
         hourPickerView.dataSource = self
         if let _from = day.from, let _to = day.to {
+            switchLabel.isOn = true
+            hourPickerView.isHidden = false
             guard let indexFrom = indexOfTime(_from.string), let indexTo = indexOfTime(_to.string) else { return }
             hourPickerView.selectRow(indexFrom, inComponent: 0, animated: false)
             hourPickerView.selectRow(indexTo, inComponent: 1, animated: false)
@@ -66,14 +68,7 @@ extension OpeningHoursTableViewCell: UIPickerViewDataSource, UIPickerViewDelegat
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let from = times[hourPickerView.selectedRow(inComponent: 0)]
-        var to = times[hourPickerView.selectedRow(inComponent: 1)]
-        
-        if from.interval > to.interval{
-            if let index = indexOfTime(from.string) {
-                to = from
-                hourPickerView.selectRow(index, inComponent: 1, animated: true)
-            }
-        }
+        let to = times[hourPickerView.selectedRow(inComponent: 1)]
         
         delegate?.tableViewCellDidChangedValue(sender: self, from: from, to: to)
     }

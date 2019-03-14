@@ -77,8 +77,8 @@ class PlaceContext: PlaceContextProtocol {
         operationQueue.addOperation(decodePlaceAddress)
     }
     
-    func save() {
-        let savePlace = SavePlace.init(place: place)
+    func save(days: [Day]) {
+        let savePlace = SavePlace.init(place: place, days: days)
         savePlace.delegate = self
         operationQueue.addOperation(savePlace)
     }

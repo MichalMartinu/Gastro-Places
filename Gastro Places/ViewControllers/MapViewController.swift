@@ -43,15 +43,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         mapView.register(PlaceAnnotationView.self,
                          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         mapView.delegate = self
-        
         cathegoryCollectionView.dataSource = self.cathegories
         cathegoryCollectionView.delegate = self
-        roundButtonsAndViews()
+        initComponentsGraphic()
         initLocationManager()
         initLongPressGestureRecognizer()
+        addCompassButton()
     }
     
-    func roundButtonsAndViews() {
+    func addCompassButton() {
+        let compassButton = MKCompassButton(mapView: mapView)
+        compassButton.frame.origin = CGPoint(x: mapView.frame.maxX-20 , y: 220)
+        compassButton.compassVisibility = .visible
+        mapView.addSubview(compassButton)
+    }
+    
+    func initComponentsGraphic() {
         loadingPlacesView.roundCornersLarge()
         createPlaceDialogView.roundCornersLarge()
         createPlaceDialogYesButton.roundCornersLittle()
@@ -85,7 +92,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if mapCentered == false, let location = locations.first {
-            centerMapOnUserLocation(location: location, radius: regionRadius)
+            //centerMapOnUserLocation(location: location, radius: regionRadius)
             let cathegory = cathegories.selectedCathegory()
             newGeocontext(coordinate: location.coordinate, radius: regionRadius, cathegory: cathegory)
             mapCentered = true
@@ -127,6 +134,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         }
         
         mapView.addAnnotations(annotations)
+        mapView.showAnnotations(annotations, animated: true)
     }
     
     func unmountGeocontext(_ geoContext: GeoContext?) {

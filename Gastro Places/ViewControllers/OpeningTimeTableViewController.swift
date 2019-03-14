@@ -16,17 +16,22 @@ protocol OpeningTimeTableCellDelegate: AnyObject {
 
 class OpeningTimeTableViewController: UITableViewController, OpeningTimeTableCellDelegate {
     
-    let openingTime = OpeningTime.init(intervalInMinutes: 15)
+    var openingTime: OpeningTime!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OpeningHoursTableViewCell", for: indexPath) as! OpeningHoursTableViewCell
         cell.delegate = self
-        cell.setValues(day: openingTime.days[indexPath.row], times: openingTime.times)
+        cell.setValues(day: openingTime!.days[indexPath.row], times: openingTime!.times)
         return cell
     }
     

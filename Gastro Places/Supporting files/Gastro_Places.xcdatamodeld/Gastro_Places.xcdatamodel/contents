@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18D109" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="OpeningTime" representedClassName=".OpeningTimeCoreData" syncable="YES" codeGenerationType="category">
+        <attribute name="friday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="monday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="saturday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sunday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thursday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tuesday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wednesday" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="place" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Place" inverseName="openingTime" inverseEntity="Place" syncable="YES"/>
+    </entity>
     <entity name="Place" representedClassName=".PlaceCoreData" syncable="YES" codeGenerationType="category">
         <attribute name="cathegory" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,8 +22,10 @@
         <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="web" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zipCode" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="openingTime" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="OpeningTime" inverseName="place" inverseEntity="OpeningTime" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Place" positionX="-4688.3203125" positionY="-465.0703125" width="128" height="208"/>
+        <element name="OpeningTime" positionX="-4508.28515625" positionY="-459.8984375" width="128" height="163"/>
+        <element name="Place" positionX="-4688.3203125" positionY="-465.0703125" width="128" height="223"/>
     </elements>
 </model>

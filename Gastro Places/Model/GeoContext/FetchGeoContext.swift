@@ -72,12 +72,32 @@ class FetchGeoContext: AsyncOperation {
                 self.placeAnnotations.append(placeAnnotationItem)
                 
                 DispatchQueue.main.async {
-                    self.savePlaceToCoreData(record: record)
+                    let savedPlace = self.savePlaceToCoreData(record: record)
+                    self.fetchOpeningHours(place: savedPlace, record: record)
                 }
             }
 
             self.state = .Finished
             self.delegate?.finishedLoadingData(placeAnnotation: self.placeAnnotations, error: nil)
+        }
+    }
+    
+    private func fetchOpeningHours(place: PlaceCoreData?, record: CKRecord) {
+        let recordID = record.recordID
+        let recordToMatch = CKRecord.Reference(recordID: recordID, action: .deleteSelf)
+        let predicate = NSPredicate(format: "place == %@", recordToMatch)
+        let query = CKQuery(recordType: "OpeningTime", predicate: predicate)
+        publicDB.perform(query, inZoneWith: nil) { results, error in
+            
+            if error != nil {
+                return
+            }
+            
+            if results?.count == 1, let _result = results?.first {
+                DispatchQueue.main.async {
+                    self.saveOpeningTimeToCoreData(place: place, record: _result)
+                }
+            }
         }
     }
     
@@ -93,9 +113,18 @@ class FetchGeoContext: AsyncOperation {
         return predicate
     }
     
-    private func savePlaceToCoreData(record: CKRecord) {
+    private func savePlaceToCoreData(record: CKRecord) -> PlaceCoreData? {
         let context = AppDelegate.viewContext
-        PlaceCoreData.findOrCreatePlace(record: record, context: context)
+        let place = PlaceCoreData.changeOrCreatePlace(record: record, context: context)
+        try? context.save()
+        return place
+    }
+    
+    private func saveOpeningTimeToCoreData(place: PlaceCoreData?, record: CKRecord) {
+        let context = AppDelegate.viewContext
+        if let _place = place {
+            OpeningTimeCoreData.changeOrCreate(place: _place, record: record, context: context)
+        }
         try? context.save()
     }
 }
