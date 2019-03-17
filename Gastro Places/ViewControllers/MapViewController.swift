@@ -12,7 +12,11 @@ import CoreLocation
 import CloudKit
 import CoreData
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContextDelegate, PlaceContextDelegate, MKMapViewDelegate {
+protocol GeoContextDelegate: AnyObject {
+    func geoContextDidLoadAnnotations()
+}
+
+class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDelegate {
     
     @IBOutlet weak var noPlacesInAreaView: UIView!
     @IBOutlet weak var loadingIndicatorView: UIView!
@@ -31,7 +35,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     let locationManager = CLLocationManager()
     var mapCentered = false
-    let regionRadius: CLLocationDistance = 2000 // meters
+    let regionRadius: CLLocationDistance = 10000 // meters
     
     var geoContext: GeoContext?
     var placeContext: PlaceContext?
@@ -42,24 +46,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         
         mapView.register(PlaceAnnotationView.self,
                          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-        mapView.delegate = self
+        
         cathegoryCollectionView.dataSource = self.cathegories
         cathegoryCollectionView.delegate = self
+        
         initComponentsGraphic()
         initLocationManager()
         initLongPressGestureRecognizer()
-        addCompassButton()
     }
     
-    func addCompassButton() {
-        let compassButton = MKCompassButton(mapView: mapView)
-        compassButton.translatesAutoresizingMaskIntoConstraints = false
-        mapView.addSubview(compassButton)
-        let margins = view.layoutMarginsGuide
-        compassButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: 130).isActive = true
-        compassButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: -10).isActive = true
-        compassButton.compassVisibility = .visible
-    }
+    // MARK: Views graphic
     
     func initComponentsGraphic() {
         loadingPlacesView.roundCornersLarge()
@@ -69,7 +65,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         cathegoryView.roundCornersLarge()
         noPlacesInAreaView.roundCornersLarge()
     }
-    
+   
     // MARK: Location manager
     
     func initLocationManager() {
@@ -93,40 +89,28 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if mapCentered == false, let location = locations.first {
-            //centerMapOnUserLocation(location: location, radius: regionRadius)
-            let cathegory = cathegories.selectedCathegory()
-            newGeocontext(coordinate: location.coordinate, radius: regionRadius, cathegory: cathegory)
-            mapCentered = true
+    // MARK: Map
+    
+    @IBAction func centerOnUserLocationButtonIsPressed(_ sender: Any) {
+        if let location = locationManager.location {
+            let radius = getRadiusFromMapView(mapView)
+            centerMapOnUserLocation(location: location, radius: radius)
         }
     }
-    
-    // MARK: Map
     
     func centerMapOnUserLocation(location: CLLocation, radius: CLLocationDistance) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius, longitudinalMeters: radius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
-    func showAlert(title: String?, message: String?, confirmTitle: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    @IBAction func centerOnUserLocationButtonIsPressed(_ sender: Any) {
-        if let location = locationManager.location {
-            centerMapOnUserLocation(location: location, radius: regionRadius)
-        }
-    }
-    
     // Mark: Geocontext
+    
     func geoContextDidLoadAnnotations() {
         loadingIndicatorView.isHidden = true
         mountGeocontext()
     }
     
+    // Showing geocontext annotations
     func mountGeocontext() {
         guard let annotations = geoContext?.annotations else {
             return
@@ -140,6 +124,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         mapView.showAnnotations(annotations, animated: true)
     }
     
+    // Removing Geocontext annotations
     func unmountGeocontext(_ geoContext: GeoContext?) {
         guard let annotations = geoContext?.annotations else {
             return
@@ -147,18 +132,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         mapView.removeAnnotations(annotations)
     }
     
+    // Function delete and create new geocontex.
     func newGeocontext(coordinate: CLLocationCoordinate2D, radius: CLLocationDistance, cathegory: String) {
         let location = CLLocation.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        var updatedRadius: CLLocationDistance = 10000
+        var updatedRadius: CLLocationDistance = 10000 // Smalest radius which can be used by CloudKit for searching
         
         if radius > 10000 {
             updatedRadius = radius
         }
 
         if let _geoContext = geoContext {
+            // When geocontext exist
+            
             let locationDistance = location.distance(from: _geoContext.location)
             let newArea = locationDistance + radius
             
+            // Check if user needs to fetch new places
             if _geoContext.cathegory == cathegory, newArea < _geoContext.radius {
                 return
             }
@@ -172,6 +161,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
             _geoContext.cancel()
         }
         
+        // New GeoContext
         geoContext = GeoContext(location: location, radius: updatedRadius, cathegory: cathegory)
         geoContext?.delegate = self
     }
@@ -184,14 +174,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         newGeocontext(coordinate: coordinate, radius: radius, cathegory: cathegory)
     }
     
+    // Function calculate new radius from distance of upper left point and middle
     func getRadiusFromMapView(_ mapView: MKMapView) -> CLLocationDistance{
         let span = mapView.region.span
         let center = mapView.region.center
         
-        let locationCenter = CLLocation(latitude: center.latitude, longitude: center.longitude)
-        let locationUpperRight = CLLocation(latitude: center.latitude + span.latitudeDelta * 0.5, longitude: center.longitude + span.longitudeDelta * 0.5)
+        let centerPoint = CLLocation(latitude: center.latitude, longitude: center.longitude)
+        let upperRightPoint = CLLocation(latitude: center.latitude + span.latitudeDelta * 0.5, longitude: center.longitude + span.longitudeDelta * 0.5)
         
-        let radius = locationCenter.distance(from: locationUpperRight)
+        let radius = centerPoint.distance(from: upperRightPoint)
         
         return radius
     }
@@ -213,6 +204,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if view.annotation is MKUserLocation {
+            // Check if user selected current location
             guard let location = locationManager.location?.coordinate else {
                 return
             }
@@ -250,6 +242,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         createPlaceDialogStackView.isHidden = false
     }
     
+    // Show annotation when creating place
     func mountPlaceContext(placeContext: PlaceContext?) {
         guard let annotation = placeContext?.annotation else {
             return
@@ -258,6 +251,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         mapView.setCenter(annotation.coordinate, animated: true)
     }
     
+    // Remove annotation when creating place
     func unmountPlaceContext() {
         guard let annotation = placeContext?.annotation else {
             return
@@ -281,7 +275,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
         }
     }
     
-    func isICloudKitContainerAvailable()->Bool {
+    func isICloudKitContainerAvailable() -> Bool {
+        // Check if iCloud is currently available
         if FileManager.default.ubiquityIdentityToken != nil {
             return true
         }
@@ -301,16 +296,41 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GeoContext
     
     @IBAction func unwindToMapViewController(segue: UIStoryboardSegue) {
         if segue.source is CreatePlaceViewController {
+            // Add creted place
             mountGeocontext()
         }
     }
+    
+    // MARK: Alert
+    
+    func showAlert(title: String?, message: String?, confirmTitle: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 
 }
+
+// MARK: Location manager delegate
+
+extension MapViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if mapCentered == false, let location = locations.first {
+            // Initialization of GeoContext when location is obtained for the firs time
+            let cathegory = cathegories.selectedCathegory()
+            newGeocontext(coordinate: location.coordinate, radius: regionRadius, cathegory: cathegory)
+            mapCentered = true
+        }
+    }
+}
+
+// MARK: Collection view delegeate
 
 extension MapViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         cathegories.selectedIndex = indexPath.row
         collectionView.reloadData()
+        
         let coordinate = mapView.region.center
         let radius = getRadiusFromMapView(mapView)
         let cathegory = cathegories.selectedCathegory()
@@ -319,18 +339,23 @@ extension MapViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: Collection view resizing cells
+
 extension MapViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let data = cathegories.cathegories[indexPath.row]
+        let string = cathegories.cathegories[indexPath.row] // Get string of current cell
         var font =  UIFont.systemFont(ofSize: 16)
+        let height: CGFloat = 20 // Height of cell
+        
         if indexPath.row == cathegories.selectedIndex {
+            // If cathegory is selected
             font = UIFont.boldSystemFont(ofSize: 18)
         }
-        let width = data.name.width(withConstrainedHeight: 35, font: font)
-        return CGSize(width: width, height: 35)
+        
+        let width = string.name.width(withConstrainedHeight: height, font: font)
+        return CGSize(width: width, height: height)
     }
 }
 
-protocol GeoContextDelegate: AnyObject {
-    func geoContextDidLoadAnnotations()
-}
+
+

@@ -65,7 +65,6 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //navigationController?.setToolbarHidden(false, animated: false)
         openingHoursDaysLabel.text = openingTime.stringDays
         openingHoursLabel.text = openingTime.stringHours
         tabBarController?.tabBar.isHidden = true
@@ -73,7 +72,6 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        //navigationController?.setToolbarHidden(true, animated: false)
         tabBarController?.tabBar.isHidden = false
     }
     
