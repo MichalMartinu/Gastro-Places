@@ -315,32 +315,20 @@
                                 <rect key="frame" x="0.0" y="98" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="pBU-Fh-aaj">
-                                <rect key="frame" x="50" y="169" width="275" height="29"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <segments>
-                                    <segment title="Place"/>
-                                    <segment title="Locality"/>
-                                </segments>
-                                <color key="tintColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fbk-dl-Kvs">
-                                <rect key="frame" x="0.0" y="212" width="375" height="517"/>
+                                <rect key="frame" x="0.0" y="164" width="375" height="565"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="pBU-Fh-aaj" firstAttribute="top" secondItem="tcM-nE-2bh" secondAttribute="bottom" constant="15" id="31u-vy-BsW"/>
+                            <constraint firstItem="fbk-dl-Kvs" firstAttribute="trailing" secondItem="uO8-dd-IEq" secondAttribute="trailing" id="6uJ-fj-3cq"/>
                             <constraint firstItem="tcM-nE-2bh" firstAttribute="leading" secondItem="uO8-dd-IEq" secondAttribute="leading" id="Sfa-hO-fFh"/>
-                            <constraint firstItem="fbk-dl-Kvs" firstAttribute="top" secondItem="pBU-Fh-aaj" secondAttribute="bottom" constant="15" id="TTZ-G9-qXj"/>
-                            <constraint firstItem="fbk-dl-Kvs" firstAttribute="bottom" secondItem="uO8-dd-IEq" secondAttribute="bottom" id="UMC-mD-Tz8"/>
-                            <constraint firstItem="pBU-Fh-aaj" firstAttribute="leading" secondItem="uO8-dd-IEq" secondAttribute="leading" constant="50" id="bIt-fB-cwd"/>
-                            <constraint firstItem="fbk-dl-Kvs" firstAttribute="leading" secondItem="uO8-dd-IEq" secondAttribute="leading" id="fQA-5g-fa2"/>
-                            <constraint firstItem="fbk-dl-Kvs" firstAttribute="trailing" secondItem="uO8-dd-IEq" secondAttribute="trailing" id="hnX-OL-pLg"/>
-                            <constraint firstItem="uO8-dd-IEq" firstAttribute="trailing" secondItem="pBU-Fh-aaj" secondAttribute="trailing" constant="50" id="kSO-u3-wuj"/>
                             <constraint firstItem="tcM-nE-2bh" firstAttribute="top" secondItem="uO8-dd-IEq" secondAttribute="top" constant="10" id="pKS-aV-NYT"/>
                             <constraint firstItem="tcM-nE-2bh" firstAttribute="trailing" secondItem="uO8-dd-IEq" secondAttribute="trailing" id="qGX-0i-SI0"/>
+                            <constraint firstItem="fbk-dl-Kvs" firstAttribute="bottom" secondItem="uO8-dd-IEq" secondAttribute="bottom" id="sOH-xK-r3W"/>
+                            <constraint firstItem="fbk-dl-Kvs" firstAttribute="leading" secondItem="uO8-dd-IEq" secondAttribute="leading" id="wHt-Jv-DRF"/>
+                            <constraint firstItem="fbk-dl-Kvs" firstAttribute="top" secondItem="tcM-nE-2bh" secondAttribute="bottom" constant="10" id="yeJ-iH-M8k"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uO8-dd-IEq"/>
                     </view>
@@ -349,7 +337,6 @@
                         <outlet property="resultsTableView" destination="fbk-dl-Kvs" id="iCN-rO-dJz"/>
                         <outlet property="searchBar" destination="tcM-nE-2bh" id="D1F-qi-9zc"/>
                         <outlet property="searchDisplayController" destination="Zmr-pF-Jja" id="O9d-0A-F50"/>
-                        <outlet property="searchTypePicker" destination="pBU-Fh-aaj" id="EE1-OP-Oau"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DWz-wK-aju" userLabel="First Responder" sceneMemberID="firstResponder"/>

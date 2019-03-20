@@ -63,6 +63,8 @@ class PlaceContext {
     private let container: CKContainer
     private let publicDB: CKDatabase
     
+    static let placeContextQueue = DispatchQueue(label: "placeContextQueue", qos: .utility, attributes: .concurrent)
+    
     init(location: CLLocation) {
         self.annotation = PlaceAnnotation.init(title: "New place", cathegory: "", coordinate: location.coordinate)
         place = Place(location: location)
@@ -83,13 +85,13 @@ class PlaceContext {
     }
     
     func getAddress() {
-        DispatchQueue.global(qos: .userInitiated).async {
+        PlaceContext.placeContextQueue.async {
             self.decodePlaceItemAddress()
         }
     }
     
     func save(days: [Day]) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        PlaceContext.placeContextQueue.async {
             self.saveToCloudkit(days: days)
         }
     }
@@ -152,8 +154,10 @@ class PlaceContext {
                     return
                 } else {
                     let address = Address.init(city: city, zipCode: zipCode, street: street)
-                    self.delegate?.placeContextDidDecodeAddress!(address: address.full, error: error)
                     self.state = .Finished
+                    DispatchQueue.main.async {
+                        self.delegate?.placeContextDidDecodeAddress!(address: address.full, error: error)
+                    }
                 }
         })
     }
@@ -170,14 +174,18 @@ class PlaceContext {
         let saveOperation = CKModifyRecordsOperation(recordsToSave: records)
         saveOperation.savePolicy = .changedKeys
         saveOperation.modifyRecordsCompletionBlock = { (records, recordsID, error) in
+            
             if let _records = records {
+                // Save record to Core Data
                 DispatchQueue.main.async {
                     self.savePlacesToCoreData(records: _records)
                 }
             }
             
             if let _name = self.place.name, let _cathegory = self.place.cathegory {
+                // Finished
                 let newAnnotation = PlaceAnnotation.init(title: _name, cathegory: _cathegory, coordinate: self.place.location.coordinate)
+                self.state = .Finished
                 DispatchQueue.main.async {
                     self.delegate?.placeContextSaved!(annotation: newAnnotation, error: error)
                 }
@@ -185,8 +193,6 @@ class PlaceContext {
         }
         
         publicDB.add(saveOperation)
-        
-        state = .Finished
     }
     
     private func savePlacesToCoreData(records: [CKRecord]) {

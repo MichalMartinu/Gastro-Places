@@ -139,6 +139,9 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     
     // Removing Geocontext annotations
     private func unmountGeocontext(_ geoContext: GeoContext?) {
+        geoContext?.delegate = nil // Stop recieving messages
+        geoContext?.cancel()
+        
         guard let annotations = geoContext?.annotations else {
             return
         }
@@ -163,8 +166,8 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
             if _geoContext.state == .Finished {
                 unmountGeocontext(_geoContext)
             }
-            _geoContext.cancel()
         }
+        
         
         // New GeoContext
         geoContext = GeoContext(location: location, radius: updatedRadius, cathegory: cathegory)
@@ -295,6 +298,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         guard let annotation = placeContext?.annotation else {
             return
         }
+        placeContext?.delegate = nil
         mapView.removeAnnotation(annotation)
     }
     

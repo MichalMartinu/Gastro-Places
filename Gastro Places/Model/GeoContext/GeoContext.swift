@@ -29,6 +29,8 @@ class GeoContext {
     
     weak var delegate: GeoContextDelegate?
     
+    static let geoContextQueue = DispatchQueue(label: "geoContextQueue", qos: .utility, attributes: .concurrent)
+    
     init(location: CLLocation, radius: CLLocationDistance, cathegory: String) {
         self.location = location
         self.radius = radius
@@ -39,7 +41,7 @@ class GeoContext {
     
     func start() {
         state = .Executing
-        DispatchQueue.global(qos: .userInteractive).async {
+        GeoContext.geoContextQueue.async {
             self.fetchCloudkitPlaces()
         }
     }
@@ -63,11 +65,11 @@ class GeoContext {
             if self.state == .Canceled {
                 self.state = .Finished
                 return
-            } else {
-                self.state = .Finished
-                DispatchQueue.main.async {
-                    self.delegate?.geoContextDidLoadAnnotations()
-                }
+            }
+            
+            self.state = .Finished
+            DispatchQueue.main.async {
+                self.delegate?.geoContextDidLoadAnnotations()
             }
         }
     }
@@ -89,7 +91,7 @@ class GeoContext {
             
             DispatchQueue.main.async {
                 let savedPlace = self.savePlaceToCoreData(record: record)
-                DispatchQueue.global().async {
+                GeoContext.geoContextQueue.async {
                     self.fetchOpeningHours(place: savedPlace, record: record)
                 }
             }
