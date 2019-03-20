@@ -11,6 +11,7 @@ import UIKit
 struct Time {
     var hours: Int
     var minutes: Int
+    
     var string: String {
         if minutes == 0 {
             return "\(hours):\(minutes)0"
@@ -96,6 +97,7 @@ class OpeningTime {
             times.append(time)
         }
         
+        // Add 0:00 to end
         let midnigth = Time.init(seconds: 0)
         times.append(midnigth)
         
@@ -109,6 +111,7 @@ class OpeningTime {
     }
     
     func setDay(indexPath: Int, from: Time?, to: Time?) {
+        // When day is not initialized and day before is, set same time
         let beforeIndex = indexPath - 1
         if from != nil, to != nil, beforeIndex >= 0 {
             if days[indexPath].from == nil,  days[indexPath].to == nil {

@@ -45,13 +45,14 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
             placeContext?.delegate = self
         }
     }
-    let cathegories = Cathegories.init(type: .normal)
     
-    var annotation: PlaceAnnotation?
+    private let cathegories = Cathegories.init(type: .normal)
     
-    let imageContext = ImageContext()
+    private var annotation: PlaceAnnotation?
     
-    let openingTime = OpeningTime.init(intervalInMinutes: 15)
+    private let imageContext = ImageContext()
+    
+    private let openingTime = OpeningTime.init(intervalInMinutes: 15)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +61,6 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
         roundButtons()
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,12 +80,12 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
         imageCollectionView.reloadData()
     }
     
-    func roundButtons() {
+    private func roundButtons() {
         editImagesButton.roundCornersLarge()
         openingHoursButton.roundCornersLarge()
     }
     
-    func resetWrongInputErrors() {
+    private func resetWrongInputErrors() {
         nameLabel.textColor = blackColor
         nameTextFieldLine.backgroundColor = blackColor
         
@@ -99,31 +99,39 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
         emailTextFieldLine.backgroundColor = blackColor
     }
     
-    func getCathegory() -> String {
+    private func enableNavigationBarButtons(enabled: Bool) {
+        navigationItem.rightBarButtonItem?.isEnabled = enabled
+        navigationItem.leftBarButtonItem?.isEnabled = enabled
+    }
+    
+    private func getCathegory() -> String {
         return cathegories.cathegories[cathegoryPickerView.selectedRow(inComponent: 0)].name
     }
     
-    func wrongName() {
+    private func wrongName() {
         nameLabel.textColor = wrongInputColor
         nameTextFieldLine.backgroundColor = wrongInputColor
     }
     
-    func wrongWeb() {
+    private func wrongWeb() {
         webpageLabel.textColor = wrongInputColor
         webpageTextFieldLine.backgroundColor = wrongInputColor
     }
     
-    func wrongPhone() {
+    private func wrongPhone() {
         phoneLabel.textColor = wrongInputColor
         phoneNumberTextFieldLine.backgroundColor = wrongInputColor
     }
     
-    func wrongEmail() {
+    private func wrongEmail() {
         emailLabel.textColor = wrongInputColor
         emailTextFieldLine.backgroundColor = wrongInputColor
     }
     
     @IBAction func saveButtonIsPressed(_ sender: UIBarButtonItem) {
+        self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+        enableNavigationBarButtons(enabled: false)
+        
         let name = nameTextField.text!
         let web = webpageTextField.text!
         let email = emailTextField.text!
@@ -136,31 +144,39 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
         
         let wrongInput = placeContext?.checkInput()
         if let _wrongInput = wrongInput, _wrongInput.count > 0 {
-            var wrongInputString = "Invalid:"
-            var firstFlag = true
-            for input in _wrongInput {
-                if firstFlag != true {
-                    wrongInputString += ","
-                }
-                firstFlag = false
-                
-                switch input {
-                case .name:
-                    wrongName()
-                case .web:
-                    wrongWeb()
-                case .phone:
-                    wrongPhone()
-                case .email:
-                    wrongEmail()
-                }
-                wrongInputString += " \(input.rawValue)"
-            }
-            
+           
+            let wrongInputString = setWrongInput(_wrongInput)
             showAlert(title: "Invalid input", message: wrongInputString, confirmTitle: "Ok")
+            self.view.activityStopAnimating()
+            enableNavigationBarButtons(enabled: true)
             return
         }
         placeContext?.save(days: openingTime.days)
+    }
+    
+    private func setWrongInput(_ wrongInput: [InputTypes]) -> String {
+        var wrongInputString = "Invalid:"
+        var firstFlag = true
+        
+        for input in wrongInput {
+            if firstFlag != true {
+                wrongInputString += ","
+            }
+            firstFlag = false
+            
+            switch input {
+            case .name:
+                wrongName()
+            case .web:
+                wrongWeb()
+            case .phone:
+                wrongPhone()
+            case .email:
+                wrongEmail()
+            }
+            wrongInputString += " \(input.rawValue)"
+        }
+        return wrongInputString
     }
     
     func placeContextSaved(annotation: PlaceAnnotation, error: Error?) {
@@ -196,7 +212,7 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
         }
     }
     
-    func showAlert(title: String?, message: String?, confirmTitle: String?) {
+    private func showAlert(title: String?, message: String?, confirmTitle: String?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -221,7 +237,7 @@ extension CreatePlaceViewController: UICollectionViewDelegate, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "createPlaceImageCollectionViewCell", for: indexPath) as! CreatePlaceImageCollectionViewCell
         
         if imageContext.images.count != 0 {
-            cell.displayImage(image: imageContext.images[indexPath.row])
+            cell.displayImage(image: imageContext.images[indexPath.row].picture)
         }
         
         return cell

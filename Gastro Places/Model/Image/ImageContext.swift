@@ -8,15 +8,36 @@
 
 import UIKit
 
+struct Image {
+    var id: String?
+    var picture: UIImage
+    
+    init(id: String?, picture: UIImage) {
+        self.id = id
+        self.picture = picture
+    }
+}
+
 class ImageContext {
     
-    var images = [UIImage]()
-    var imagesToDelete = [UIImage]()
-    var imagesToSave = [UIImage]()
+    var images = [Image]()
+    var imagesToDelete = [String]()
+    var imagesToSave = [String]()
     
-    func insertImage(image: UIImage) {
-        images.append(image)
-        imagesToSave.append(image)
+    func insertNewImage(image: UIImage) {
+        let uuid = UUID().uuidString
+        images.append(Image.init(id: uuid, picture: image))
+        imagesToSave.append(uuid)
+    }
+    
+    func deleteImageAtIndex(index: Int) {
+        if let _id = images[index].id {
+            if let saveIndex = imagesToSave.firstIndex(of: _id) {
+                imagesToSave.remove(at: saveIndex)
+            }
+            
+            images.remove(at: index)
+        }
     }
     
 }

@@ -103,9 +103,11 @@ extension Cathegories: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cathegoryCollectionViewCell", for: indexPath) as! CathegoryCollectionViewCell
         let data = cathegories[indexPath.row]
         var selected = false
+        
         if indexPath.row == selectedIndex {
             selected = true
         }
+        
         cell.initData(color: data.color, text: data.name, selected: selected)
         return cell
     }

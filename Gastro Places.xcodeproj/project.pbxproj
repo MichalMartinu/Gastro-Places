@@ -17,19 +17,18 @@
 		07515501223AF8D700D3E7FE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07515500223AF8D700D3E7FE /* SearchViewController.swift */; };
 		075EEF56223692E900FA5869 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 075EEF55223692E900FA5869 /* CloudKit.framework */; };
 		075EEF5E2236DA4300FA5869 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075EEF5D2236DA4300FA5869 /* Address.swift */; };
-		075FE1722232659C007EC555 /* FetchGeoContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE1712232659C007EC555 /* FetchGeoContext.swift */; };
 		075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */; };
 		075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE1752232811B007EC555 /* PlaceCKRecordNames.swift */; };
 		075FE17B2232A6A5007EC555 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 075FE17A2232A6A5007EC555 /* Assets.xcassets */; };
 		07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */; };
 		07855ABD22398608002042C4 /* OpeningTimeCKRecordName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABC22398608002042C4 /* OpeningTimeCKRecordName.swift */; };
 		0794BBE622365C5A00CF8D70 /* CreatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */; };
-		0794BBEC223680B100CF8D70 /* SavePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BBEB223680B100CF8D70 /* SavePlace.swift */; };
 		0794BBEE2236841300CF8D70 /* PlaceCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BBED2236841300CF8D70 /* PlaceCKRecord.swift */; };
 		07956E3C2233AAB4001F1449 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07956E3B2233AAB4001F1449 /* Default-568h@2x.png */; };
 		07956E3E223411CE001F1449 /* Cathegories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07956E3D223411CE001F1449 /* Cathegories.swift */; };
 		07956E41223418DD001F1449 /* CathegoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07956E40223418DD001F1449 /* CathegoryCollectionViewCell.swift */; };
 		07A5F8942232DCFD0071FB3A /* PlaceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A5F8932232DCFD0071FB3A /* PlaceContext.swift */; };
+		07A8B99022400C71003DBA84 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A8B98F22400C71003DBA84 /* IndicatorView.swift */; };
 		07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F12F222FF5F800E22A27 /* AppDelegate.swift */; };
 		07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F131222FF5F800E22A27 /* MapViewController.swift */; };
 		07B7F135222FF5F800E22A27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7F133222FF5F800E22A27 /* Main.storyboard */; };
@@ -37,7 +36,6 @@
 		07B7F13D222FF5F900E22A27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7F13B222FF5F900E22A27 /* LaunchScreen.storyboard */; };
 		07B7F14722301AD000E22A27 /* RoundObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F14622301AD000E22A27 /* RoundObjects.swift */; };
 		07B7F14A22302B4200E22A27 /* GeoContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F14922302B4200E22A27 /* GeoContext.swift */; };
-		07B7F14E2230802500E22A27 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F14D2230802500E22A27 /* AsyncOperation.swift */; };
 		07C321CF223AC06F00EB9CD0 /* OpeningTimeCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C321CE223AC06F00EB9CD0 /* OpeningTimeCoreData.swift */; };
 		07D5126B2236F1DB0088DA9C /* PlaceCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D5126A2236F1DB0088DA9C /* PlaceCoreData.swift */; };
 		07DBECB32238117300D3D13D /* OpeningHoursTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DBECB22238117300D3D13D /* OpeningHoursTableViewCell.swift */; };
@@ -57,19 +55,18 @@
 		07515500223AF8D700D3E7FE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		075EEF55223692E900FA5869 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		075EEF5D2236DA4300FA5869 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		075FE1712232659C007EC555 /* FetchGeoContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGeoContext.swift; sourceTree = "<group>"; };
 		075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotationItem.swift; sourceTree = "<group>"; };
 		075FE1752232811B007EC555 /* PlaceCKRecordNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCKRecordNames.swift; sourceTree = "<group>"; };
 		075FE17A2232A6A5007EC555 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecord.swift; sourceTree = "<group>"; };
 		07855ABC22398608002042C4 /* OpeningTimeCKRecordName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecordName.swift; sourceTree = "<group>"; };
 		0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceViewController.swift; sourceTree = "<group>"; };
-		0794BBEB223680B100CF8D70 /* SavePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePlace.swift; sourceTree = "<group>"; };
 		0794BBED2236841300CF8D70 /* PlaceCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCKRecord.swift; sourceTree = "<group>"; };
 		07956E3B2233AAB4001F1449 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		07956E3D223411CE001F1449 /* Cathegories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cathegories.swift; sourceTree = "<group>"; };
 		07956E40223418DD001F1449 /* CathegoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CathegoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		07A5F8932232DCFD0071FB3A /* PlaceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceContext.swift; sourceTree = "<group>"; };
+		07A8B98F22400C71003DBA84 /* IndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		07B7F12C222FF5F800E22A27 /* Gastro Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gastro Places.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B7F12F222FF5F800E22A27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07B7F131222FF5F800E22A27 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -79,7 +76,6 @@
 		07B7F13E222FF5F900E22A27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07B7F14622301AD000E22A27 /* RoundObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundObjects.swift; sourceTree = "<group>"; };
 		07B7F14922302B4200E22A27 /* GeoContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoContext.swift; sourceTree = "<group>"; };
-		07B7F14D2230802500E22A27 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		07C321CE223AC06F00EB9CD0 /* OpeningTimeCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCoreData.swift; sourceTree = "<group>"; };
 		07D5126A2236F1DB0088DA9C /* PlaceCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCoreData.swift; sourceTree = "<group>"; };
 		07DBECB22238117300D3D13D /* OpeningHoursTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningHoursTableViewCell.swift; sourceTree = "<group>"; };
@@ -103,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				07B7F14922302B4200E22A27 /* GeoContext.swift */,
-				075FE1712232659C007EC555 /* FetchGeoContext.swift */,
 			);
 			path = GeoContext;
 			sourceTree = "<group>";
@@ -116,17 +111,8 @@
 				075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */,
 				0794BBED2236841300CF8D70 /* PlaceCKRecord.swift */,
 				07D5126A2236F1DB0088DA9C /* PlaceCoreData.swift */,
-				0794BBEB223680B100CF8D70 /* SavePlace.swift */,
 			);
 			path = Place;
-			sourceTree = "<group>";
-		};
-		0738F04522386FAB00FD36F1 /* Operations */ = {
-			isa = PBXGroup;
-			children = (
-				07B7F14D2230802500E22A27 /* AsyncOperation.swift */,
-			);
-			path = Operations;
 			sourceTree = "<group>";
 		};
 		0738F04622386FD400FD36F1 /* Cathegories */ = {
@@ -246,6 +232,7 @@
 			children = (
 				07B7F14622301AD000E22A27 /* RoundObjects.swift */,
 				0733D6BF22350E59001F31C2 /* String.swift */,
+				07A8B98F22400C71003DBA84 /* IndicatorView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -257,7 +244,6 @@
 				0738F04422386F8900FD36F1 /* Place */,
 				0738F04622386FD400FD36F1 /* Cathegories */,
 				075154F7223ACD8E00D3E7FE /* Image */,
-				0738F04522386FAB00FD36F1 /* Operations */,
 				0738F04722386FEF00FD36F1 /* Address */,
 				0738F04822386FFA00FD36F1 /* Time */,
 			);
@@ -345,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07855ABD22398608002042C4 /* OpeningTimeCKRecordName.swift in Sources */,
+				07A8B99022400C71003DBA84 /* IndicatorView.swift in Sources */,
 				0794BBEE2236841300CF8D70 /* PlaceCKRecord.swift in Sources */,
 				071E458422380FAF0087453B /* OpeningTimeTableViewController.swift in Sources */,
 				07956E3E223411CE001F1449 /* Cathegories.swift in Sources */,
@@ -360,15 +347,12 @@
 				075154FD223ACF8100D3E7FE /* CreateImageTableViewCell.swift in Sources */,
 				0733D6C022350E59001F31C2 /* String.swift in Sources */,
 				075154FB223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift in Sources */,
-				075FE1722232659C007EC555 /* FetchGeoContext.swift in Sources */,
 				07956E41223418DD001F1449 /* CathegoryCollectionViewCell.swift in Sources */,
 				075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */,
 				07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */,
-				0794BBEC223680B100CF8D70 /* SavePlace.swift in Sources */,
 				07DBECB32238117300D3D13D /* OpeningHoursTableViewCell.swift in Sources */,
 				075EEF5E2236DA4300FA5869 /* Address.swift in Sources */,
 				07B7F14722301AD000E22A27 /* RoundObjects.swift in Sources */,
-				07B7F14E2230802500E22A27 /* AsyncOperation.swift in Sources */,
 				075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */,
 				07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */,
 				07B7F14A22302B4200E22A27 /* GeoContext.swift in Sources */,

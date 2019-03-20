@@ -8,27 +8,24 @@
 
 import Foundation
 import CoreLocation
+import CloudKit
 import MapKit
 
-protocol GeocontextOperations: AnyObject {
-    func finishedLoadingData(placeAnnotation: [PlaceAnnotation], error: Error?)
-}
-
 enum GeoContextState {
-    case ready, exectuting, finished, failed, canceled
+    case Ready, Executing, Finished, Failed, Canceled
 }
 
-class GeoContext: GeocontextOperations {
+class GeoContext {
     
     var annotations = [PlaceAnnotation]()
-    var state = GeoContextState.ready
+    var state = GeoContextState.Ready
     
     let location: CLLocation
     let radius: CLLocationDistance
     let cathegory: String
     
-    private let operationQueue = OperationQueue()
-    private var fetchGeocontext: FetchGeoContext?
+    private let container: CKContainer
+    private let publicDB: CKDatabase
     
     weak var delegate: GeoContextDelegate?
     
@@ -36,37 +33,117 @@ class GeoContext: GeocontextOperations {
         self.location = location
         self.radius = radius
         self.cathegory = cathegory
-        getData()
+        container = CKContainer.default()
+        publicDB = container.publicCloudDatabase
     }
     
-    func getData() {
-        fetchGeocontext = FetchGeoContext(location: location, radius: radius, cathegory: cathegory)
-        fetchGeocontext?.delegate = self
-        operationQueue.addOperation(fetchGeocontext!)
+    func start() {
+        state = .Executing
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.fetchCloudkitPlaces()
+        }
     }
     
-    func finishedLoadingData(placeAnnotation: [PlaceAnnotation], error: Error?) {
-        fetchGeocontext = nil
+    func fetchCloudkitPlaces() {
+        let predicate = createPredicateToFetchPlaces(location: location, radius: radius, cathegory: cathegory)
+        let query = CKQuery(recordType: placeRecord.record, predicate: predicate)
         
-        if error != nil {
-            state = .failed
-            return
+        publicDB.perform(query, inZoneWith: nil) { results, error in
+            if error != nil {
+                self.state = .Failed
+                return
+            }
+            
+            guard let records = results else {
+                return
+            }
+            
+            self.saveRecords(records: records)
+            
+            if self.state == .Canceled {
+                self.state = .Finished
+                return
+            } else {
+                self.state = .Finished
+                DispatchQueue.main.async {
+                    self.delegate?.geoContextDidLoadAnnotations()
+                }
+            }
+        }
+    }
+    
+    private func saveRecords(records: [CKRecord]) {
+        for record in records {
+            if self.state == .Canceled {
+                self.state = .Finished
+                return
+            }
+            
+            guard let name = record[placeRecord.name] as? String, let cathegory = record[placeRecord.cathegory] as? String,
+                let placeLoacation = record[placeRecord.location] as? CLLocation else {
+                    continue
+            }
+            
+            let placeAnnotationItem = PlaceAnnotation.init(title: name, cathegory: cathegory, coordinate: placeLoacation.coordinate)
+            self.annotations.append(placeAnnotationItem)
+            
+            DispatchQueue.main.async {
+                let savedPlace = self.savePlaceToCoreData(record: record)
+                DispatchQueue.global().async {
+                    self.fetchOpeningHours(place: savedPlace, record: record)
+                }
+            }
+        }
+    }
+    
+    private func createPredicateToFetchPlaces(location: CLLocation, radius: CLLocationDistance, cathegory: String) ->  NSCompoundPredicate {
+        let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(location, %@) < %f",  location, Double(radius))
+        var cathegoryPredicate = NSPredicate(value: true)
+        
+        if cathegory != "All" {
+            cathegoryPredicate = NSPredicate(format: "\(placeRecord.cathegory) = %@", cathegory)
         }
         
-        for placeAnnotation in placeAnnotation {
-            self.annotations.append(placeAnnotation)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [locationPredicate, cathegoryPredicate])
+        return predicate
+    }
+    
+    private func fetchOpeningHours(place: PlaceCoreData?, record: CKRecord) {
+        let recordID = record.recordID
+        let recordToMatch = CKRecord.Reference(recordID: recordID, action: .deleteSelf)
+        let predicate = NSPredicate(format: "place == %@", recordToMatch)
+        let query = CKQuery(recordType: "OpeningTime", predicate: predicate)
+        publicDB.perform(query, inZoneWith: nil) { results, error in
+            
+            if error != nil {
+                return
+            }
+            
+            if results?.count == 1, let _result = results?.first {
+                DispatchQueue.main.async {
+                    self.saveOpeningTimeToCoreData(place: place, record: _result)
+                }
+            }
         }
-        
-        state = .finished
-        DispatchQueue.main.async {
-            self.delegate?.geoContextDidLoadAnnotations()
+    }
+    
+    private func savePlaceToCoreData(record: CKRecord) -> PlaceCoreData? {
+        let context = AppDelegate.viewContext
+        let place = PlaceCoreData.changeOrCreatePlace(record: record, context: context)
+        try? context.save()
+        return place
+    }
+    
+    private func saveOpeningTimeToCoreData(place: PlaceCoreData?, record: CKRecord) {
+        let context = AppDelegate.viewContext
+        if let _place = place {
+            OpeningTimeCoreData.changeOrCreate(place: _place, record: record, context: context)
         }
+        try? context.save()
     }
     
     func cancel() {
-        operationQueue.cancelAllOperations()
-        delegate = nil
-        state = .canceled
+        state = .Canceled
     }
 }
 

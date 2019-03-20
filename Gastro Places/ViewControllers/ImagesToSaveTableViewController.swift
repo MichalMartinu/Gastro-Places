@@ -31,7 +31,7 @@ class ImagesToSaveTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "createImageTableViewCell", for: indexPath) as! CreateImageTableViewCell
-        cell.setImage(imageContext.images[indexPath.row])
+        cell.setImage(imageContext.images[indexPath.row].picture)
         return cell
     }
     
@@ -73,7 +73,7 @@ class ImagesToSaveTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            imageContext.images.remove(at: indexPath.row)
+            imageContext.deleteImageAtIndex(index: indexPath.row)
             // delete the table view row
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -92,7 +92,7 @@ extension ImagesToSaveTableViewController: UINavigationControllerDelegate,  UIIm
             return
         }
 
-        imageContext.insertImage(image: selectedImage)
+        imageContext.insertNewImage(image: selectedImage)
         dismiss(animated: true, completion: nil) // Take image picker off the screen
         tableView.reloadData()
         enableOrDisableEditButton()

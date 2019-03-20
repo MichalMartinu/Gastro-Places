@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBz-80-zlY">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsCompass="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBz-80-zlY">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <gestureRecognizers/>
                             </mapView>
@@ -278,11 +278,6 @@
                         <barButtonItem key="leftBarButtonItem" title="Help" id="IUw-LZ-XIr">
                             <connections>
                                 <segue destination="M4Q-CJ-quS" kind="show" id="I8a-kx-DJS"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="nKS-p8-6rH">
-                            <connections>
-                                <action selector="searchButtonIsPressed:" destination="1YZ-Al-IQI" id="ume-10-cgR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
