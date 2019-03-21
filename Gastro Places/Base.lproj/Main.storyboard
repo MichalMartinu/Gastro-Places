@@ -591,7 +591,7 @@
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2C-xe-eHx">
                                                                     <rect key="frame" x="0.0" y="0.0" width="343" height="35"/>
-                                                                    <color key="backgroundColor" red="0.35958072540000002" green="0.78378111120000005" blue="0.49015051129999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    <color key="backgroundColor" red="0.36078431372549019" green="0.78431372549019607" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="35" id="xCm-JS-uuQ"/>
                                                                     </constraints>
@@ -828,7 +828,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Create Place" id="USu-N1-48E">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="1JW-mq-Uze">
-                            <color key="tintColor" red="0.88235294119999996" green="0.34509803919999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="cancelButtonIsPressed:" destination="h9L-0x-1yA" id="Kaz-xV-Byy"/>
                             </connections>
