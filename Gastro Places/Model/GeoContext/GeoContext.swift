@@ -61,16 +61,6 @@ class GeoContext {
             }
             
             self.saveRecords(records: records)
-            
-            if self.state == .Canceled {
-                self.state = .Finished
-                return
-            }
-            
-            self.state = .Finished
-            DispatchQueue.main.async {
-                self.delegate?.geoContextDidLoadAnnotations()
-            }
         }
     }
     
@@ -95,6 +85,16 @@ class GeoContext {
                     self.fetchOpeningHours(place: savedPlace, record: record)
                 }
             }
+        }
+        
+        if self.state == .Canceled {
+            self.state = .Finished
+            return
+        }
+        
+        self.state = .Finished
+        DispatchQueue.main.async {
+            self.delegate?.geoContextDidLoadAnnotations()
         }
     }
     

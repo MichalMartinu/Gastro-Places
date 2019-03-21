@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		070004672242A80E002A19C7 /* ImageCKRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070004662242A80E002A19C7 /* ImageCKRecords.swift */; };
 		071E458422380FAF0087453B /* OpeningTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E458322380FAF0087453B /* OpeningTimeTableViewController.swift */; };
 		0733D6C022350E59001F31C2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0733D6BF22350E59001F31C2 /* String.swift */; };
 		07423120223B1402003B5304 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0742311F223B1402003B5304 /* ImageIO.framework */; };
+		074944DB2243AFC700121D78 /* ResizeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074944DA2243AFC700121D78 /* ResizeImage.swift */; };
+		074944DD2243BA7700121D78 /* TmpDirectoryClean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074944DC2243BA7700121D78 /* TmpDirectoryClean.swift */; };
 		075154F9223ACDCB00D3E7FE /* ImageContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075154F8223ACDCB00D3E7FE /* ImageContext.swift */; };
 		075154FB223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075154FA223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift */; };
 		075154FD223ACF8100D3E7FE /* CreateImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075154FC223ACF8100D3E7FE /* CreateImageTableViewCell.swift */; };
@@ -20,6 +23,7 @@
 		075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */; };
 		075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE1752232811B007EC555 /* PlaceCKRecordNames.swift */; };
 		075FE17B2232A6A5007EC555 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 075FE17A2232A6A5007EC555 /* Assets.xcassets */; };
+		0767F5DC2243E33800899271 /* ImageCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767F5DB2243E33800899271 /* ImageCoreData.swift */; };
 		07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */; };
 		07855ABD22398608002042C4 /* OpeningTimeCKRecordName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABC22398608002042C4 /* OpeningTimeCKRecordName.swift */; };
 		0794BBE622365C5A00CF8D70 /* CreatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */; };
@@ -43,10 +47,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		070004662242A80E002A19C7 /* ImageCKRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCKRecords.swift; sourceTree = "<group>"; };
 		071E458322380FAF0087453B /* OpeningTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeTableViewController.swift; sourceTree = "<group>"; };
 		0733D6BF22350E59001F31C2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		0742311D223B13DE003B5304 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		0742311F223B1402003B5304 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		074944DA2243AFC700121D78 /* ResizeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeImage.swift; sourceTree = "<group>"; };
+		074944DC2243BA7700121D78 /* TmpDirectoryClean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmpDirectoryClean.swift; sourceTree = "<group>"; };
 		074E9AAA2232616B00F8E494 /* Gastro Places.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Gastro Places.entitlements"; sourceTree = "<group>"; };
 		075154F8223ACDCB00D3E7FE /* ImageContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContext.swift; sourceTree = "<group>"; };
 		075154FA223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesToSaveTableViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +65,7 @@
 		075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotationItem.swift; sourceTree = "<group>"; };
 		075FE1752232811B007EC555 /* PlaceCKRecordNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCKRecordNames.swift; sourceTree = "<group>"; };
 		075FE17A2232A6A5007EC555 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0767F5DB2243E33800899271 /* ImageCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCoreData.swift; sourceTree = "<group>"; };
 		07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecord.swift; sourceTree = "<group>"; };
 		07855ABC22398608002042C4 /* OpeningTimeCKRecordName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecordName.swift; sourceTree = "<group>"; };
 		0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				075154F8223ACDCB00D3E7FE /* ImageContext.swift */,
+				070004662242A80E002A19C7 /* ImageCKRecords.swift */,
+				0767F5DB2243E33800899271 /* ImageCoreData.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -233,6 +243,8 @@
 				07B7F14622301AD000E22A27 /* RoundObjects.swift */,
 				0733D6BF22350E59001F31C2 /* String.swift */,
 				07A8B98F22400C71003DBA84 /* IndicatorView.swift */,
+				074944DA2243AFC700121D78 /* ResizeImage.swift */,
+				074944DC2243BA7700121D78 /* TmpDirectoryClean.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -343,7 +355,9 @@
 				07A5F8942232DCFD0071FB3A /* PlaceContext.swift in Sources */,
 				075154FF223AD4C600D3E7FE /* CreatePlaceImageCollectionViewCell.swift in Sources */,
 				07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */,
+				074944DB2243AFC700121D78 /* ResizeImage.swift in Sources */,
 				07D5126B2236F1DB0088DA9C /* PlaceCoreData.swift in Sources */,
+				074944DD2243BA7700121D78 /* TmpDirectoryClean.swift in Sources */,
 				075154FD223ACF8100D3E7FE /* CreateImageTableViewCell.swift in Sources */,
 				0733D6C022350E59001F31C2 /* String.swift in Sources */,
 				075154FB223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift in Sources */,
@@ -355,7 +369,9 @@
 				07B7F14722301AD000E22A27 /* RoundObjects.swift in Sources */,
 				075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */,
 				07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */,
+				0767F5DC2243E33800899271 /* ImageCoreData.swift in Sources */,
 				07B7F14A22302B4200E22A27 /* GeoContext.swift in Sources */,
+				070004672242A80E002A19C7 /* ImageCKRecords.swift in Sources */,
 				07515501223AF8D700D3E7FE /* SearchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

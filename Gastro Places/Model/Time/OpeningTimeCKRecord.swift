@@ -13,18 +13,14 @@ struct OpeningTimeCKRecord {
     let recordID: CKRecord.ID
     let record: CKRecord
     
-    init(days: [Day], id: CKRecord.ID, record: CKRecord) {
+    init(days: [Day], id: CKRecord.ID, recordReference: CKRecord) {
         recordID = id
         
         self.record = CKRecord(recordType: "OpeningTime")
-        let reference = CKRecord.Reference(record: record, action: .deleteSelf)
+        let reference = CKRecord.Reference(record: recordReference, action: .deleteSelf)
         
         self.record["place"] = reference
         
-        initItems(days: days)
-    }
-    
-    private func initItems(days: [Day]) {
         for day in days {
             record[day.name.lowercased()] = day.full
         }

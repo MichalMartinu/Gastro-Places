@@ -21,13 +21,8 @@ struct PlaceCKRecord {
             recordID = CKRecord.ID(recordName: uuid)
         }
         
-        
         record = CKRecord(recordType: placeRecord.record, recordID: recordID)
         
-        initItems(place: place)
-    }
-    
-    private func initItems(place: Place) {
         record[placeRecord.location] = place.location as CLLocation
         
         if let name = place.name {

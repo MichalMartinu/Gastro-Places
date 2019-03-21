@@ -151,7 +151,7 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
             enableNavigationBarButtons(enabled: true)
             return
         }
-        placeContext?.save(days: openingTime.days)
+        placeContext?.save(days: openingTime.days, images: imageContext)
     }
     
     private func setWrongInput(_ wrongInput: [InputTypes]) -> String {
@@ -180,6 +180,8 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
     }
     
     func placeContextSaved(annotation: PlaceAnnotation, error: Error?) {
+        FileManager.default.clearTmpDirectory()
+        
         if let _error = error {
             showAlert(title: "Cannot create place!", message: _error.localizedDescription, confirmTitle: "Ok")
             self.annotation = nil

@@ -90,9 +90,9 @@ class PlaceContext {
         }
     }
     
-    func save(days: [Day]) {
+    func save(days: [Day], images: ImageContext) {
         PlaceContext.placeContextQueue.async {
-            self.saveToCloudkit(days: days)
+            self.saveToCloudkit(days: days, images: images)
         }
     }
     
@@ -162,14 +162,17 @@ class PlaceContext {
         })
     }
     
-    func saveToCloudkit(days: [Day]) {
+    func saveToCloudkit(days: [Day], images: ImageContext) {
         var records = [CKRecord]()
         
         let placeCKRecord = PlaceCKRecord.init(place: place)
-        let openingTimeCKRecord = OpeningTimeCKRecord.init(days: days, id: placeCKRecord.recordID, record: placeCKRecord.record)
+        let openingTimeCKRecord = OpeningTimeCKRecord.init(days: days, id: placeCKRecord.recordID, recordReference: placeCKRecord.record)
+        let imagesCKRecordsToSave = ImageCKRecord()
+        imagesCKRecordsToSave.initImages(images: images.getImagesToSave(), recordReference: placeCKRecord.record)
         
         records.append(placeCKRecord.record)
         records.append(openingTimeCKRecord.record)
+        records.append(contentsOf: imagesCKRecordsToSave.record)
         
         let saveOperation = CKModifyRecordsOperation(recordsToSave: records)
         saveOperation.savePolicy = .changedKeys
@@ -200,6 +203,8 @@ class PlaceContext {
         
         var placeCKRecord: CKRecord?
         var openingTimeRecord: CKRecord?
+        var imageRecords = [CKRecord]()
+
         
         var placeCoreData: PlaceCoreData?
         
@@ -210,12 +215,20 @@ class PlaceContext {
             else if record.recordType == "OpeningTime" {
                 openingTimeRecord = record
             }
+            else if record.recordType == "Image" {
+                imageRecords.append(record)
+            }
         }
         
         if let _placeCKRecord = placeCKRecord, let _openingTimeRecord = openingTimeRecord {
             placeCoreData = PlaceCoreData.changeOrCreatePlace(record: _placeCKRecord, context: context)
+            
             if let _placeCoreData = placeCoreData {
                 OpeningTimeCoreData.changeOrCreate(place: _placeCoreData, record: _openingTimeRecord, context: context)
+                
+                for image in imageRecords {
+                     ImageCoreData.changeOrCreate(place: _placeCoreData, record: image, context: context)
+                }
             }
         }
         

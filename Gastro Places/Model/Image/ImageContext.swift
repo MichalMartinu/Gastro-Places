@@ -9,10 +9,10 @@
 import UIKit
 
 struct Image {
-    var id: String?
+    var id: String
     var picture: UIImage
     
-    init(id: String?, picture: UIImage) {
+    init(id: String, picture: UIImage) {
         self.id = id
         self.picture = picture
     }
@@ -21,8 +21,8 @@ struct Image {
 class ImageContext {
     
     var images = [Image]()
-    var imagesToDelete = [String]()
-    var imagesToSave = [String]()
+    private var imagesToDelete = [String]()
+    private var imagesToSave = [String]()
     
     func insertNewImage(image: UIImage) {
         let uuid = UUID().uuidString
@@ -30,14 +30,23 @@ class ImageContext {
         imagesToSave.append(uuid)
     }
     
-    func deleteImageAtIndex(index: Int) {
-        if let _id = images[index].id {
-            if let saveIndex = imagesToSave.firstIndex(of: _id) {
-                imagesToSave.remove(at: saveIndex)
-            }
+    func getImagesToSave() -> [Image] {
+        var images = [Image]()
+        for id in imagesToSave {
+            let image = self.images.filter { $0.id == id }
             
-            images.remove(at: index)
+            if let _image = image.first {
+                images.append(_image)
+            }
         }
+        return images
     }
     
+    func deleteImageAtIndex(index: Int) {
+        if let saveIndex = imagesToSave.firstIndex(of: images[index].id) {
+            imagesToSave.remove(at: saveIndex)
+        }
+        
+        images.remove(at: index)
+    }
 }
