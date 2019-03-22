@@ -256,6 +256,10 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
             
             showCreateNewPlaceDialog(coordinate: location)
         }
+        if let annotation = view.annotation as? PlaceAnnotation {
+            placeContext = PlaceContext.init(annotation: annotation)
+            performSegue(withIdentifier: "showPlace", sender: self)
+        }
     }
     
     private func destroyPlaceContext() {
@@ -349,6 +353,12 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
                 vc.placeContext = placeContext
             }
         }
+        if segue.identifier == "showPlace" {
+            if let vc = segue.destination as? ShowPlaceTableViewController {
+                vc.placeContext = placeContext
+            }
+        }
+
     }
     
     @IBAction func unwindToMapViewController(segue: UIStoryboardSegue) {

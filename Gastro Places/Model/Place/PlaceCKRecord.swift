@@ -23,7 +23,7 @@ struct PlaceCKRecord {
         
         record = CKRecord(recordType: PlaceCKRecordNames.record, recordID: recordID)
         
-        record[PlaceCKRecordNames.location] = place.location as CLLocation
+        record[PlaceCKRecordNames.location] = place.location! as CLLocation
         
         if let name = place.name {
             record[PlaceCKRecordNames.name] = name

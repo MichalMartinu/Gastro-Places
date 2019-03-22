@@ -306,6 +306,7 @@
                         <outlet property="mapView" destination="RBz-80-zlY" id="n2v-7W-HfA"/>
                         <outlet property="noPlacesInAreaView" destination="kYu-62-IcQ" id="iOv-8F-uep"/>
                         <segue destination="h9L-0x-1yA" kind="show" identifier="createPlaceDialog" id="QVz-c3-Rkp"/>
+                        <segue destination="9Ay-d4-tnv" kind="show" identifier="showPlace" id="bPq-uO-umJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7y0-C4-1QT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -428,7 +429,105 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7bc-ss-UKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4857" y="-666"/>
+            <point key="canvasLocation" x="3998" y="-700"/>
+        </scene>
+        <!--Show Place Table View Controller-->
+        <scene sceneID="OUt-xt-0h9">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xRq-qy-vIp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="9Ay-d4-tnv" customClass="ShowPlaceTableViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="91c-Yf-m2x">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageTableViewCell" rowHeight="186" id="wXA-lb-O5f">
+                                <rect key="frame" x="0.0" y="28" width="375" height="186"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wXA-lb-O5f" id="z7H-RG-unp">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="186"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2T-jA-jYW">
+                                            <rect key="frame" x="16" y="11" width="343" height="150"/>
+                                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="150" id="dIg-YZ-w8h"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="M2T-jA-jYW" secondAttribute="trailing" id="MqN-N6-fju"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="M2T-jA-jYW" secondAttribute="bottom" id="bTC-kA-RQC"/>
+                                        <constraint firstItem="M2T-jA-jYW" firstAttribute="leading" secondItem="z7H-RG-unp" secondAttribute="leadingMargin" id="idD-wF-zAB"/>
+                                        <constraint firstItem="M2T-jA-jYW" firstAttribute="top" secondItem="z7H-RG-unp" secondAttribute="topMargin" id="n6D-ck-wwe"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="textTableViewCell" rowHeight="40" id="NQp-Wd-8Uy" customClass="ShowPlaceTableTextViewCell" customModule="Gastro_Places" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="214" width="375" height="40"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NQp-Wd-8Uy" id="MZj-Wu-UYy">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htq-cs-Pmn">
+                                            <rect key="frame" x="31" y="11" width="313" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="htq-cs-Pmn" secondAttribute="trailing" constant="15" id="EzF-01-scQ"/>
+                                        <constraint firstItem="htq-cs-Pmn" firstAttribute="leading" secondItem="MZj-Wu-UYy" secondAttribute="leadingMargin" constant="15" id="K6Z-ah-kfe"/>
+                                        <constraint firstItem="htq-cs-Pmn" firstAttribute="bottom" secondItem="MZj-Wu-UYy" secondAttribute="bottomMargin" id="Np8-iD-V2D"/>
+                                        <constraint firstItem="htq-cs-Pmn" firstAttribute="top" secondItem="MZj-Wu-UYy" secondAttribute="topMargin" id="vGk-C2-m2O"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="itemTextLabel" destination="htq-cs-Pmn" id="y9Q-qf-xn9"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="webTableViewCell" rowHeight="40" id="DYZ-id-Phr" customClass="ShowPlaceTableWebViewCell" customModule="Gastro_Places" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="254" width="375" height="40"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DYZ-id-Phr" id="r2h-z5-wXk">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dem-bv-haz">
+                                            <rect key="frame" x="31" y="11" width="313" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="webButtonIsPressed:" destination="DYZ-id-Phr" eventType="touchUpInside" id="ZGk-HE-Ofz"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Dem-bv-haz" firstAttribute="top" secondItem="r2h-z5-wXk" secondAttribute="topMargin" id="1hm-MK-UDe"/>
+                                        <constraint firstItem="Dem-bv-haz" firstAttribute="leading" secondItem="r2h-z5-wXk" secondAttribute="leadingMargin" constant="15" id="8Jq-2M-c2p"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Dem-bv-haz" secondAttribute="trailing" constant="15" id="VgT-Qy-W1v"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Dem-bv-haz" secondAttribute="bottom" id="zG9-EI-qdj"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="webButton" destination="Dem-bv-haz" id="tne-Zj-hlU"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9Ay-d4-tnv" id="Z6n-cK-UlG"/>
+                            <outlet property="delegate" destination="9Ay-d4-tnv" id="zK4-ut-fVA"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="5012" y="-876.35467980295573"/>
         </scene>
         <!--Create New Place-->
         <scene sceneID="Vet-NN-5Ih">

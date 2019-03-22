@@ -15,12 +15,13 @@ class PlaceAnnotation: NSObject, MKAnnotation {
     let title: String?
     let cathegory: String
     let coordinate: CLLocationCoordinate2D
+    let id: String?
     
-    init(title: String, cathegory: String, coordinate: CLLocationCoordinate2D) {
+    init(title: String, cathegory: String, id: String?, coordinate: CLLocationCoordinate2D) {
         self.title = title
         self.cathegory = cathegory
         self.coordinate = coordinate
-        
+        self.id = id
         super.init()
     }
     
@@ -33,7 +34,7 @@ class PlaceAnnotationView: MKMarkerAnnotationView {
     override var annotation: MKAnnotation? {
         willSet {
             guard let place = newValue as? PlaceAnnotation else { return }
-            markerTintColor = placesCathegories.colorForCathegory(cathegory: place.cathegory)
+            markerTintColor = PlacesCathegories.colorForCathegory(cathegory: place.cathegory)
             if place.cathegory.count > 0 {
                 // When cathegory string is longer than 0 chars
                 glyphText = String(place.cathegory.first!)

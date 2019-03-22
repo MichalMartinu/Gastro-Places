@@ -44,6 +44,7 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
         } else {
             self.annotation = annotation
         }
+        navigationController?.isNavigationBarHidden = false
         performSegue(withIdentifier: "unwindToMapViewController", sender: self)
     }
     

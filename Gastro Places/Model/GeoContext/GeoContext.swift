@@ -80,7 +80,7 @@ class GeoContext {
                     continue
             }
             
-            let placeAnnotationItem = PlaceAnnotation.init(title: name, cathegory: cathegory, coordinate: placeLoacation.coordinate)
+            let placeAnnotationItem = PlaceAnnotation.init(title: name, cathegory: cathegory, id: record.recordID.recordName, coordinate: placeLoacation.coordinate)
             self.annotations.append(placeAnnotationItem)
             
             DispatchQueue.main.async {

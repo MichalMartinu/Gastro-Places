@@ -12,7 +12,6 @@ import CloudKit
 import CoreData
 import MapKit
 
-
 enum PlaceContextState {
     case Ready, Executing, Finished, Failed, Canceled
 }
@@ -21,6 +20,7 @@ enum PlaceContextState {
     // Rozdelit na placecontextlocationdelegate
     @objc optional func placeContextDidDecodeAddress(address: String?, error: Error?)
     @objc optional func placeContextSaved(annotation: PlaceAnnotation, error: Error?)
+    @objc optional func placeContextLoadedPlace()
 }
 
 
@@ -31,8 +31,8 @@ enum InputTypes: String {
     case name = "name"
 }
 
-struct Place {
-    let location: CLLocation
+class Place {
+    var location: CLLocation?
     var placeID: String?
     var cathegory: String?
     var name: String?
@@ -44,28 +44,46 @@ struct Place {
     init(location: CLLocation) {
         self.location = location
     }
+    
+    init(placeID: String) {
+        self.placeID = placeID
+    }
+    
+    init(place: PlaceCoreData) {
+        self.location = CLLocation(latitude: place.latitude, longitude: place.longitude)
+        self.placeID = place.placeID
+        self.cathegory = place.cathegory
+        self.name = place.name
+        self.phone = place.phone
+        self.email = place.email
+        self.web = place.web
+        if let _city = place.city, let _zipCode = place.zipCode, let _street = place.street {
+            self.address = Address.init(city:_city, zipCode: _zipCode, street: _street)
+        }
+    }
 }
 
 class PlaceContext {
     
-    private var place: Place
+    private(set) var place: Place
     
     weak var delegate: PlaceContextDelegate?
     
     let annotation: PlaceAnnotation
     
     var state = PlaceContextState.Ready
-
-    private let container: CKContainer
-    private let publicDB: CKDatabase
     
     private static let placeContextQueue = DispatchQueue(label: "placeContextQueue", qos: .utility, attributes: .concurrent)
     
     init(location: CLLocation) {
-        self.annotation = PlaceAnnotation.init(title: "New place", cathegory: "", coordinate: location.coordinate)
+        self.annotation = PlaceAnnotation.init(title: "New place", cathegory: "", id: nil, coordinate: location.coordinate)
         place = Place(location: location)
-        container = CKContainer.default()
-        publicDB = container.publicCloudDatabase
+        
+    }
+    
+    init(annotation: PlaceAnnotation) {
+        self.annotation = annotation
+        place = Place.init(placeID: annotation.id!)
     }
     
     func changeData(cathegory: String, name: String, phone: String, email: String, web: String) {
@@ -122,7 +140,7 @@ class PlaceContext {
         var city = ""
         var zipCode = ""
         let geoCoder = CLGeocoder()
-        geoCoder.reverseGeocodeLocation(place.location, completionHandler:
+        geoCoder.reverseGeocodeLocation(place.location!, completionHandler:
             {
                 placemarks, error -> Void in
                 
@@ -161,6 +179,9 @@ class PlaceContext {
     private func saveToCloudkit(days: [Day], images: ImageContext) {
         var records = [CKRecord]()
         
+        let container = CKContainer.default()
+        let publicDB = container.publicCloudDatabase
+        
         let placeCKRecord = PlaceCKRecord.init(place: place)
         let openingTimeCKRecord = OpeningTimeCKRecord.init(days: days, id: placeCKRecord.recordID, recordReference: placeCKRecord.record)
         let imagesCKRecordsToSave = ImageCKRecord()
@@ -181,9 +202,11 @@ class PlaceContext {
                 }
             }
             
+            
+            
             if let _name = self.place.name, let _cathegory = self.place.cathegory {
                 // Finished
-                let newAnnotation = PlaceAnnotation.init(title: _name, cathegory: _cathegory, coordinate: self.place.location.coordinate)
+                let newAnnotation = PlaceAnnotation.init(title: _name, cathegory: _cathegory, id: placeCKRecord.recordID.recordName, coordinate: self.place.location!.coordinate)
                 self.state = .Finished
                 DispatchQueue.main.async {
                     self.delegate?.placeContextSaved!(annotation: newAnnotation, error: error)
@@ -231,6 +254,32 @@ class PlaceContext {
         try? context.save()
     }
     
+    func loadPlace() {
+        let context = AppDelegate.viewContext
+        let query:NSFetchRequest<PlaceCoreData> = PlaceCoreData.fetchRequest()
+        
+        guard let id = place.placeID else {
+            // TODO error
+            return
+        }
+        
+        let predicate = NSPredicate(format: "placeID = %@", id)
+        query.predicate = predicate
+        
+        if let _record = try? context.fetch(query), _record.count == 1 {
+            guard let recordToShow = _record.first else {
+                // TODO
+                return
+            }
+            
+            place = Place.init(place: recordToShow)
+            self.delegate?.placeContextLoadedPlace!()
+            return
+        } else {
+            // ERROR
+        }
+    }
+    
     private func finishedDecodingAddress(address: Address?, error: Error?) {
         if let _address = address {
             self.place.address = _address
@@ -241,8 +290,8 @@ class PlaceContext {
     }
     
     private func placeSaved(place: Place, error: Error?) {
-        if let name = place.name, let cathegory = place.cathegory {
-            let annotation = PlaceAnnotation.init(title: name, cathegory: cathegory, coordinate: place.location.coordinate)
+        if let name = place.name, let cathegory = place.cathegory, let id = place.placeID {
+            let annotation = PlaceAnnotation.init(title: name, cathegory: cathegory, id: id, coordinate: place.location!.coordinate)
             DispatchQueue.main.async {
                 self.delegate?.placeContextSaved!(annotation: annotation, error: error)
             }
