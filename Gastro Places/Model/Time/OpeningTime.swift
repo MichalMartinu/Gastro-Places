@@ -56,9 +56,9 @@ struct Day {
 }
 
 class OpeningTime {
-    var minuteInterval: Int
+    private var minuteInterval: Int
     var times = [Time]()
-    let daysNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    private let dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     var days = [Day]()
     
     var stringHours: String {
@@ -75,7 +75,7 @@ class OpeningTime {
     
     var stringDays: String {
         var string = ""
-        for day in daysNames {
+        for day in dayNames {
             string += "\(day):\n"
         }
         return string
@@ -105,7 +105,7 @@ class OpeningTime {
     }
     
     func initDays() {
-        for dayName in daysNames {
+        for dayName in dayNames {
             days.append(Day.init(day: dayName))
         }
     }

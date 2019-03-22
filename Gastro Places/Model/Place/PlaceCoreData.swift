@@ -28,17 +28,17 @@ class PlaceCoreData: NSManagedObject{
             recordToSave = PlaceCoreData(context: context)
         }
         
-        let location = record[placeRecord.location] as! CLLocation
+        let location = record[PlaceCKRecordNames.location] as! CLLocation
         
         recordToSave?.placeID = record.recordID.recordName
-        recordToSave?.name = record[placeRecord.name]
-        recordToSave?.cathegory = record[placeRecord.cathegory]
-        recordToSave?.city = record[placeRecord.city]
-        recordToSave?.street = record[placeRecord.street]
-        recordToSave?.zipCode = record[placeRecord.zipCode]
-        recordToSave?.email = record[placeRecord.email]
-        recordToSave?.web = record[placeRecord.web]
-        recordToSave?.phone = record[placeRecord.phone]
+        recordToSave?.name = record[PlaceCKRecordNames.name]
+        recordToSave?.cathegory = record[PlaceCKRecordNames.cathegory]
+        recordToSave?.city = record[PlaceCKRecordNames.city]
+        recordToSave?.street = record[PlaceCKRecordNames.street]
+        recordToSave?.zipCode = record[PlaceCKRecordNames.zipCode]
+        recordToSave?.email = record[PlaceCKRecordNames.email]
+        recordToSave?.web = record[PlaceCKRecordNames.web]
+        recordToSave?.phone = record[PlaceCKRecordNames.phone]
         recordToSave?.longitude = location.coordinate.longitude
         recordToSave?.latitude = location.coordinate.latitude
         

@@ -9,19 +9,18 @@
 import Foundation
 import CloudKit
 
-let placeRecord = PlaceCKRecordNames()
 
-struct PlaceCKRecordNames {
-    let record = "Place"
-    let name = "name"
-    let cathegory = "cathegory"
-    let address = "address"
-    let city = "city"
-    let zipCode = "zipCode"
-    let street = "street"
-    let email = "email"
-    let location = "location"
-    let phone = "phone"
-    let web = "web"
-    let placeID = "recordName"
+enum PlaceCKRecordNames {
+    static let record = "Place"
+    static let name = "name"
+    static let cathegory = "cathegory"
+    static let address = "address"
+    static let city = "city"
+    static let zipCode = "zipCode"
+    static let street = "street"
+    static let email = "email"
+    static let location = "location"
+    static let phone = "phone"
+    static let web = "web"
+    static let placeID = "recordName"
 }

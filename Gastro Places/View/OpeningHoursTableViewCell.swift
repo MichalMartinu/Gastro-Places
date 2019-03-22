@@ -15,7 +15,7 @@ class OpeningHoursTableViewCell: UITableViewCell {
     @IBOutlet weak var hourPickerView: UIPickerView!
     
     weak var delegate: OpeningTimeTableCellDelegate?
-    var times = [Time]()
+    private var times = [Time]()
     
     func setValues(day: Day, times: [Time]){
         dayLabel.text = day.name
@@ -40,7 +40,7 @@ class OpeningHoursTableViewCell: UITableViewCell {
         return nil
     }
     
-    @IBAction func daySwitchTapped(_ sender: Any) {
+    @IBAction private func daySwitchTapped(_ sender: Any) {
         hourPickerView.isHidden.toggle()
         var from: Time?
         var to: Time?

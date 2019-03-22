@@ -17,8 +17,8 @@ enum GeoContextState {
 
 class GeoContext {
     
-    var annotations = [PlaceAnnotation]()
-    var state = GeoContextState.Ready
+    private(set) var annotations = [PlaceAnnotation]()
+    private(set) var state = GeoContextState.Ready
     
     let location: CLLocation
     let radius: CLLocationDistance
@@ -29,7 +29,7 @@ class GeoContext {
     
     weak var delegate: GeoContextDelegate?
     
-    static let geoContextQueue = DispatchQueue(label: "geoContextQueue", qos: .utility, attributes: .concurrent)
+    private static let geoContextQueue = DispatchQueue(label: "geoContextQueue", qos: .utility, attributes: .concurrent)
     
     init(location: CLLocation, radius: CLLocationDistance, cathegory: String) {
         self.location = location
@@ -39,6 +39,10 @@ class GeoContext {
         publicDB = container.publicCloudDatabase
     }
     
+    func appendAnnotation(_ annotation: PlaceAnnotation) {
+        annotations.append(annotation)
+    }
+    
     func start() {
         state = .Executing
         GeoContext.geoContextQueue.async {
@@ -46,9 +50,9 @@ class GeoContext {
         }
     }
     
-    func fetchCloudkitPlaces() {
+    private func fetchCloudkitPlaces() {
         let predicate = createPredicateToFetchPlaces(location: location, radius: radius, cathegory: cathegory)
-        let query = CKQuery(recordType: placeRecord.record, predicate: predicate)
+        let query = CKQuery(recordType: PlaceCKRecordNames.record, predicate: predicate)
         
         publicDB.perform(query, inZoneWith: nil) { results, error in
             if error != nil {
@@ -71,8 +75,8 @@ class GeoContext {
                 return
             }
             
-            guard let name = record[placeRecord.name] as? String, let cathegory = record[placeRecord.cathegory] as? String,
-                let placeLoacation = record[placeRecord.location] as? CLLocation else {
+            guard let name = record[PlaceCKRecordNames.name] as? String, let cathegory = record[PlaceCKRecordNames.cathegory] as? String,
+                let placeLoacation = record[PlaceCKRecordNames.location] as? CLLocation else {
                     continue
             }
             
@@ -103,7 +107,7 @@ class GeoContext {
         var cathegoryPredicate = NSPredicate(value: true)
         
         if cathegory != "All" {
-            cathegoryPredicate = NSPredicate(format: "\(placeRecord.cathegory) = %@", cathegory)
+            cathegoryPredicate = NSPredicate(format: "\(PlaceCKRecordNames.cathegory) = %@", cathegory)
         }
         
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [locationPredicate, cathegoryPredicate])

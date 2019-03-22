@@ -38,7 +38,6 @@ class ImageCKRecord {
         let url = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
             .appendingPathComponent(image.id, isDirectory: false)
             .appendingPathExtension("jpg")
-        print(image.id)
         
         // Then write to disk
         let scaledImage = image.picture.scaled(width: 1000)

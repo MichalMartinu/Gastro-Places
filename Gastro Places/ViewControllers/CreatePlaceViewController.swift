@@ -40,16 +40,10 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
     let wrongInputColor = #colorLiteral(red: 0.8823529412, green: 0.3450980392, blue: 0.1607843137, alpha: 1)
     let blackColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     
-    var placeContext: PlaceContext? {
-        didSet {
-            placeContext?.delegate = self
-        }
-    }
+    var placeContext: PlaceContext!
     
     private let cathegories = Cathegories.init(type: .normal)
-    
-    private var annotation: PlaceAnnotation?
-    
+        
     private let imageContext = ImageContext()
     
     private let openingTime = OpeningTime.init(intervalInMinutes: 15)
@@ -128,8 +122,9 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
         emailTextFieldLine.backgroundColor = wrongInputColor
     }
     
-    @IBAction func saveButtonIsPressed(_ sender: UIBarButtonItem) {
-        self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+    @IBAction private func saveButtonIsPressed(_ sender: UIBarButtonItem) {
+        //self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+       
         enableNavigationBarButtons(enabled: false)
         
         let name = nameTextField.text!
@@ -147,11 +142,12 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
            
             let wrongInputString = setWrongInput(_wrongInput)
             showAlert(title: "Invalid input", message: wrongInputString, confirmTitle: "Ok")
-            self.view.activityStopAnimating()
+            //self.view.activityStopAnimating()
             enableNavigationBarButtons(enabled: true)
             return
         }
-        placeContext?.save(days: openingTime.days, images: imageContext)
+        
+        performSegue(withIdentifier: "savePlaceIndicator", sender: self)
     }
     
     private func setWrongInput(_ wrongInput: [InputTypes]) -> String {
@@ -179,28 +175,7 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
         return wrongInputString
     }
     
-    func placeContextSaved(annotation: PlaceAnnotation, error: Error?) {
-        FileManager.default.clearTmpDirectory()
-        
-        if let _error = error {
-            showAlert(title: "Cannot create place!", message: _error.localizedDescription, confirmTitle: "Ok")
-            self.annotation = nil
-            return
-        } else {
-            self.annotation = annotation
-        }
-        performSegue(withIdentifier: "unwindToMapViewController", sender: self)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "unwindToMapViewController" {
-            if let vc = segue.destination as? MapViewController {
-                if let _annotation = annotation {
-                    vc.geoContext?.annotations.append(_annotation)
-                }
-            }
-        }
-        
         if segue.identifier == "openingTimeTableViewController" {
             if let vc = segue.destination as? OpeningTimeTableViewController {
                vc.openingTime = openingTime
@@ -212,6 +187,14 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
                 vc.imageContext = imageContext
             }
         }
+        
+        if segue.identifier == "savePlaceIndicator" {
+            if let vc = segue.destination as? CreatePlaceIndicatorViewController {
+                vc.placeContext = placeContext
+                vc.openingTime = openingTime
+                vc.imageContext = imageContext
+            }
+        }
     }
     
     private func showAlert(title: String?, message: String?, confirmTitle: String?) {
@@ -220,7 +203,7 @@ class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    @IBAction func cancelButtonIsPressed(_ sender: Any) {
+    @IBAction private func cancelButtonIsPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
 }

@@ -24,6 +24,7 @@
 		075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE1752232811B007EC555 /* PlaceCKRecordNames.swift */; };
 		0767F5DC2243E33800899271 /* ImageCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767F5DB2243E33800899271 /* ImageCoreData.swift */; };
 		0767F5DE2243FAEC00899271 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0767F5DD2243FAEB00899271 /* Assets.xcassets */; };
+		076A547022442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */; };
 		07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */; };
 		07855ABD22398608002042C4 /* OpeningTimeCKRecordName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABC22398608002042C4 /* OpeningTimeCKRecordName.swift */; };
 		0794BBE622365C5A00CF8D70 /* CreatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */; };
@@ -31,7 +32,6 @@
 		07956E3E223411CE001F1449 /* Cathegories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07956E3D223411CE001F1449 /* Cathegories.swift */; };
 		07956E41223418DD001F1449 /* CathegoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07956E40223418DD001F1449 /* CathegoryCollectionViewCell.swift */; };
 		07A5F8942232DCFD0071FB3A /* PlaceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A5F8932232DCFD0071FB3A /* PlaceContext.swift */; };
-		07A8B99022400C71003DBA84 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A8B98F22400C71003DBA84 /* IndicatorView.swift */; };
 		07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F12F222FF5F800E22A27 /* AppDelegate.swift */; };
 		07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F131222FF5F800E22A27 /* MapViewController.swift */; };
 		07B7F135222FF5F800E22A27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7F133222FF5F800E22A27 /* Main.storyboard */; };
@@ -65,6 +65,7 @@
 		075FE1752232811B007EC555 /* PlaceCKRecordNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCKRecordNames.swift; sourceTree = "<group>"; };
 		0767F5DB2243E33800899271 /* ImageCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCoreData.swift; sourceTree = "<group>"; };
 		0767F5DD2243FAEB00899271 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceIndicatorViewController.swift; sourceTree = "<group>"; };
 		07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecord.swift; sourceTree = "<group>"; };
 		07855ABC22398608002042C4 /* OpeningTimeCKRecordName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecordName.swift; sourceTree = "<group>"; };
 		0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceViewController.swift; sourceTree = "<group>"; };
@@ -72,7 +73,6 @@
 		07956E3D223411CE001F1449 /* Cathegories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cathegories.swift; sourceTree = "<group>"; };
 		07956E40223418DD001F1449 /* CathegoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CathegoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		07A5F8932232DCFD0071FB3A /* PlaceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceContext.swift; sourceTree = "<group>"; };
-		07A8B98F22400C71003DBA84 /* IndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		07B7F12C222FF5F800E22A27 /* Gastro Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gastro Places.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B7F12F222FF5F800E22A27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07B7F131222FF5F800E22A27 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -227,6 +227,7 @@
 			children = (
 				07B7F131222FF5F800E22A27 /* MapViewController.swift */,
 				0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */,
+				076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */,
 				071E458322380FAF0087453B /* OpeningTimeTableViewController.swift */,
 				075154FA223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift */,
 				07515500223AF8D700D3E7FE /* SearchViewController.swift */,
@@ -239,7 +240,6 @@
 			children = (
 				07B7F14622301AD000E22A27 /* RoundObjects.swift */,
 				0733D6BF22350E59001F31C2 /* String.swift */,
-				07A8B98F22400C71003DBA84 /* IndicatorView.swift */,
 				074944DA2243AFC700121D78 /* ResizeImage.swift */,
 				074944DC2243BA7700121D78 /* TmpDirectoryClean.swift */,
 			);
@@ -339,7 +339,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				07855ABD22398608002042C4 /* OpeningTimeCKRecordName.swift in Sources */,
-				07A8B99022400C71003DBA84 /* IndicatorView.swift in Sources */,
 				0794BBEE2236841300CF8D70 /* PlaceCKRecord.swift in Sources */,
 				071E458422380FAF0087453B /* OpeningTimeTableViewController.swift in Sources */,
 				07956E3E223411CE001F1449 /* Cathegories.swift in Sources */,
@@ -362,6 +361,7 @@
 				07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */,
 				07DBECB32238117300D3D13D /* OpeningHoursTableViewCell.swift in Sources */,
 				075EEF5E2236DA4300FA5869 /* Address.swift in Sources */,
+				076A547022442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift in Sources */,
 				07B7F14722301AD000E22A27 /* RoundObjects.swift in Sources */,
 				075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */,
 				07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */,

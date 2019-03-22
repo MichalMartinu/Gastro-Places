@@ -92,6 +92,10 @@ class Cathegories: NSObject {
     func selectedCathegory() -> String {
         return cathegories[selectedIndex].name
     }
+    
+    func getColorForSelectedIndex() -> UIColor {
+        return cathegories[selectedIndex].color
+    }
 }
 
 extension Cathegories: UICollectionViewDataSource {

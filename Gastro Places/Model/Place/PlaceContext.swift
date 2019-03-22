@@ -17,12 +17,8 @@ enum PlaceContextState {
     case Ready, Executing, Finished, Failed, Canceled
 }
 
-protocol PlaceContextProtocol: AnyObject {
-    func finishedDecodingAddress(address: Address?, error: Error?)
-    func placeSaved(place: Place, error: Error?)
-}
-
 @objc protocol PlaceContextDelegate: AnyObject {
+    // Rozdelit na placecontextlocationdelegate
     @objc optional func placeContextDidDecodeAddress(address: String?, error: Error?)
     @objc optional func placeContextSaved(annotation: PlaceAnnotation, error: Error?)
 }
@@ -52,7 +48,7 @@ struct Place {
 
 class PlaceContext {
     
-    var place: Place
+    private var place: Place
     
     weak var delegate: PlaceContextDelegate?
     
@@ -63,7 +59,7 @@ class PlaceContext {
     private let container: CKContainer
     private let publicDB: CKDatabase
     
-    static let placeContextQueue = DispatchQueue(label: "placeContextQueue", qos: .utility, attributes: .concurrent)
+    private static let placeContextQueue = DispatchQueue(label: "placeContextQueue", qos: .utility, attributes: .concurrent)
     
     init(location: CLLocation) {
         self.annotation = PlaceAnnotation.init(title: "New place", cathegory: "", coordinate: location.coordinate)
@@ -162,7 +158,7 @@ class PlaceContext {
         })
     }
     
-    func saveToCloudkit(days: [Day], images: ImageContext) {
+    private func saveToCloudkit(days: [Day], images: ImageContext) {
         var records = [CKRecord]()
         
         let placeCKRecord = PlaceCKRecord.init(place: place)
@@ -209,7 +205,7 @@ class PlaceContext {
         var placeCoreData: PlaceCoreData?
         
         for record in records {
-            if record.recordType == placeRecord.record {
+            if record.recordType == PlaceCKRecordNames.record {
                 placeCKRecord = record
             }
             else if record.recordType == "OpeningTime" {
@@ -235,7 +231,7 @@ class PlaceContext {
         try? context.save()
     }
     
-    func finishedDecodingAddress(address: Address?, error: Error?) {
+    private func finishedDecodingAddress(address: Address?, error: Error?) {
         if let _address = address {
             self.place.address = _address
         }
@@ -244,7 +240,7 @@ class PlaceContext {
         }
     }
     
-    func placeSaved(place: Place, error: Error?) {
+    private func placeSaved(place: Place, error: Error?) {
         if let name = place.name, let cathegory = place.cathegory {
             let annotation = PlaceAnnotation.init(title: name, cathegory: cathegory, coordinate: place.location.coordinate)
             DispatchQueue.main.async {

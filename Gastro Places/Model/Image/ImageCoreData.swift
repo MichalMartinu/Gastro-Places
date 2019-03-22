@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import CloudKit
 
-class ImageCoreData: NSManagedObject{
+class ImageCoreData: NSManagedObject {
     
     class func changeOrCreate(place: PlaceCoreData, record: CKRecord, context: NSManagedObjectContext) {
         var recordToSave: ImageCoreData?
@@ -27,7 +27,7 @@ class ImageCoreData: NSManagedObject{
         }
         
         recordToSave?.imageID = record.recordID.recordName
-        recordToSave?.picture = record["picture"]
+        recordToSave?.picture = record["picture"] as? Data
         
         place.image = recordToSave
     }

@@ -43,7 +43,7 @@ class ImagesToSaveTableViewController: UITableViewController {
         return imageContext.images.count
     }
     
-    @IBAction func newImageButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction private func newImageButtonPressed(_ sender: UIBarButtonItem) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .savedPhotosAlbum
         imagePicker.allowsEditing = false
@@ -51,7 +51,7 @@ class ImagesToSaveTableViewController: UITableViewController {
         present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction private func editButtonPressed(_ sender: UIBarButtonItem) {
         if tableView.isEditing {
             tableView.setEditing(false, animated: true)
             editButton.title = "Edit"
@@ -62,7 +62,7 @@ class ImagesToSaveTableViewController: UITableViewController {
         }
     }
     
-    func enableOrDisableEditButton() {
+    private func enableOrDisableEditButton() {
         if imageContext.images.count > 0 {
             editButton.isEnabled = true
         } else {

@@ -21,33 +21,33 @@ struct PlaceCKRecord {
             recordID = CKRecord.ID(recordName: uuid)
         }
         
-        record = CKRecord(recordType: placeRecord.record, recordID: recordID)
+        record = CKRecord(recordType: PlaceCKRecordNames.record, recordID: recordID)
         
-        record[placeRecord.location] = place.location as CLLocation
+        record[PlaceCKRecordNames.location] = place.location as CLLocation
         
         if let name = place.name {
-            record[placeRecord.name] = name
+            record[PlaceCKRecordNames.name] = name
         }
         if let cathegory = place.cathegory {
-            record[placeRecord.cathegory] = cathegory
+            record[PlaceCKRecordNames.cathegory] = cathegory
         }
         if let city = place.address?.city {
-            record[placeRecord.city] = city
+            record[PlaceCKRecordNames.city] = city
         }
         if let street = place.address?.street {
-            record[placeRecord.street] = street
+            record[PlaceCKRecordNames.street] = street
         }
         if let zipCode = place.address?.zipCode {
-            record[placeRecord.zipCode] = zipCode
+            record[PlaceCKRecordNames.zipCode] = zipCode
         }
         if let web = place.web {
-            record[placeRecord.web] = web
+            record[PlaceCKRecordNames.web] = web
         }
         if let email = place.email {
-            record[placeRecord.email] = email
+            record[PlaceCKRecordNames.email] = email
         }
         if let phone = place.phone {
-            record[placeRecord.phone] = phone
+            record[PlaceCKRecordNames.phone] = phone
         }
     }
 }
