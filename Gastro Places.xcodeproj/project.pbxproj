@@ -189,6 +189,59 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		07663C9D2246705400275CBC /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				07B7F131222FF5F800E22A27 /* MapViewController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		07663C9E2246705D00275CBC /* CreatePlace */ = {
+			isa = PBXGroup;
+			children = (
+				0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */,
+				076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */,
+				071E458322380FAF0087453B /* OpeningTimeTableViewController.swift */,
+				075154FA223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift */,
+			);
+			path = CreatePlace;
+			sourceTree = "<group>";
+		};
+		07663C9F2246707600275CBC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				07515500223AF8D700D3E7FE /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		07663CA02246707E00275CBC /* Show Place */ = {
+			isa = PBXGroup;
+			children = (
+				075E21582244FFA9008F8F14 /* ShowPlaceViewController.swift */,
+			);
+			path = "Show Place";
+			sourceTree = "<group>";
+		};
+		07663CA1224670AA00275CBC /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				07956E40223418DD001F1449 /* CathegoryCollectionViewCell.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		07663CA2224670B200275CBC /* Create Place */ = {
+			isa = PBXGroup;
+			children = (
+				07DBECB22238117300D3D13D /* OpeningHoursTableViewCell.swift */,
+				075154FC223ACF8100D3E7FE /* CreateImageTableViewCell.swift */,
+				075154FE223AD4C600D3E7FE /* CreatePlaceImageCollectionViewCell.swift */,
+			);
+			path = "Create Place";
+			sourceTree = "<group>";
+		};
 		07956E3A2233AA7F001F1449 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,11 +255,9 @@
 		07956E3F223418BA001F1449 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				07663CA1224670AA00275CBC /* Map */,
+				07663CA2224670B200275CBC /* Create Place */,
 				075E2162224573BB008F8F14 /* Show Place */,
-				07956E40223418DD001F1449 /* CathegoryCollectionViewCell.swift */,
-				07DBECB22238117300D3D13D /* OpeningHoursTableViewCell.swift */,
-				075154FC223ACF8100D3E7FE /* CreateImageTableViewCell.swift */,
-				075154FE223AD4C600D3E7FE /* CreatePlaceImageCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -247,13 +298,10 @@
 		07B7F14422301A8900E22A27 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				07B7F131222FF5F800E22A27 /* MapViewController.swift */,
-				0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */,
-				076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */,
-				071E458322380FAF0087453B /* OpeningTimeTableViewController.swift */,
-				075154FA223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift */,
-				07515500223AF8D700D3E7FE /* SearchViewController.swift */,
-				075E21582244FFA9008F8F14 /* ShowPlaceViewController.swift */,
+				07663C9D2246705400275CBC /* Map */,
+				07663C9E2246705D00275CBC /* CreatePlace */,
+				07663CA02246707E00275CBC /* Show Place */,
+				07663C9F2246707600275CBC /* Search */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
