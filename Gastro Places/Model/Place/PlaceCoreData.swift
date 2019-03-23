@@ -13,6 +13,13 @@ import CoreLocation
 
 class PlaceCoreData: NSManagedObject{
     
+    class func changeOrCreatePlaces(records: [CKRecord], context: NSManagedObjectContext) {
+        for record in records {
+            _ = PlaceCoreData.changeOrCreatePlace(record: record, context: context)
+        }
+    }
+
+    
     class func changeOrCreatePlace(record: CKRecord, context: NSManagedObjectContext) -> PlaceCoreData? {
         var recordToSave: PlaceCoreData?
         

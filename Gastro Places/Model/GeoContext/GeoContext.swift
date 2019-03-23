@@ -82,22 +82,21 @@ class GeoContext {
             
             let placeAnnotationItem = PlaceAnnotation.init(title: name, cathegory: cathegory, id: record.recordID.recordName, coordinate: placeLoacation.coordinate)
             self.annotations.append(placeAnnotationItem)
-            
-            DispatchQueue.main.async {
-                let savedPlace = self.savePlaceToCoreData(record: record)
-                GeoContext.geoContextQueue.async {
-                    self.fetchOpeningHours(place: savedPlace, record: record)
-                }
-            }
         }
         
-        if self.state == .Canceled {
-            self.state = .Finished
-            return
-        }
-        
-        self.state = .Finished
         DispatchQueue.main.async {
+            if self.state == .Canceled {
+                self.state = .Finished
+                return
+            }
+            
+            let context = AppDelegate.viewContext
+            
+            PlaceCoreData.changeOrCreatePlaces(records: records, context: context)
+            
+            try? context.save()
+
+            self.state = .Finished
             self.delegate?.geoContextDidLoadAnnotations()
         }
     }
@@ -113,41 +112,7 @@ class GeoContext {
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [locationPredicate, cathegoryPredicate])
         return predicate
     }
-    
-    private func fetchOpeningHours(place: PlaceCoreData?, record: CKRecord) {
-        let recordID = record.recordID
-        let recordToMatch = CKRecord.Reference(recordID: recordID, action: .deleteSelf)
-        let predicate = NSPredicate(format: "place == %@", recordToMatch)
-        let query = CKQuery(recordType: "OpeningTime", predicate: predicate)
-        publicDB.perform(query, inZoneWith: nil) { results, error in
-            
-            if error != nil {
-                return
-            }
-            
-            if results?.count == 1, let _result = results?.first {
-                DispatchQueue.main.async {
-                    self.saveOpeningTimeToCoreData(place: place, record: _result)
-                }
-            }
-        }
-    }
-    
-    private func savePlaceToCoreData(record: CKRecord) -> PlaceCoreData? {
-        let context = AppDelegate.viewContext
-        let place = PlaceCoreData.changeOrCreatePlace(record: record, context: context)
-        try? context.save()
-        return place
-    }
-    
-    private func saveOpeningTimeToCoreData(place: PlaceCoreData?, record: CKRecord) {
-        let context = AppDelegate.viewContext
-        if let _place = place {
-            OpeningTimeCoreData.changeOrCreate(place: _place, record: record, context: context)
-        }
-        try? context.save()
-    }
-    
+
     func cancel() {
         state = .Canceled
     }
