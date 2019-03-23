@@ -16,11 +16,16 @@ enum PlaceContextState {
     case Ready, Executing, Finished, Failed, Canceled
 }
 
-@objc protocol PlaceContextDelegate: AnyObject {
-    // Rozdelit na placecontextlocationdelegate
-    @objc optional func placeContextDidDecodeAddress(address: String?, error: Error?)
-    @objc optional func placeContextSaved(annotation: PlaceAnnotation, error: Error?)
-    @objc optional func placeContextLoadedPlace()
+protocol PlaceContextDelegateAdress: AnyObject {
+    func placeContextDidDecodeAddress(address: String?, error: Error?)
+}
+
+protocol PlaceContextDelegateSave: AnyObject {
+    func placeContextSaved(annotation: PlaceAnnotation, error: Error?)
+}
+
+protocol PlaceContextDelegateLoad: AnyObject {
+    func placeContextLoadedPlace()
 }
 
 
@@ -57,9 +62,7 @@ class Place {
         self.phone = place.phone
         self.email = place.email
         self.web = place.web
-        if let _city = place.city, let _zipCode = place.zipCode, let _street = place.street {
-            self.address = Address.init(city:_city, zipCode: _zipCode, street: _street)
-        }
+        self.address = Address.init(city: place.city ?? "", zipCode: place.zipCode ?? "", street: place.street ?? "")
     }
 }
 
@@ -67,7 +70,9 @@ class PlaceContext {
     
     private(set) var place: Place
     
-    weak var delegate: PlaceContextDelegate?
+    weak var delegateSave: PlaceContextDelegateSave?
+    weak var delegateLoad: PlaceContextDelegateLoad?
+    weak var delegateAddress: PlaceContextDelegateAdress?
     
     let annotation: PlaceAnnotation
     
@@ -146,7 +151,7 @@ class PlaceContext {
                 
                 // Place details
                 guard let placeMark = placemarks?.first else {
-                    self.delegate?.placeContextDidDecodeAddress!(address: nil, error: error)
+                    self.delegateAddress?.placeContextDidDecodeAddress(address: nil, error: error)
                     return
                 }
                 
@@ -168,9 +173,10 @@ class PlaceContext {
                     return
                 } else {
                     let address = Address.init(city: city, zipCode: zipCode, street: street)
+                    self.place.address = address
                     self.state = .Finished
                     DispatchQueue.main.async {
-                        self.delegate?.placeContextDidDecodeAddress!(address: address.full, error: error)
+                        self.delegateAddress?.placeContextDidDecodeAddress(address: address.full, error: error)
                     }
                 }
         })
@@ -209,7 +215,7 @@ class PlaceContext {
                 let newAnnotation = PlaceAnnotation.init(title: _name, cathegory: _cathegory, id: placeCKRecord.recordID.recordName, coordinate: self.place.location!.coordinate)
                 self.state = .Finished
                 DispatchQueue.main.async {
-                    self.delegate?.placeContextSaved!(annotation: newAnnotation, error: error)
+                    self.delegateSave?.placeContextSaved(annotation: newAnnotation, error: error)
                 }
             }
         }
@@ -273,28 +279,10 @@ class PlaceContext {
             }
             
             place = Place.init(place: recordToShow)
-            self.delegate?.placeContextLoadedPlace!()
+            self.delegateLoad?.placeContextLoadedPlace()
             return
         } else {
             // ERROR
-        }
-    }
-    
-    private func finishedDecodingAddress(address: Address?, error: Error?) {
-        if let _address = address {
-            self.place.address = _address
-        }
-        DispatchQueue.main.async {
-            self.delegate?.placeContextDidDecodeAddress!(address: address?.full, error: error)
-        }
-    }
-    
-    private func placeSaved(place: Place, error: Error?) {
-        if let name = place.name, let cathegory = place.cathegory, let id = place.placeID {
-            let annotation = PlaceAnnotation.init(title: name, cathegory: cathegory, id: id, coordinate: place.location!.coordinate)
-            DispatchQueue.main.async {
-                self.delegate?.placeContextSaved!(annotation: annotation, error: error)
-            }
         }
     }
 }

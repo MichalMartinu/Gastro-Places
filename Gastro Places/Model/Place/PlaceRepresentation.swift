@@ -12,6 +12,7 @@ enum CellTypes: String {
     case image = "imageTableViewCell"
     case text = "textTableViewCell"
     case web = "webTableViewCell"
+    case hour = "hourTableViewCell"
 }
 
 class TextCell {
@@ -57,32 +58,34 @@ class PlaceRepresentation {
     
     var cells = [PlaceCell]()
     
-    func initFromPlaceContext(placeContext: PlaceContext) {
+    func initFromPlace(placeContext: PlaceContext, openingTime: OpeningTime) {
         let place = placeContext.place
         
         cells.append(PlaceCell.init(type: CellTypes.image))
         
         if let _name = place.name {
-            cells.append(basicTextCell(text: _name, bold: true, size: 24, color: nil))
+            cells.append(basicTextCell(text: _name, bold: true, size: 32, color: nil))
         }
         
         if let _cathegory = place.cathegory {
-            cells.append(basicTextCell(text: _cathegory, bold: false, size: 18, color: PlacesCathegories.colorForCathegory(cathegory: _cathegory)))
+            cells.append(basicTextCell(text: _cathegory, bold: false, size: 24, color: PlacesCathegories.colorForCathegory(cathegory: _cathegory)))
         }
         
         if let _address = place.address?.full {
             cells.append(basicTextCell(text: _address, bold: false, size: nil, color: nil))
         }
         
-        if let _phone = place.phone {
+        cells.append(hourCell(openintTime: openingTime))
+        
+        if let _phone = place.phone, _phone.count != 0 {
             cells.append(webCell(link: _phone, type: .phone))
         }
         
-        if let _web = place.web {
+        if let _web = place.web, _web.count != 0 {
             cells.append(webCell(link: _web, type: .web))
         }
         
-        if let _email = place.email {
+        if let _email = place.email, _email.count != 0 {
             cells.append(webCell(link: _email, type: .email))
         }
         
@@ -99,5 +102,21 @@ class PlaceRepresentation {
         let linkCell = LinkCell.init(link: link, type: type)
         let placeCell = PlaceCell.init(type: .web, data: linkCell)
         return placeCell
+    }
+    
+    func hourCell(openintTime: OpeningTime) -> PlaceCell {
+        let placeCell = PlaceCell.init(type: .hour, data: openintTime)
+        return placeCell
+    }
+    
+    func changeOpeningTime(openingTime: OpeningTime) -> Int? {
+        for (index, cell) in cells.enumerated() {
+            if cell.cell == .hour {
+                cell.data = openingTime
+                return index
+            }
+        }
+        
+        return nil
     }
 }

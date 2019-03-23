@@ -8,20 +8,22 @@
 
 import UIKit
 
-enum LinkType {
-    case web
-    case email
-    case phone
+enum LinkType: String {
+    case web = "Web:"
+    case email = "Email: "
+    case phone = "Phone: "
 }
 
 class ShowPlaceTableWebViewCell: UITableViewCell {
     
     @IBOutlet weak var webButton: UIButton!
+    @IBOutlet weak var typeTextLabel: UILabel!
     
     var link: String?
     var type: LinkType?
     
     func setWeb(linkCell: LinkCell) {
+        typeTextLabel.text = linkCell.type.rawValue
         webButton.setTitle(linkCell.link, for: .normal)
         self.link = linkCell.link
         self.type = linkCell.type
@@ -40,6 +42,7 @@ class ShowPlaceTableWebViewCell: UITableViewCell {
             }
         case .email?:
             url = URL(string: "mailto:\(_link)")
+            
         case .phone?:
             url = URL(string:  "tel://\(_link)")
         case .none:

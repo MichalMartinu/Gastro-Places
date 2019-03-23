@@ -9,8 +9,8 @@
 import UIKit
 import CloudKit
 
-class CreatePlaceViewController: UITableViewController, PlaceContextDelegate {
-    
+class CreatePlaceViewController: UITableViewController {
+
     @IBOutlet weak var cathegoryPickerView: UIPickerView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
     

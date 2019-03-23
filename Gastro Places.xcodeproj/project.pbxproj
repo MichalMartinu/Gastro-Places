@@ -26,6 +26,7 @@
 		075EEF5E2236DA4300FA5869 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075EEF5D2236DA4300FA5869 /* Address.swift */; };
 		075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */; };
 		075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE1752232811B007EC555 /* PlaceCKRecordNames.swift */; };
+		07663C9C2246532700275CBC /* ShowPlaceTableHoursViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07663C9B2246532700275CBC /* ShowPlaceTableHoursViewCell.swift */; };
 		0767F5DC2243E33800899271 /* ImageCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767F5DB2243E33800899271 /* ImageCoreData.swift */; };
 		0767F5DE2243FAEC00899271 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0767F5DD2243FAEB00899271 /* Assets.xcassets */; };
 		076A547022442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */; };
@@ -71,6 +72,7 @@
 		075EEF5D2236DA4300FA5869 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotationItem.swift; sourceTree = "<group>"; };
 		075FE1752232811B007EC555 /* PlaceCKRecordNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCKRecordNames.swift; sourceTree = "<group>"; };
+		07663C9B2246532700275CBC /* ShowPlaceTableHoursViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPlaceTableHoursViewCell.swift; sourceTree = "<group>"; };
 		0767F5DB2243E33800899271 /* ImageCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCoreData.swift; sourceTree = "<group>"; };
 		0767F5DD2243FAEB00899271 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceIndicatorViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			children = (
 				075E216022455512008F8F14 /* ShowPlaceTableTextViewCell.swift */,
 				075E216322457412008F8F14 /* ShowPlaceTableWebViewCell.swift */,
+				07663C9B2246532700275CBC /* ShowPlaceTableHoursViewCell.swift */,
 			);
 			path = "Show Place";
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				07956E3E223411CE001F1449 /* Cathegories.swift in Sources */,
 				075154F9223ACDCB00D3E7FE /* ImageContext.swift in Sources */,
 				07B7F138222FF5F800E22A27 /* Gastro_Places.xcdatamodeld in Sources */,
+				07663C9C2246532700275CBC /* ShowPlaceTableHoursViewCell.swift in Sources */,
 				07DBECB52238124E00D3D13D /* OpeningTime.swift in Sources */,
 				07C321CF223AC06F00EB9CD0 /* OpeningTimeCoreData.swift in Sources */,
 				0794BBE622365C5A00CF8D70 /* CreatePlaceViewController.swift in Sources */,

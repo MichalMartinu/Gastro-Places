@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate {
+class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegateSave {
     
     var placeContext: PlaceContext!
     var imageContext: ImageContext!
@@ -18,7 +18,7 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        placeContext.delegate = self
+        placeContext.delegateSave = self
         placeContext.save(days: openingTime.days, images: imageContext)
     }
     

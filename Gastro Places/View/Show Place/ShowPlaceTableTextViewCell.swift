@@ -12,7 +12,7 @@ class ShowPlaceTableTextViewCell: UITableViewCell {
     
     @IBOutlet weak var itemTextLabel: UILabel!
     
-    private var defaultFontSize: CGFloat = 16.0
+    private var defaultFontSize: CGFloat = 17.0
     
     func setText(_ textCell: TextCell) {
         itemTextLabel.text = textCell.text

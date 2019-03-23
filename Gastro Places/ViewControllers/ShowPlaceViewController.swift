@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegate {
+class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateLoad, OpeningTimeDelegate {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var cathegoryLabel: UILabel!
@@ -23,19 +23,43 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegate 
     
     
     var placeContext: PlaceContext!
-    var openingTime: OpeningTime?
+    var openingTime = OpeningTime(intervalInMinutes: 15)
     var placeRepresentation = PlaceRepresentation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        placeContext.delegate = self
+        placeContext.delegateLoad = self
         placeContext.loadPlace()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     func placeContextLoadedPlace() {
-        placeRepresentation.initFromPlaceContext(placeContext: placeContext)
+        placeRepresentation.initFromPlace(placeContext: placeContext, openingTime: openingTime)
+        if let _placeID = placeContext.place.placeID {
+            openingTime.delegate = self
+            openingTime.fetchOpeningHours(placeID: _placeID)
+        }
+        
         tableView.reloadData()
     }
+    
+    func openingTimeDidLoad() {
+        guard let index = placeRepresentation.changeOpeningTime(openingTime: openingTime) else {
+            return
+        }
+        let indexPath = IndexPath.init(row: index, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let place = placeRepresentation.cells[indexPath.row]
@@ -53,6 +77,11 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegate 
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableWebViewCell
             let textData = place.data as! LinkCell
             cell.setWeb(linkCell: textData)
+            return cell
+        case .hour:
+            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableHoursViewCell
+            let textData = place.data as! OpeningTime
+            cell.setHours(openingTime: textData)
             return cell
         }
     }

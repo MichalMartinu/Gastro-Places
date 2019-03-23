@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CloudKit
+import CoreData
 
 struct Time {
     var hours: Int
@@ -32,7 +34,7 @@ struct Time {
     }
 }
 
-struct Day {
+class Day {
     var name: String
     var from: Time?
     var to: Time?
@@ -55,11 +57,20 @@ struct Day {
     }
 }
 
+
+protocol OpeningTimeDelegate: AnyObject {
+    func openingTimeDidLoad()
+}
+
 class OpeningTime {
     private var minuteInterval: Int
     var times = [Time]()
     private let dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     var days = [Day]()
+    
+    weak var delegate: OpeningTimeDelegate?
+    
+    private static let openingTimeQueue = DispatchQueue(label: "openingTimeQueue", qos: .utility, attributes: .concurrent)
     
     var stringHours: String {
         var string = ""
@@ -125,5 +136,64 @@ class OpeningTime {
         
         days[indexPath].from = from
         days[indexPath].to = to
+    }
+    
+    func fetchOpeningHours(placeID: String) {
+        //state = .Executing
+        OpeningTime.openingTimeQueue.async {
+            self.gtFetchOpeningHours(placeID: placeID)
+        }
+    }
+    
+    private func gtFetchOpeningHours(placeID: String) {
+        let container = CKContainer.default()
+        let publicDB = container.publicCloudDatabase
+        
+        let recordID = CKRecord.ID(recordName: placeID)
+        let recordToMatch = CKRecord.Reference(recordID: recordID, action: .deleteSelf)
+        
+        let predicate = NSPredicate(format: "place == %@", recordToMatch)
+        let query = CKQuery(recordType: "OpeningTime", predicate: predicate)
+        publicDB.perform(query, inZoneWith: nil) { results, error in
+            
+            if error != nil {
+                return
+            }
+            
+            if results?.count == 1, let _result = results?.first {
+                
+                self.initDaysFromCKRecord(_result)
+                
+                DispatchQueue.main.async {
+                    self.delegate?.openingTimeDidLoad()
+                }
+            }
+        }
+    }
+    
+    private func initDaysFromCKRecord(_ record: CKRecord) {
+        days = [Day]()
+        for name in dayNames {
+            if let string = record[name.lowercased()] as? String {
+                let separatedString = string.components(separatedBy: "-")
+                let fromStringSeparated = separatedString[0].components(separatedBy: ":")
+                let toStringSeparated = separatedString[1].components(separatedBy: ":")
+                guard let _fromHours = Int(fromStringSeparated[0]), let _fromMinutes = Int(fromStringSeparated[1]),
+                    let _toHours = Int(toStringSeparated[0]), let _toMinutes = Int(toStringSeparated[1])
+                    else {
+                        return
+                }
+                
+                let fromTime = Time.init(seconds: _fromHours * 60 + _fromMinutes)
+                let toTime = Time.init(seconds: _toHours * 60 + _toMinutes)
+                
+                
+                days.append(Day.init(day: name, from: fromTime, to: toTime))
+            } else {
+                
+                days.append(Day.init(day: name))
+                
+            }
+        }
     }
 }

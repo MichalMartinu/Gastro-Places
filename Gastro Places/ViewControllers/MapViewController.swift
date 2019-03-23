@@ -16,7 +16,7 @@ protocol GeoContextDelegate: AnyObject {
     func geoContextDidLoadAnnotations()
 }
 
-class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDelegate {
+class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDelegateAdress {
     
     @IBOutlet weak var noPlacesInAreaView: UIView!
     @IBOutlet weak var loadingIndicatorView: UIView!
@@ -264,7 +264,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     
     private func destroyPlaceContext() {
         if placeContext != nil {
-            placeContext?.delegate = nil
+            placeContext?.delegateAddress = nil
             unmountPlaceContext()
         }
     }
@@ -279,7 +279,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         
         let location = CLLocation.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
         placeContext = PlaceContext.init(location: location)
-        placeContext?.delegate = self
+        placeContext?.delegateAddress = self
         mountPlaceContext(placeContext: placeContext)
         placeContext?.getAddress()
     }
