@@ -146,14 +146,18 @@ extension ShowPlaceTableViewController: UICollectionViewDataSource {
         let id = imageContext.imageIDs[indexPath.row]
         cell.id = id
         
-        if let image = imageContext.fetchedImage(identifier: id) {
+        /*if let image = imageContext.fetchedImage(identifier: id) {
             // TODO mam image
         } else {
             // TODO nejdriv coredata potom cloudkit+coredata async
             self.imageContext.fetchImage(identifier: id)
             //cell.image(..)
-        }
+        }*/
        
         return cell
     }
+}
+
+extension ShowPlaceTableViewController: UIGestureRecognizerDelegate {
+    
 }
