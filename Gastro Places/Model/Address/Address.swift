@@ -14,7 +14,7 @@ class Address: NSObject {
     var street: String
     
     var full: String {
-        return "\(city) \(zipCode) \(street)"
+        return "\(street), \(city) \(zipCode)"
     }
     
     init(city: String, zipCode: String, street: String) {

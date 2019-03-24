@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateLoad, OpeningTimeDelegate {
     
@@ -30,16 +31,17 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         super.viewDidLoad()
         placeContext.delegateLoad = self
         placeContext.loadPlace()
+        openingTime.initDays()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = true
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.setToolbarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        tabBarController?.tabBar.isHidden = false
+        navigationController?.setToolbarHidden(true, animated: false)
     }
     
     func placeContextLoadedPlace() {
@@ -73,8 +75,8 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             let textData = place.data as! TextCell
             cell.setText(textData)
             return cell
-        case .web:
-            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableWebViewCell
+        case .link:
+            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableLinkViewCell
             let textData = place.data as! LinkCell
             cell.setWeb(linkCell: textData)
             return cell
@@ -84,6 +86,16 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             cell.setHours(openingTime: textData)
             return cell
         }
+    }
+    
+    @IBAction func navigateToPlaceButtonIsPressed(_ sender: Any) {
+        let latitude = placeContext.annotation.coordinate.latitude
+        let longitude = placeContext.annotation.coordinate.longitude
+        
+        let desitnation = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude)))
+        desitnation.name = placeContext.place.name
+        
+        MKMapItem.openMaps(with: [desitnation], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

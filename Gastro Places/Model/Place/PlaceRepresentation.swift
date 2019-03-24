@@ -11,7 +11,7 @@ import UIKit
 enum CellTypes: String {
     case image = "imageTableViewCell"
     case text = "textTableViewCell"
-    case web = "webTableViewCell"
+    case link = "linkTableViewCell"
     case hour = "hourTableViewCell"
 }
 
@@ -78,15 +78,15 @@ class PlaceRepresentation {
         cells.append(hourCell(openintTime: openingTime))
         
         if let _phone = place.phone, _phone.count != 0 {
-            cells.append(webCell(link: _phone, type: .phone))
+            cells.append(linkCell(link: _phone, type: .phone))
         }
         
         if let _web = place.web, _web.count != 0 {
-            cells.append(webCell(link: _web, type: .web))
+            cells.append(linkCell(link: _web, type: .web))
         }
         
         if let _email = place.email, _email.count != 0 {
-            cells.append(webCell(link: _email, type: .email))
+            cells.append(linkCell(link: _email, type: .email))
         }
         
     }
@@ -98,9 +98,9 @@ class PlaceRepresentation {
         return placeCell
     }
     
-    func webCell(link: String, type: LinkType) -> PlaceCell {
+    func linkCell(link: String, type: LinkType) -> PlaceCell {
         let linkCell = LinkCell.init(link: link, type: type)
-        let placeCell = PlaceCell.init(type: .web, data: linkCell)
+        let placeCell = PlaceCell.init(type: .link, data: linkCell)
         return placeCell
     }
     

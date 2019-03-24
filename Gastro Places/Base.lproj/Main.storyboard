@@ -301,10 +301,10 @@
                         <outlet property="createPlaceDialogView" destination="He4-hR-5vb" id="uvb-0n-UHD"/>
                         <outlet property="createPlaceDialogViewNoButton" destination="rUj-2J-uZO" id="nry-3b-nFL"/>
                         <outlet property="createPlaceDialogYesButton" destination="Qni-Sz-VtG" id="b65-3S-V8M"/>
+                        <outlet property="geoContextInformationLabel" destination="uN5-Mm-op0" id="va4-tP-3zr"/>
+                        <outlet property="geoContextInformationView" destination="kYu-62-IcQ" id="iOv-8F-uep"/>
                         <outlet property="loadingIndicatorView" destination="bW9-ue-3cg" id="gY0-GK-6K2"/>
-                        <outlet property="loadingPlacesView" destination="bW9-ue-3cg" id="yB4-JF-CdE"/>
                         <outlet property="mapView" destination="RBz-80-zlY" id="n2v-7W-HfA"/>
-                        <outlet property="noPlacesInAreaView" destination="kYu-62-IcQ" id="iOv-8F-uep"/>
                         <segue destination="h9L-0x-1yA" kind="show" identifier="createPlaceDialog" id="QVz-c3-Rkp"/>
                         <segue destination="9Ay-d4-tnv" kind="show" identifier="showPlace" id="bPq-uO-umJ"/>
                     </connections>
@@ -434,7 +434,7 @@
         <!--Show Place Table View Controller-->
         <scene sceneID="OUt-xt-0h9">
             <objects>
-                <tableViewController id="9Ay-d4-tnv" customClass="ShowPlaceTableViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="9Ay-d4-tnv" customClass="ShowPlaceTableViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="91c-Yf-m2x">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -491,7 +491,7 @@
                                     <outlet property="itemTextLabel" destination="htq-cs-Pmn" id="y9Q-qf-xn9"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="webTableViewCell" id="DYZ-id-Phr" customClass="ShowPlaceTableWebViewCell" customModule="Gastro_Places" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="linkTableViewCell" id="DYZ-id-Phr" customClass="ShowPlaceTableLinkViewCell" customModule="Gastro_Places" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="314" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DYZ-id-Phr" id="r2h-z5-wXk">
@@ -552,12 +552,26 @@
                                                         <constraint firstAttribute="height" constant="50" id="Sjv-sn-Oaf"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Opening hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awh-Gn-zts">
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="52n-Xv-LIl">
                                                     <rect key="frame" x="0.0" y="57.999999999999993" width="343" height="21.666666666666664"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Opening hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awh-Gn-zts">
+                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="21.666666666666668"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Byr-lm-0YG"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkm-bS-oVu">
+                                                            <rect key="frame" x="128" y="0.0" width="215" height="21.666666666666668"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zr3-HX-w3f">
                                                     <rect key="frame" x="0.0" y="87.666666666666671" width="343" height="59.333333333333329"/>
                                                     <subviews>
@@ -588,6 +602,7 @@
                                 <connections>
                                     <outlet property="daysLabel" destination="bDj-RM-46w" id="676-GQ-Bc2"/>
                                     <outlet property="hoursLabel" destination="hPL-4S-neM" id="qf0-j1-Gid"/>
+                                    <outlet property="isOpenLabel" destination="Vkm-bS-oVu" id="ipe-rS-TlB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -596,6 +611,20 @@
                             <outlet property="delegate" destination="9Ay-d4-tnv" id="zK4-ut-fVA"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="LSR-4U-gmI"/>
+                        <barButtonItem title="Navigate" id="vkA-ud-dFt">
+                            <color key="tintColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="navigateToPlaceButtonIsPressed:" destination="9Ay-d4-tnv" id="nod-8a-EKv"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="b3r-6q-UA4"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="2sH-A2-w6G">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="vVr-rN-ohB"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xRq-qy-vIp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -604,7 +633,7 @@
         <!--Create New Place-->
         <scene sceneID="Vet-NN-5Ih">
             <objects>
-                <tableViewController title="Create New Place" id="h9L-0x-1yA" customClass="CreatePlaceViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Create New Place" hidesBottomBarWhenPushed="YES" id="h9L-0x-1yA" customClass="CreatePlaceViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Zxj-jF-8NA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1051,7 +1080,7 @@
         <!--Create Place Indicator View Controller-->
         <scene sceneID="ymk-N7-zPx">
             <objects>
-                <viewController id="2hK-ln-8Cx" customClass="CreatePlaceIndicatorViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="2hK-ln-8Cx" customClass="CreatePlaceIndicatorViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W78-82-kXY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1115,7 +1144,7 @@
         <!--Images-->
         <scene sceneID="H5o-VS-TIL">
             <objects>
-                <tableViewController id="KLK-Fb-fog" customClass="ImagesToSaveTableViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="KLK-Fb-fog" customClass="ImagesToSaveTableViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="220" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="M8Z-r1-N2h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1179,7 +1208,7 @@
         <!--Opening Time-->
         <scene sceneID="VjP-EA-iRf">
             <objects>
-                <tableViewController id="aGM-fW-scw" customClass="OpeningTimeTableViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="aGM-fW-scw" customClass="OpeningTimeTableViewController" customModule="Gastro_Places" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="690-d5-LUp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

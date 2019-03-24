@@ -7,16 +7,15 @@
 //
 
 import Foundation
-
-let timeRecord = TimeCKRecordNames()
-
-struct TimeCKRecordNames {
-    let record = "Time"
-    let monday = "monday"
-    let tuesday = "tuesday"
-    let wednesday = "wednesday"
-    let thursday = "thursday"
-    let friday = "friday"
-    let saturday = "saturday"
-    let sunday = "sunday"
-}
+/*
+ // Not used
+enum TimeCKRecordNames {
+    static let record = "Time"
+    static let monday = "monday"
+    static let tuesday = "tuesday"
+    static let wednesday = "wednesday"
+    static let thursday = "thursday"
+    static let friday = "friday"
+    static let saturday = "saturday"
+    static let sunday = "sunday"
+}*/

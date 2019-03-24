@@ -52,6 +52,7 @@ class CreatePlaceViewController: UITableViewController {
         super.viewDidLoad()
         cathegoryPickerView.dataSource = cathegories
         cathegoryPickerView.delegate = cathegories
+        openingTime.initDays()
         roundButtons()
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
@@ -61,12 +62,10 @@ class CreatePlaceViewController: UITableViewController {
         super.viewWillAppear(animated)
         openingHoursDaysLabel.text = openingTime.stringDays
         openingHoursLabel.text = openingTime.stringHours
-        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        tabBarController?.tabBar.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {

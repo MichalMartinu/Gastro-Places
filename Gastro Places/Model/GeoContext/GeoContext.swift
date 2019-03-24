@@ -15,6 +15,10 @@ enum GeoContextState {
     case Ready, Executing, Finished, Failed, Canceled
 }
 
+protocol GeoContextDelegate: AnyObject {
+    func geoContextDidLoadAnnotations(error: Error?)
+}
+
 class GeoContext {
     
     private(set) var annotations = [PlaceAnnotation]()
@@ -23,10 +27,7 @@ class GeoContext {
     let location: CLLocation
     let radius: CLLocationDistance
     let cathegory: String
-    
-    private let container: CKContainer
-    private let publicDB: CKDatabase
-    
+        
     weak var delegate: GeoContextDelegate?
     
     private static let geoContextQueue = DispatchQueue(label: "geoContextQueue", qos: .utility, attributes: .concurrent)
@@ -35,8 +36,6 @@ class GeoContext {
         self.location = location
         self.radius = radius
         self.cathegory = cathegory
-        container = CKContainer.default()
-        publicDB = container.publicCloudDatabase
     }
     
     func appendAnnotation(_ annotation: PlaceAnnotation) {
@@ -51,16 +50,23 @@ class GeoContext {
     }
     
     private func fetchCloudkitPlaces() {
+        let container = CKContainer.default()
+        let publicDB = container.publicCloudDatabase
+        
         let predicate = createPredicateToFetchPlaces(location: location, radius: radius, cathegory: cathegory)
         let query = CKQuery(recordType: PlaceCKRecordNames.record, predicate: predicate)
         
         publicDB.perform(query, inZoneWith: nil) { results, error in
-            if error != nil {
+            if let _error = error {
                 self.state = .Failed
+                DispatchQueue.main.async {
+                    self.delegate?.geoContextDidLoadAnnotations(error: _error)
+                }
                 return
             }
             
             guard let records = results else {
+                self.delegate?.geoContextDidLoadAnnotations(error: error)
                 return
             }
             
@@ -97,7 +103,7 @@ class GeoContext {
             try? context.save()
 
             self.state = .Finished
-            self.delegate?.geoContextDidLoadAnnotations()
+            self.delegate?.geoContextDidLoadAnnotations(error: nil)
         }
     }
     

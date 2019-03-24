@@ -34,12 +34,13 @@ class ImageCKRecord {
     }
     
     func saveImageToTmpDirectory(_ image: Image) -> URL? {
+        // When saving image to CloudKit you need to create url of file
         
         let url = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
             .appendingPathComponent(image.id, isDirectory: false)
             .appendingPathExtension("jpg")
         
-        // Then write to disk
+        // Write to disk
         let scaledImage = image.picture.scaled(width: 1000)
         if let data = scaledImage.jpegData(compressionQuality: 0.5) {
             do {

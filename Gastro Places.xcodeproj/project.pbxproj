@@ -21,7 +21,7 @@
 		075E21592244FFA9008F8F14 /* ShowPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E21582244FFA9008F8F14 /* ShowPlaceViewController.swift */; };
 		075E215F22454186008F8F14 /* PlaceRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E215E22454186008F8F14 /* PlaceRepresentation.swift */; };
 		075E216122455512008F8F14 /* ShowPlaceTableTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E216022455512008F8F14 /* ShowPlaceTableTextViewCell.swift */; };
-		075E216422457412008F8F14 /* ShowPlaceTableWebViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E216322457412008F8F14 /* ShowPlaceTableWebViewCell.swift */; };
+		075E216422457412008F8F14 /* ShowPlaceTableLinkViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E216322457412008F8F14 /* ShowPlaceTableLinkViewCell.swift */; };
 		075EEF56223692E900FA5869 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 075EEF55223692E900FA5869 /* CloudKit.framework */; };
 		075EEF5E2236DA4300FA5869 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075EEF5D2236DA4300FA5869 /* Address.swift */; };
 		075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */; };
@@ -67,7 +67,7 @@
 		075E21582244FFA9008F8F14 /* ShowPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPlaceViewController.swift; sourceTree = "<group>"; };
 		075E215E22454186008F8F14 /* PlaceRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceRepresentation.swift; sourceTree = "<group>"; };
 		075E216022455512008F8F14 /* ShowPlaceTableTextViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPlaceTableTextViewCell.swift; sourceTree = "<group>"; };
-		075E216322457412008F8F14 /* ShowPlaceTableWebViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPlaceTableWebViewCell.swift; sourceTree = "<group>"; };
+		075E216322457412008F8F14 /* ShowPlaceTableLinkViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPlaceTableLinkViewCell.swift; sourceTree = "<group>"; };
 		075EEF55223692E900FA5869 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		075EEF5D2236DA4300FA5869 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotationItem.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				075E216022455512008F8F14 /* ShowPlaceTableTextViewCell.swift */,
-				075E216322457412008F8F14 /* ShowPlaceTableWebViewCell.swift */,
+				075E216322457412008F8F14 /* ShowPlaceTableLinkViewCell.swift */,
 				07663C9B2246532700275CBC /* ShowPlaceTableHoursViewCell.swift */,
 			);
 			path = "Show Place";
@@ -440,7 +440,7 @@
 				075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */,
 				07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */,
 				0767F5DC2243E33800899271 /* ImageCoreData.swift in Sources */,
-				075E216422457412008F8F14 /* ShowPlaceTableWebViewCell.swift in Sources */,
+				075E216422457412008F8F14 /* ShowPlaceTableLinkViewCell.swift in Sources */,
 				07B7F14A22302B4200E22A27 /* GeoContext.swift in Sources */,
 				075E21592244FFA9008F8F14 /* ShowPlaceViewController.swift in Sources */,
 				070004672242A80E002A19C7 /* ImageCKRecords.swift in Sources */,

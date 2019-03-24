@@ -14,7 +14,7 @@ enum LinkType: String {
     case phone = "Phone: "
 }
 
-class ShowPlaceTableWebViewCell: UITableViewCell {
+class ShowPlaceTableLinkViewCell: UITableViewCell {
     
     @IBOutlet weak var webButton: UIButton!
     @IBOutlet weak var typeTextLabel: UILabel!
