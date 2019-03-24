@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateLoad, OpeningTimeDelegate {
+class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateLoad, OpeningTimeDelegate, ImageContextDelegate {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var cathegoryLabel: UILabel!
@@ -24,8 +24,9 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     
     
     var placeContext: PlaceContext!
-    var openingTime = OpeningTime(intervalInMinutes: 15)
-    var placeRepresentation = PlaceRepresentation()
+    let imageContext = ImageContext()
+    let openingTime = OpeningTime(intervalInMinutes: 15)
+    let placeRepresentation = PlaceRepresentation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,13 +46,29 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     }
     
     func placeContextLoadedPlace() {
+        if placeContext.state == .Failed {
+            showAlert(title: "Error", message: "Some error occurred, try again later please.", confirmTitle: "Ok")
+            return
+        }
         placeRepresentation.initFromPlace(placeContext: placeContext, openingTime: openingTime)
         if let _placeID = placeContext.place.placeID {
             openingTime.delegate = self
             openingTime.fetchOpeningHours(placeID: _placeID)
+            imageContext.delegate = self
+            imageContext.fetchImageIDs(placeID: _placeID)
         }
         
         tableView.reloadData()
+    }
+    
+    private func showAlert(title: String?, message: String?, confirmTitle: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: popViewController))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func popViewController(alert: UIAlertAction!) {
+        navigationController?.popViewController(animated: true)
     }
     
     func openingTimeDidLoad() {
@@ -62,13 +79,22 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         tableView.reloadRows(at: [indexPath], with: .none)
     }
     
+    func imageContextDidloadIDs() {
+        if imageContext.imageIDs.count > 0 {
+            placeRepresentation.appendImageCell()
+            tableView.reloadData()
+        }
+
+
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let place = placeRepresentation.cells[indexPath.row]
         
         switch place.cell {
         case .image:
-            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableImageViewCell
+            cell.imageCollectionView.dataSource = self
             return cell
         case .text:
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableTextViewCell
@@ -84,6 +110,9 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableHoursViewCell
             let textData = place.data as! OpeningTime
             cell.setHours(openingTime: textData)
+            return cell
+        case .space:
+            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath)
             return cell
         }
     }
@@ -104,5 +133,27 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return placeRepresentation.cells.count
+    }
+}
+
+extension ShowPlaceTableViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageContext.imageIDs.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "showImageCell", for: indexPath) as! ShowPlaceImageCollectionViewCell
+        let id = imageContext.imageIDs[indexPath.row]
+        cell.id = id
+        
+        if let image = imageContext.fetchedImage(identifier: id) {
+            // TODO mam image
+        } else {
+            // TODO nejdriv coredata potom cloudkit+coredata async
+            self.imageContext.fetchImage(identifier: id)
+            //cell.image(..)
+        }
+       
+        return cell
     }
 }

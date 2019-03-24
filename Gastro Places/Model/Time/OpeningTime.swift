@@ -70,7 +70,7 @@ class OpeningTime {
     
     weak var delegate: OpeningTimeDelegate?
     
-    private static let openingTimeQueue = DispatchQueue(label: "openingTimeQueue", qos: .utility, attributes: .concurrent)
+    private static let openingTimeQueue = DispatchQueue(label: "openingTimeQueue", qos: .userInteractive, attributes: .concurrent)
     
     var stringHours: String {
         var string = ""

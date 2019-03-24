@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CloudKit
+import CoreData
 
 struct Image {
     var id: String
@@ -18,11 +20,23 @@ struct Image {
     }
 }
 
+protocol ImageContextDelegate: AnyObject {
+    func imageContextDidloadIDs()
+}
+
 class ImageContext {
     
     var images = [Image]()
     private var imagesToDelete = [String]()
     private var imagesToSave = [String]()
+    
+    var imageIDs = [String]()
+    private var cache = NSCache<NSString, UIImage>()
+
+    
+    private static let imageContextQueue = DispatchQueue(label: "imageContextQueue", qos: .utility, attributes: .concurrent)
+
+    weak var delegate: ImageContextDelegate?
     
     func insertNewImage(image: UIImage) {
         let uuid = UUID().uuidString
@@ -49,4 +63,51 @@ class ImageContext {
         
         images.remove(at: index)
     }
+    
+    func fetchImageIDs(placeID: String) {
+        ImageContext.imageContextQueue.async {
+            self.gtfetchImageIDs(placeID: placeID)
+        }
+    }
+    
+    private func gtfetchImageIDs(placeID: String) {
+        let container = CKContainer.default()
+        let publicDB = container.publicCloudDatabase
+        
+        let recordID = CKRecord.ID(recordName: placeID)
+        let recordToMatch = CKRecord.Reference(recordID: recordID, action: .deleteSelf)
+        
+        let predicate = NSPredicate(format: "place == %@", recordToMatch)
+        let query = CKQuery(recordType: "Image", predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        operation.desiredKeys = []
+        operation.queryCompletionBlock = { results, error in
+            
+            if error != nil {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.delegate?.imageContextDidloadIDs()
+            }
+        }
+        
+        operation.recordFetchedBlock = ( { (record) -> Void in
+            self.imageIDs.append(record.recordID.recordName)
+        })
+        
+        publicDB.add(operation)
+    }
+    
+    func fetchedImage(identifier: String) -> UIImage? {
+        return cache.object(forKey: identifier as NSString)
+    }
+    
+    func fetchImage(identifier: String) {
+        // TODO delegat
+    }
+    
+    /*func gtFetchImage(identifier: String) {
+        
+    }*/
 }

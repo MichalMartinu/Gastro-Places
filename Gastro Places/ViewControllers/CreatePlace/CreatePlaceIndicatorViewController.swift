@@ -32,7 +32,7 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
         navigationController?.isNavigationBarHidden = false
     }
     
-    func placeContextSaved(annotation: PlaceAnnotation, error: Error?) {
+    func placeContextSaved(annotation: PlaceAnnotation?, error: Error?) {
         FileManager.default.clearTmpDirectory()
         
         if let _error = error {
@@ -40,7 +40,9 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
             self.annotation = nil
             return
         } else {
-            self.annotation = annotation
+            if let _annotation = annotation {
+                self.annotation = _annotation
+            }
         }
         navigationController?.isNavigationBarHidden = false
         performSegue(withIdentifier: "unwindToMapViewController", sender: self)
@@ -48,8 +50,12 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
     
     private func showAlert(title: String?, message: String?, confirmTitle: String?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: backToMap))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func backToMap(alert: UIAlertAction!) {
+        performSegue(withIdentifier: "unwindToMapViewController", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

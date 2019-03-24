@@ -21,7 +21,7 @@ protocol PlaceContextDelegateAdress: AnyObject {
 }
 
 protocol PlaceContextDelegateSave: AnyObject {
-    func placeContextSaved(annotation: PlaceAnnotation, error: Error?)
+    func placeContextSaved(annotation: PlaceAnnotation?, error: Error?)
 }
 
 protocol PlaceContextDelegateLoad: AnyObject {
@@ -74,7 +74,7 @@ class PlaceContext {
     weak var delegateLoad: PlaceContextDelegateLoad?
     weak var delegateAddress: PlaceContextDelegateAdress?
     
-    let annotation: PlaceAnnotation
+    var annotation: PlaceAnnotation
     
     var state = PlaceContextState.Ready
     
@@ -149,6 +149,11 @@ class PlaceContext {
             {
                 placemarks, error -> Void in
                 
+                if let _error = error {
+                    self.delegateAddress?.placeContextDidDecodeAddress(address: nil, error: _error)
+                    return
+                }
+                
                 // Place details
                 guard let placeMark = placemarks?.first else {
                     self.delegateAddress?.placeContextDidDecodeAddress(address: nil, error: error)
@@ -201,21 +206,17 @@ class PlaceContext {
         saveOperation.savePolicy = .changedKeys
         saveOperation.modifyRecordsCompletionBlock = { (records, recordsID, error) in
             
+            if let _error = error {
+                DispatchQueue.main.async {
+                    self.delegateSave?.placeContextSaved(annotation: nil, error: _error)
+                }
+                return
+            }
+            
             if let _records = records {
                 // Save record to Core Data
                 DispatchQueue.main.async {
                     self.savePlacesToCoreData(records: _records)
-                }
-            }
-            
-            
-            
-            if let _name = self.place.name, let _cathegory = self.place.cathegory {
-                // Finished
-                let newAnnotation = PlaceAnnotation.init(title: _name, cathegory: _cathegory, id: placeCKRecord.recordID.recordName, coordinate: self.place.location!.coordinate)
-                self.state = .Finished
-                DispatchQueue.main.async {
-                    self.delegateSave?.placeContextSaved(annotation: newAnnotation, error: error)
                 }
             }
         }
@@ -229,7 +230,7 @@ class PlaceContext {
         var placeCKRecord: CKRecord?
         var openingTimeRecord: CKRecord?
         var imageRecords = [CKRecord]()
-
+        
         
         var placeCoreData: PlaceCoreData?
         
@@ -252,12 +253,23 @@ class PlaceContext {
                 OpeningTimeCoreData.changeOrCreate(place: _placeCoreData, record: _openingTimeRecord, context: context)
                 
                 for image in imageRecords {
-                     ImageCoreData.changeOrCreate(place: _placeCoreData, record: image, context: context)
+                    ImageCoreData.changeOrCreate(place: _placeCoreData, record: image, context: context)
                 }
             }
+            
+            createAnnotation(placeCKRecord: _placeCKRecord)
         }
         
         try? context.save()
+        
+        self.state = .Finished
+        self.delegateSave?.placeContextSaved(annotation: annotation, error: nil)
+    }
+    
+    private func createAnnotation(placeCKRecord: CKRecord) {
+        if let _name = self.place.name, let _cathegory = self.place.cathegory {
+            annotation = PlaceAnnotation.init(title: _name, cathegory: _cathegory, id: placeCKRecord.recordID.recordName, coordinate: self.place.location!.coordinate)
+        }
     }
     
     func loadPlace() {
@@ -265,7 +277,8 @@ class PlaceContext {
         let query:NSFetchRequest<PlaceCoreData> = PlaceCoreData.fetchRequest()
         
         guard let id = place.placeID else {
-            // TODO error
+            state = .Failed
+            self.delegateLoad?.placeContextLoadedPlace()
             return
         }
         
@@ -274,15 +287,18 @@ class PlaceContext {
         
         if let _record = try? context.fetch(query), _record.count == 1 {
             guard let recordToShow = _record.first else {
-                // TODO
+                state = .Failed
+                self.delegateLoad?.placeContextLoadedPlace()
                 return
             }
             
             place = Place.init(place: recordToShow)
+            state = .Finished
             self.delegateLoad?.placeContextLoadedPlace()
-            return
-        } else {
-            // ERROR
+        }
+        else {
+            state = .Failed
+            self.delegateLoad?.placeContextLoadedPlace()
         }
     }
 }

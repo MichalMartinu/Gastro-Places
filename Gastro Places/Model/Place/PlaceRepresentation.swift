@@ -13,6 +13,7 @@ enum CellTypes: String {
     case text = "textTableViewCell"
     case link = "linkTableViewCell"
     case hour = "hourTableViewCell"
+    case space = "spaceTableViewCell"
 }
 
 class TextCell {
@@ -39,7 +40,6 @@ class LinkCell {
     }
 }
 
-
 class PlaceCell {
     var cell: CellTypes
     var data: Any?
@@ -60,8 +60,8 @@ class PlaceRepresentation {
     
     func initFromPlace(placeContext: PlaceContext, openingTime: OpeningTime) {
         let place = placeContext.place
-        
-        cells.append(PlaceCell.init(type: CellTypes.image))
+                
+        cells.append(PlaceCell.init(type: CellTypes.space))
         
         if let _name = place.name {
             cells.append(basicTextCell(text: _name, bold: true, size: 32, color: nil))
@@ -90,6 +90,11 @@ class PlaceRepresentation {
         }
         
     }
+    
+    func appendImageCell() {
+        cells.insert(PlaceCell.init(type: CellTypes.image), at: 0)
+    }
+    
     
     func basicTextCell(text: String, bold: Bool, size: CGFloat?, color: UIColor?) -> PlaceCell {
         let textCell = TextCell.init(text: text, bold: bold, size: size, color: color)

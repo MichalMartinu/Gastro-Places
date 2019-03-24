@@ -26,10 +26,8 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     @IBOutlet weak var cathegoryCollectionView: UICollectionView!
     @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var cathegoryView: UIView!
-    @IBOutlet weak var refreshButton: UIBarButtonItem!
     @IBOutlet weak var cathegoryLineView: UIView!
     @IBOutlet weak var cathegoryLabel: UILabel!
-
     @IBOutlet weak var geoContextInformationView: UIView!
     @IBOutlet weak var geoContextInformationLabel: UILabel!
     
@@ -68,6 +66,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         createPlaceDialogViewNoButton.roundCornersLittle()
         cathegoryView.roundCornersLarge()
         geoContextInformationView.roundCornersLarge()
+        loadingIndicatorView.roundCornersLarge()
     }
     
     private func setRefreshButton(enabled: Bool) {
@@ -320,10 +319,10 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     func placeContextDidDecodeAddress(address: String?, error: Error?) {
         createPlaceActivityIndicatorView.isHidden = true
 
-        if error != nil {
+        if let _error = error {
             createPlaceDialogView.isHidden = true
             unmountPlaceContext()
-            showAlert(title: "Could not create new place!", message: "Connection error!", confirmTitle: "Ok")
+            showAlert(title: "Could not create new place!", message: _error.localizedDescription, confirmTitle: "Ok")
             return
         }
         

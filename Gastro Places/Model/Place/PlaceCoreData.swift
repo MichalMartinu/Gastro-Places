@@ -19,7 +19,6 @@ class PlaceCoreData: NSManagedObject{
         }
     }
 
-    
     class func changeOrCreatePlace(record: CKRecord, context: NSManagedObjectContext) -> PlaceCoreData? {
         var recordToSave: PlaceCoreData?
         

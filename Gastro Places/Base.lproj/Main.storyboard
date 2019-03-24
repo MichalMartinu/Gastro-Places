@@ -302,8 +302,8 @@
                         <outlet property="createPlaceDialogViewNoButton" destination="rUj-2J-uZO" id="nry-3b-nFL"/>
                         <outlet property="createPlaceDialogYesButton" destination="Qni-Sz-VtG" id="b65-3S-V8M"/>
                         <outlet property="geoContextInformationLabel" destination="uN5-Mm-op0" id="va4-tP-3zr"/>
-                        <outlet property="geoContextInformationView" destination="kYu-62-IcQ" id="iOv-8F-uep"/>
-                        <outlet property="loadingIndicatorView" destination="bW9-ue-3cg" id="gY0-GK-6K2"/>
+                        <outlet property="geoContextInformationView" destination="kYu-62-IcQ" id="mht-UO-O3w"/>
+                        <outlet property="loadingIndicatorView" destination="bW9-ue-3cg" id="X4q-hB-1mF"/>
                         <outlet property="mapView" destination="RBz-80-zlY" id="n2v-7W-HfA"/>
                         <segue destination="h9L-0x-1yA" kind="show" identifier="createPlaceDialog" id="QVz-c3-Rkp"/>
                         <segue destination="9Ay-d4-tnv" kind="show" identifier="showPlace" id="bPq-uO-umJ"/>
@@ -440,34 +440,77 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageTableViewCell" rowHeight="232" id="wXA-lb-O5f">
-                                <rect key="frame" x="0.0" y="28" width="375" height="232"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageTableViewCell" rowHeight="194" id="wXA-lb-O5f" customClass="ShowPlaceTableImageViewCell" customModule="Gastro_Places" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="194"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wXA-lb-O5f" id="z7H-RG-unp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="232"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="194"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2T-jA-jYW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
-                                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sYz-NX-SFm">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="200" id="dIg-YZ-w8h"/>
+                                                <constraint firstAttribute="height" constant="180" id="3ge-z7-NbA"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="S7h-uG-VSa">
+                                                <size key="itemSize" width="287" height="180"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                            <cells>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="showImageCell" id="aDf-JV-V08" customClass="ShowPlaceImageCollectionViewCell" customModule="Gastro_Places" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="180"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                        <rect key="frame" x="0.0" y="0.0" width="287" height="180"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bv6-yd-Jx1">
+                                                                <rect key="frame" x="0.0" y="0.0" width="287" height="180"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Download image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGq-qe-176">
+                                                                        <rect key="frame" x="79.666666666666686" y="79.666666666666671" width="128" height="21"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="rGq-qe-176" firstAttribute="centerY" secondItem="bv6-yd-Jx1" secondAttribute="centerY" id="05R-tz-Uy7"/>
+                                                                    <constraint firstItem="rGq-qe-176" firstAttribute="centerX" secondItem="bv6-yd-Jx1" secondAttribute="centerX" id="sBR-Xt-aMQ"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                    </view>
+                                                    <constraints>
+                                                        <constraint firstItem="bv6-yd-Jx1" firstAttribute="top" secondItem="aDf-JV-V08" secondAttribute="top" id="IGm-8f-KW1"/>
+                                                        <constraint firstItem="bv6-yd-Jx1" firstAttribute="leading" secondItem="aDf-JV-V08" secondAttribute="leading" id="LdR-RF-gX6"/>
+                                                        <constraint firstAttribute="bottom" secondItem="bv6-yd-Jx1" secondAttribute="bottom" id="jdj-dy-mzJ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="bv6-yd-Jx1" secondAttribute="trailing" id="jer-cQ-jsF"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="labelik" destination="rGq-qe-176" id="R60-VK-FL8"/>
+                                                    </connections>
+                                                </collectionViewCell>
+                                            </cells>
+                                        </collectionView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="M2T-jA-jYW" secondAttribute="trailing" id="MqN-N6-fju"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="M2T-jA-jYW" secondAttribute="bottom" constant="10" id="bTC-kA-RQC"/>
-                                        <constraint firstItem="M2T-jA-jYW" firstAttribute="leading" secondItem="z7H-RG-unp" secondAttribute="leading" id="idD-wF-zAB"/>
-                                        <constraint firstItem="M2T-jA-jYW" firstAttribute="top" secondItem="z7H-RG-unp" secondAttribute="top" id="n6D-ck-wwe"/>
+                                        <constraint firstAttribute="trailing" secondItem="sYz-NX-SFm" secondAttribute="trailing" id="0RC-Qd-9RP"/>
+                                        <constraint firstItem="sYz-NX-SFm" firstAttribute="top" secondItem="z7H-RG-unp" secondAttribute="top" id="lLq-gi-A1o"/>
+                                        <constraint firstAttribute="bottom" secondItem="sYz-NX-SFm" secondAttribute="bottom" id="u62-PV-Uuw"/>
+                                        <constraint firstItem="sYz-NX-SFm" firstAttribute="leading" secondItem="z7H-RG-unp" secondAttribute="leading" id="vpl-Ww-wAU"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="imageCollectionView" destination="sYz-NX-SFm" id="dcD-E1-GMf"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="textTableViewCell" rowHeight="54" id="NQp-Wd-8Uy" customClass="ShowPlaceTableTextViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="260" width="375" height="54"/>
+                                <rect key="frame" x="0.0" y="222" width="375" height="54"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NQp-Wd-8Uy" id="MZj-Wu-UYy">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
@@ -492,7 +535,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="linkTableViewCell" id="DYZ-id-Phr" customClass="ShowPlaceTableLinkViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="314" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="276" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DYZ-id-Phr" id="r2h-z5-wXk">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -536,7 +579,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="hourTableViewCell" rowHeight="169" id="Gkw-39-hgj" customClass="ShowPlaceTableHoursViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="358" width="375" height="169"/>
+                                <rect key="frame" x="0.0" y="320" width="375" height="169"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gkw-39-hgj" id="1tZ-gD-OqK">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
@@ -546,14 +589,14 @@
                                             <rect key="frame" x="16" y="11" width="343" height="147"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="quW-xu-ZnO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="Sjv-sn-Oaf"/>
+                                                        <constraint firstAttribute="height" constant="30" id="Sjv-sn-Oaf"/>
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="52n-Xv-LIl">
-                                                    <rect key="frame" x="0.0" y="57.999999999999993" width="343" height="21.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="38" width="343" height="21.666666666666671"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Opening hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awh-Gn-zts">
                                                             <rect key="frame" x="0.0" y="0.0" width="120" height="21.666666666666668"/>
@@ -573,16 +616,16 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zr3-HX-w3f">
-                                                    <rect key="frame" x="0.0" y="87.666666666666671" width="343" height="59.333333333333329"/>
+                                                    <rect key="frame" x="0.0" y="67.666666666666686" width="343" height="79.333333333333314"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Days" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDj-RM-46w">
-                                                            <rect key="frame" x="0.0" y="0.0" width="171.66666666666666" height="59.333333333333336"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="171.66666666666666" height="79.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPL-4S-neM">
-                                                            <rect key="frame" x="179.66666666666663" y="0.0" width="163.33333333333337" height="59.333333333333336"/>
+                                                            <rect key="frame" x="179.66666666666663" y="0.0" width="163.33333333333337" height="79.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -604,6 +647,29 @@
                                     <outlet property="hoursLabel" destination="hPL-4S-neM" id="qf0-j1-Gid"/>
                                     <outlet property="isOpenLabel" destination="Vkm-bS-oVu" id="ipe-rS-TlB"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="spaceTableViewCell" id="sfY-VL-VqZ">
+                                <rect key="frame" x="0.0" y="489" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sfY-VL-VqZ" id="Qj8-Q1-otg">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFA-IP-1qA">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="LH8-X8-gdd"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="lFA-IP-1qA" firstAttribute="top" secondItem="Qj8-Q1-otg" secondAttribute="top" id="Kfc-g0-75Y"/>
+                                        <constraint firstItem="lFA-IP-1qA" firstAttribute="leading" secondItem="Qj8-Q1-otg" secondAttribute="leading" id="Uqd-eV-2zE"/>
+                                        <constraint firstAttribute="bottom" secondItem="lFA-IP-1qA" secondAttribute="bottom" id="b6v-pi-bz3"/>
+                                        <constraint firstAttribute="trailing" secondItem="lFA-IP-1qA" secondAttribute="trailing" id="irJ-Aw-0RM"/>
+                                    </constraints>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -628,7 +694,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xRq-qy-vIp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4980" y="-700"/>
+            <point key="canvasLocation" x="4980" y="-700.49261083743841"/>
         </scene>
         <!--Create New Place-->
         <scene sceneID="Vet-NN-5Ih">

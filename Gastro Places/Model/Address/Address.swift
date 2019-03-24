@@ -14,6 +14,9 @@ class Address: NSObject {
     var street: String
     
     var full: String {
+        if street.count == 0 {
+            return "\(city) \(zipCode)"
+        }
         return "\(street), \(city) \(zipCode)"
     }
     
