@@ -78,7 +78,7 @@ class PlaceContext {
     
     var state = PlaceContextState.Ready
     
-    private static let placeContextQueue = DispatchQueue(label: "placeContextQueue", qos: .utility, attributes: .concurrent)
+    private static let placeContextQueue = DispatchQueue(label: "placeContextQueue", qos: .userInteractive, attributes: .concurrent)
     
     init(location: CLLocation) {
         self.annotation = PlaceAnnotation.init(title: "New place", cathegory: "", id: nil, coordinate: location.coordinate)
@@ -230,7 +230,6 @@ class PlaceContext {
         var placeCKRecord: CKRecord?
         var openingTimeRecord: CKRecord?
         var imageRecords = [CKRecord]()
-        
         
         var placeCoreData: PlaceCoreData?
         

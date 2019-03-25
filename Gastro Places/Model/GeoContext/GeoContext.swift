@@ -30,7 +30,7 @@ class GeoContext {
         
     weak var delegate: GeoContextDelegate?
     
-    private static let geoContextQueue = DispatchQueue(label: "geoContextQueue", qos: .utility, attributes: .concurrent)
+    private static let geoContextQueue = DispatchQueue(label: "geoContextQueue", qos: .userInteractive, attributes: .concurrent)
     
     init(location: CLLocation, radius: CLLocationDistance, cathegory: String) {
         self.location = location

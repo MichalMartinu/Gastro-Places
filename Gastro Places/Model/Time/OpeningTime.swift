@@ -157,21 +157,20 @@ class OpeningTime {
         
         let predicate = NSPredicate(format: "place == %@", recordToMatch)
         let query = CKQuery(recordType: "OpeningTime", predicate: predicate)
-        publicDB.perform(query, inZoneWith: nil) { results, error in
+        
+        let queryOperation = CKQueryOperation(query: query)
+        queryOperation.qualityOfService = .userInteractive
+        
+        queryOperation.recordFetchedBlock = { (record) in
+            self.initDaysFromCKRecord(record)
             
-            if error != nil {
-                return
+            DispatchQueue.main.async {
+                self.delegate?.openingTimeDidLoad()
             }
             
-            if results?.count == 1, let _result = results?.first {
-                
-                self.initDaysFromCKRecord(_result)
-                
-                DispatchQueue.main.async {
-                    self.delegate?.openingTimeDidLoad()
-                }
-            }
         }
+        
+        publicDB.add(queryOperation)
     }
     
     private func initDaysFromCKRecord(_ record: CKRecord) {
@@ -254,7 +253,7 @@ class OpeningTime {
         
         if dayBeforeIndex == -1 {
             // Monday <- Sunday
-            dayBeforeIndex = 7
+            dayBeforeIndex = 6
         }
         
         let dayBefore = days[dayBeforeIndex]

@@ -467,32 +467,37 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="287" height="180"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Nl-be-DXe">
+                                                                <rect key="frame" x="0.0" y="0.0" width="287" height="180"/>
+                                                            </imageView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bv6-yd-Jx1">
                                                                 <rect key="frame" x="0.0" y="0.0" width="287" height="180"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Download image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGq-qe-176">
-                                                                        <rect key="frame" x="79.666666666666686" y="79.666666666666671" width="128" height="21"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
+                                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iCc-tg-W7x">
+                                                                        <rect key="frame" x="125" y="71.666666666666671" width="37" height="37"/>
+                                                                    </activityIndicatorView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstItem="rGq-qe-176" firstAttribute="centerY" secondItem="bv6-yd-Jx1" secondAttribute="centerY" id="05R-tz-Uy7"/>
-                                                                    <constraint firstItem="rGq-qe-176" firstAttribute="centerX" secondItem="bv6-yd-Jx1" secondAttribute="centerX" id="sBR-Xt-aMQ"/>
+                                                                    <constraint firstItem="iCc-tg-W7x" firstAttribute="centerX" secondItem="bv6-yd-Jx1" secondAttribute="centerX" id="1os-dE-8LY"/>
+                                                                    <constraint firstItem="iCc-tg-W7x" firstAttribute="centerY" secondItem="bv6-yd-Jx1" secondAttribute="centerY" id="KkP-aQ-1HY"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
                                                     </view>
                                                     <constraints>
+                                                        <constraint firstItem="0Nl-be-DXe" firstAttribute="top" secondItem="aDf-JV-V08" secondAttribute="top" id="DWv-w8-Fm9"/>
+                                                        <constraint firstAttribute="trailing" secondItem="0Nl-be-DXe" secondAttribute="trailing" id="GIT-6b-cxL"/>
                                                         <constraint firstItem="bv6-yd-Jx1" firstAttribute="top" secondItem="aDf-JV-V08" secondAttribute="top" id="IGm-8f-KW1"/>
                                                         <constraint firstItem="bv6-yd-Jx1" firstAttribute="leading" secondItem="aDf-JV-V08" secondAttribute="leading" id="LdR-RF-gX6"/>
+                                                        <constraint firstAttribute="bottom" secondItem="0Nl-be-DXe" secondAttribute="bottom" id="NoM-Z6-RKE"/>
                                                         <constraint firstAttribute="bottom" secondItem="bv6-yd-Jx1" secondAttribute="bottom" id="jdj-dy-mzJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="bv6-yd-Jx1" secondAttribute="trailing" id="jer-cQ-jsF"/>
+                                                        <constraint firstItem="0Nl-be-DXe" firstAttribute="leading" secondItem="aDf-JV-V08" secondAttribute="leading" id="xAX-pJ-ylI"/>
                                                     </constraints>
                                                     <connections>
-                                                        <outlet property="labelik" destination="rGq-qe-176" id="R60-VK-FL8"/>
+                                                        <outlet property="loadingView" destination="bv6-yd-Jx1" id="3GW-xF-noY"/>
+                                                        <outlet property="pictureImageView" destination="0Nl-be-DXe" id="Dsj-0h-rh4"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>

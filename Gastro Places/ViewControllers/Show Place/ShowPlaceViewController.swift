@@ -90,7 +90,7 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let place = placeRepresentation.cells[indexPath.row]
-        
+
         switch place.cell {
         case .image:
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableImageViewCell
@@ -146,14 +146,14 @@ extension ShowPlaceTableViewController: UICollectionViewDataSource {
         let id = imageContext.imageIDs[indexPath.row]
         cell.id = id
         
-        /*if let image = imageContext.fetchedImage(identifier: id) {
-            // TODO mam image
-        } else {
-            // TODO nejdriv coredata potom cloudkit+coredata async
-            self.imageContext.fetchImage(identifier: id)
-            //cell.image(..)
-        }*/
-       
+        cell.setCell(image: nil)
+        
+        DispatchQueue.global().async {
+            let cellFetcher = ImageCellFetcher()
+            cellFetcher.delegateCell = cell
+            cellFetcher.fetchImage(identifier: id, placeId: self.placeContext.place.placeID!)
+        }
+        
         return cell
     }
 }

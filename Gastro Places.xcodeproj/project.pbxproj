@@ -31,6 +31,7 @@
 		07663C9C2246532700275CBC /* ShowPlaceTableHoursViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07663C9B2246532700275CBC /* ShowPlaceTableHoursViewCell.swift */; };
 		0767F5DC2243E33800899271 /* ImageCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767F5DB2243E33800899271 /* ImageCoreData.swift */; };
 		0767F5DE2243FAEC00899271 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0767F5DD2243FAEB00899271 /* Assets.xcassets */; };
+		0769E1F72248C965005319B0 /* ImageCellFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0769E1F62248C965005319B0 /* ImageCellFetcher.swift */; };
 		076A547022442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */; };
 		07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */; };
 		0794BBE622365C5A00CF8D70 /* CreatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */; };
@@ -78,6 +79,7 @@
 		07663C9B2246532700275CBC /* ShowPlaceTableHoursViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPlaceTableHoursViewCell.swift; sourceTree = "<group>"; };
 		0767F5DB2243E33800899271 /* ImageCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCoreData.swift; sourceTree = "<group>"; };
 		0767F5DD2243FAEB00899271 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0769E1F62248C965005319B0 /* ImageCellFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellFetcher.swift; sourceTree = "<group>"; };
 		076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceIndicatorViewController.swift; sourceTree = "<group>"; };
 		07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecord.swift; sourceTree = "<group>"; };
 		0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				075154F8223ACDCB00D3E7FE /* ImageContext.swift */,
+				0769E1F62248C965005319B0 /* ImageCellFetcher.swift */,
 				070004662242A80E002A19C7 /* ImageCKRecords.swift */,
 				0767F5DB2243E33800899271 /* ImageCoreData.swift */,
 			);
@@ -449,6 +452,7 @@
 				075E21592244FFA9008F8F14 /* ShowPlaceViewController.swift in Sources */,
 				070004672242A80E002A19C7 /* ImageCKRecords.swift in Sources */,
 				07515501223AF8D700D3E7FE /* SearchViewController.swift in Sources */,
+				0769E1F72248C965005319B0 /* ImageCellFetcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

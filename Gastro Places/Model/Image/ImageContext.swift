@@ -31,10 +31,8 @@ class ImageContext {
     private var imagesToSave = [String]()
     
     var imageIDs = [String]()
-    private var cache = NSCache<NSString, UIImage>()
-
     
-    private static let imageContextQueue = DispatchQueue(label: "imageContextQueue", qos: .utility, attributes: .concurrent)
+    private static let imageContextQueue = DispatchQueue(label: "imageContextQueue", qos: .userInteractive, attributes: .concurrent)
 
     weak var delegate: ImageContextDelegate?
     
@@ -81,6 +79,7 @@ class ImageContext {
         let query = CKQuery(recordType: "Image", predicate: predicate)
         let operation = CKQueryOperation(query: query)
         operation.desiredKeys = []
+        operation.qualityOfService = .userInteractive
         operation.queryCompletionBlock = { results, error in
             
             if error != nil {
@@ -98,16 +97,4 @@ class ImageContext {
         
         publicDB.add(operation)
     }
-    
-    func fetchedImage(identifier: String) -> UIImage? {
-        return cache.object(forKey: identifier as NSString)
-    }
-    
-    func fetchImage(identifier: String) {
-        // TODO delegat
-    }
-    
-    /*func gtFetchImage(identifier: String) {
-        
-    }*/
 }
