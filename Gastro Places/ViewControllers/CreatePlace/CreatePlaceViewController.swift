@@ -48,7 +48,7 @@ class CreatePlaceViewController: UITableViewController {
     
     private let cathegories = Cathegories.init(type: .normal)
         
-    private let imageContext = ImageContext()
+    var imageContext: ImageContext!
     
     var openingTime: OpeningTime!
     
@@ -61,7 +61,7 @@ class CreatePlaceViewController: UITableViewController {
         roundButtons()
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
-        createOpeningTime()
+        createOpeningTimeAndImageContext()
         checkIfPlaceContextIsFinished()
     }
     
@@ -125,9 +125,12 @@ class CreatePlaceViewController: UITableViewController {
         }
     }
     
-    private func createOpeningTime() {
+    private func createOpeningTimeAndImageContext() {
         if openingTime == nil {
             openingTime = OpeningTime(intervalInMinutes: 15)
+        }
+        if imageContext == nil {
+            imageContext = ImageContext()
         }
     }
     

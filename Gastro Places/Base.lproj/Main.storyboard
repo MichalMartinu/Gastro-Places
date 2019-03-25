@@ -440,11 +440,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageTableViewCell" rowHeight="194" id="wXA-lb-O5f" customClass="ShowPlaceTableImageViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="194"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageTableViewCell" rowHeight="203" id="wXA-lb-O5f" customClass="ShowPlaceTableImageViewCell" customModule="Gastro_Places" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="203"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wXA-lb-O5f" id="z7H-RG-unp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="194"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="203"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sYz-NX-SFm">
@@ -470,33 +470,22 @@
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Nl-be-DXe">
                                                                 <rect key="frame" x="0.0" y="0.0" width="287" height="180"/>
                                                             </imageView>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bv6-yd-Jx1">
-                                                                <rect key="frame" x="0.0" y="0.0" width="287" height="180"/>
-                                                                <subviews>
-                                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iCc-tg-W7x">
-                                                                        <rect key="frame" x="125" y="71.666666666666671" width="37" height="37"/>
-                                                                    </activityIndicatorView>
-                                                                </subviews>
-                                                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <constraints>
-                                                                    <constraint firstItem="iCc-tg-W7x" firstAttribute="centerX" secondItem="bv6-yd-Jx1" secondAttribute="centerX" id="1os-dE-8LY"/>
-                                                                    <constraint firstItem="iCc-tg-W7x" firstAttribute="centerY" secondItem="bv6-yd-Jx1" secondAttribute="centerY" id="KkP-aQ-1HY"/>
-                                                                </constraints>
-                                                            </view>
+                                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iCc-tg-W7x">
+                                                                <rect key="frame" x="125" y="71.666666666666671" width="37" height="37"/>
+                                                            </activityIndicatorView>
                                                         </subviews>
                                                     </view>
+                                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstItem="iCc-tg-W7x" firstAttribute="centerX" secondItem="aDf-JV-V08" secondAttribute="centerX" id="1bH-kH-kmT"/>
                                                         <constraint firstItem="0Nl-be-DXe" firstAttribute="top" secondItem="aDf-JV-V08" secondAttribute="top" id="DWv-w8-Fm9"/>
                                                         <constraint firstAttribute="trailing" secondItem="0Nl-be-DXe" secondAttribute="trailing" id="GIT-6b-cxL"/>
-                                                        <constraint firstItem="bv6-yd-Jx1" firstAttribute="top" secondItem="aDf-JV-V08" secondAttribute="top" id="IGm-8f-KW1"/>
-                                                        <constraint firstItem="bv6-yd-Jx1" firstAttribute="leading" secondItem="aDf-JV-V08" secondAttribute="leading" id="LdR-RF-gX6"/>
                                                         <constraint firstAttribute="bottom" secondItem="0Nl-be-DXe" secondAttribute="bottom" id="NoM-Z6-RKE"/>
-                                                        <constraint firstAttribute="bottom" secondItem="bv6-yd-Jx1" secondAttribute="bottom" id="jdj-dy-mzJ"/>
-                                                        <constraint firstAttribute="trailing" secondItem="bv6-yd-Jx1" secondAttribute="trailing" id="jer-cQ-jsF"/>
+                                                        <constraint firstItem="iCc-tg-W7x" firstAttribute="centerY" secondItem="aDf-JV-V08" secondAttribute="centerY" id="vDg-HI-vYv"/>
                                                         <constraint firstItem="0Nl-be-DXe" firstAttribute="leading" secondItem="aDf-JV-V08" secondAttribute="leading" id="xAX-pJ-ylI"/>
                                                     </constraints>
                                                     <connections>
-                                                        <outlet property="loadingView" destination="bv6-yd-Jx1" id="3GW-xF-noY"/>
+                                                        <outlet property="activityIndicator" destination="iCc-tg-W7x" id="bL5-5T-a8T"/>
                                                         <outlet property="pictureImageView" destination="0Nl-be-DXe" id="Dsj-0h-rh4"/>
                                                     </connections>
                                                 </collectionViewCell>
@@ -515,7 +504,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="textTableViewCell" rowHeight="54" id="NQp-Wd-8Uy" customClass="ShowPlaceTableTextViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="222" width="375" height="54"/>
+                                <rect key="frame" x="0.0" y="231" width="375" height="54"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NQp-Wd-8Uy" id="MZj-Wu-UYy">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
@@ -540,7 +529,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="linkTableViewCell" id="DYZ-id-Phr" customClass="ShowPlaceTableLinkViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="276" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="285" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DYZ-id-Phr" id="r2h-z5-wXk">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -584,7 +573,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="hourTableViewCell" rowHeight="169" id="Gkw-39-hgj" customClass="ShowPlaceTableHoursViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="320" width="375" height="169"/>
+                                <rect key="frame" x="0.0" y="329" width="375" height="169"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gkw-39-hgj" id="1tZ-gD-OqK">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
@@ -654,7 +643,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="spaceTableViewCell" id="sfY-VL-VqZ">
-                                <rect key="frame" x="0.0" y="489" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="498" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sfY-VL-VqZ" id="Qj8-Q1-otg">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

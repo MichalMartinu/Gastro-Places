@@ -276,10 +276,10 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
             showCreateNewPlaceDialog(coordinate: location)
         }
         if let annotation = view.annotation as? PlaceAnnotation {
-            view.setSelected(false, animated: false)
             placeContext = PlaceContext.init(annotation: annotation)
             performSegue(withIdentifier: "showPlace", sender: self)
         }
+        mapView.deselectAnnotation(view.annotation, animated: false)
     }
     
     private func destroyPlaceContext() {

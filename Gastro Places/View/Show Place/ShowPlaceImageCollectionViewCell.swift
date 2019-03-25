@@ -11,7 +11,7 @@ import UIKit
 class ShowPlaceImageCollectionViewCell: UICollectionViewCell, ImageContextDelegateCell {
     
     @IBOutlet weak var pictureImageView: UIImageView!
-    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     var id: String?
@@ -33,12 +33,12 @@ class ShowPlaceImageCollectionViewCell: UICollectionViewCell, ImageContextDelega
     }
     
     private func showLoadingView() {
-        loadingView.isHidden = false
+        activityIndicator.startAnimating()
         pictureImageView.isHidden = true
     }
     
     private func showImage() {
-        loadingView.isHidden = true
+        activityIndicator.stopAnimating()
         pictureImageView.isHidden = false
     }
 }
