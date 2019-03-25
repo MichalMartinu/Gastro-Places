@@ -19,7 +19,7 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         placeContext.delegateSave = self
-        placeContext.save(days: openingTime.days, images: imageContext)
+        placeContext.save(openingTime: openingTime, images: imageContext)
     }
     
     override func viewWillAppear(_ animated: Bool) {

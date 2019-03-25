@@ -109,9 +109,9 @@ class PlaceContext {
         }
     }
     
-    func save(days: [Day], images: ImageContext) {
+    func save(openingTime: OpeningTime, images: ImageContext) {
         PlaceContext.placeContextQueue.async {
-            self.saveToCloudkit(days: days, images: images)
+            self.saveToCloudkit(openingTime: openingTime, images: images)
         }
     }
     
@@ -185,14 +185,14 @@ class PlaceContext {
         })
     }
     
-    private func saveToCloudkit(days: [Day], images: ImageContext) {
+    private func saveToCloudkit(openingTime: OpeningTime, images: ImageContext) {
         var records = [CKRecord]()
         
         let container = CKContainer.default()
         let publicDB = container.publicCloudDatabase
         
         let placeCKRecord = PlaceCKRecord.init(place: place)
-        let openingTimeCKRecord = OpeningTimeCKRecord.init(days: days, id: placeCKRecord.recordID, recordReference: placeCKRecord.record)
+        let openingTimeCKRecord = OpeningTimeCKRecord.init(days: openingTime.days, recordReference: placeCKRecord.record, openingRecordID: openingTime.recordID)
         let imagesCKRecordsToSave = ImageCKRecord()
         imagesCKRecordsToSave.initImages(images: images.getImagesToSave(), recordReference: placeCKRecord.record)
         

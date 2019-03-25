@@ -10,13 +10,16 @@ import Foundation
 import CloudKit
 
 struct OpeningTimeCKRecord {
-    let recordID: CKRecord.ID
     let record: CKRecord
     
-    init(days: [Day], id: CKRecord.ID, recordReference: CKRecord) {
-        recordID = id
+    init(days: [Day], recordReference: CKRecord, openingRecordID: String?) {
+        if let id = openingRecordID {
+            let recordID = CKRecord.ID(recordName: id)
+            self.record = CKRecord(recordType: "OpeningTime", recordID: recordID)
+        } else {
+            self.record = CKRecord(recordType: "OpeningTime")
+        }
         
-        self.record = CKRecord(recordType: "OpeningTime")
         let reference = CKRecord.Reference(record: recordReference, action: .deleteSelf)
         
         self.record["place"] = reference

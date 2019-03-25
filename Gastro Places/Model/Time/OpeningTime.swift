@@ -68,6 +68,8 @@ class OpeningTime {
     private let dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     var days = [Day]()
     
+    var recordID: String?
+    
     weak var delegate: OpeningTimeDelegate?
     
     private static let openingTimeQueue = DispatchQueue(label: "openingTimeQueue", qos: .userInteractive, attributes: .concurrent)
@@ -165,6 +167,7 @@ class OpeningTime {
             self.initDaysFromCKRecord(record)
             
             DispatchQueue.main.async {
+                self.recordID =  record.recordID.recordName
                 self.delegate?.openingTimeDidLoad()
             }
             
