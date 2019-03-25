@@ -42,6 +42,12 @@ class GeoContext {
         annotations.append(annotation)
     }
     
+    func deleteAnnotation(with id: String) {
+        if let annotationIndex = annotations.index(where: { $0.id == id }) {
+            annotations.remove(at: annotationIndex)
+        }
+    }
+    
     func start() {
         state = .Executing
         GeoContext.geoContextQueue.async {

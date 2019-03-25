@@ -93,6 +93,10 @@ class Cathegories: NSObject {
     func getColorForSelectedIndex() -> UIColor {
         return cathegories[selectedIndex].color
     }
+    
+    func indexForCathegory(_ cathegory: String) -> Int? {
+        return cathegories.index(where: { $0.name == cathegory })
+    }
 }
 
 // MARK: Data source of Mapview

@@ -693,7 +693,11 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="b3r-6q-UA4"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="2sH-A2-w6G">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="vVr-rN-ohB"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="vVr-rN-ohB">
+                            <connections>
+                                <segue destination="h9L-0x-1yA" kind="show" identifier="editPlace" id="l7s-o1-oXh"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
@@ -1105,7 +1109,16 @@
                             </tableViewSection>
                         </sections>
                     </tableView>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="wTi-XQ-VME"/>
+                        <barButtonItem title="Delete" id="aaA-dh-PkR">
+                            <color key="tintColor" red="0.88235294119999996" green="0.34509803919999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="deleteButtonIsPressed:" destination="h9L-0x-1yA" id="h1Y-N5-ldb"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="ZVf-Sp-4SC"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Create Place" id="USu-N1-48E">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="1JW-mq-Uze">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1121,7 +1134,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="cathegoryPickerView" destination="DmN-lH-7iD" id="nVB-sK-m3e"/>
                         <outlet property="editImagesButton" destination="D2C-xe-eHx" id="5tC-UE-Jo8"/>
@@ -1142,9 +1155,11 @@
                         <outlet property="webpageTextField" destination="Jyo-IB-TOi" id="XlS-qt-ysf"/>
                         <outlet property="webpageTextFieldLine" destination="Kkb-6Z-SrK" id="9vI-hQ-qrn"/>
                         <segue destination="2hK-ln-8Cx" kind="show" identifier="savePlaceIndicator" id="f9A-jn-BCZ"/>
+                        <segue destination="Efg-w4-AtP" kind="unwind" identifier="backToMapFromEdit" unwindAction="unwindToMapViewControllerWithSegue:" id="2aB-Nu-D1V"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JL6-KF-cck" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Efg-w4-AtP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4857" y="114"/>
         </scene>
@@ -1430,4 +1445,7 @@
         <image name="newPlaceGuide" width="308" height="180"/>
         <image name="saving-place-icon" width="980" height="964"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="l7s-o1-oXh"/>
+    </inferredMetricsTieBreakers>
 </document>

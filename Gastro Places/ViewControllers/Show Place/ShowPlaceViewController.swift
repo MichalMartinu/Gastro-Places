@@ -28,6 +28,8 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     let openingTime = OpeningTime(intervalInMinutes: 15)
     let placeRepresentation = PlaceRepresentation()
     
+    weak var delegate: CreatePlaceViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         placeContext.delegateLoad = self
@@ -84,8 +86,6 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             placeRepresentation.appendImageCell()
             tableView.reloadData()
         }
-
-
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -127,6 +127,16 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         MKMapItem.openMaps(with: [desitnation], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editPlace" {
+            if let vc = segue.destination as? CreatePlaceViewController {
+                vc.placeContext = placeContext
+                vc.openingTime = openingTime
+                vc.delegate = delegate
+            }
+        }
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -156,8 +166,4 @@ extension ShowPlaceTableViewController: UICollectionViewDataSource {
         
         return cell
     }
-}
-
-extension ShowPlaceTableViewController: UIGestureRecognizerDelegate {
-    
 }

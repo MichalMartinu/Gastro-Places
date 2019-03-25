@@ -9,6 +9,10 @@
 import UIKit
 import CloudKit
 
+protocol CreatePlaceViewControllerDelegate: AnyObject {
+    func deleteAnnotation(with id: String)
+}
+
 class CreatePlaceViewController: UITableViewController {
 
     @IBOutlet weak var cathegoryPickerView: UIPickerView!
@@ -46,26 +50,34 @@ class CreatePlaceViewController: UITableViewController {
         
     private let imageContext = ImageContext()
     
-    private let openingTime = OpeningTime.init(intervalInMinutes: 15)
-
+    var openingTime: OpeningTime!
+    
+    weak var delegate: CreatePlaceViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         cathegoryPickerView.dataSource = cathegories
         cathegoryPickerView.delegate = cathegories
-        openingTime.initDays()
         roundButtons()
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
+        createOpeningTime()
+        checkIfPlaceContextIsFinished()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         openingHoursDaysLabel.text = openingTime.stringDays
         openingHoursLabel.text = openingTime.stringHours
+        
+        if placeContext.state == .Finished {
+            setToolbarHidden(with: false)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        setToolbarHidden(with: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -99,6 +111,28 @@ class CreatePlaceViewController: UITableViewController {
     
     private func getCathegory() -> String {
         return cathegories.cathegories[cathegoryPickerView.selectedRow(inComponent: 0)].name
+    }
+    
+    private func checkIfPlaceContextIsFinished() {
+        if placeContext.state == .Finished {
+            let place = placeContext.place
+            nameTextField.text = place.name
+            webpageTextField.text = place.web
+            emailTextField.text = place.email
+            phoneNumberTextField.text = place.phone
+            guard let cathegory = place.cathegory, let row = cathegories.indexForCathegory(cathegory) else { return }
+            cathegoryPickerView.selectRow(row, inComponent: 0, animated: false)
+        }
+    }
+    
+    private func createOpeningTime() {
+        if openingTime == nil {
+            openingTime = OpeningTime(intervalInMinutes: 15)
+        }
+    }
+    
+    private func setToolbarHidden(with value: Bool) {
+        navigationController?.setToolbarHidden(value, animated: true)
     }
     
     private func wrongName() {
@@ -202,8 +236,44 @@ class CreatePlaceViewController: UITableViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    private func showDeleteAlert() {
+        let alert = UIAlertController(title: "Delete place", message: "Do you really want to delete this place?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: deletePlace))
+        
+        self.present(alert, animated: true)
+    }
+    
     @IBAction private func cancelButtonIsPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func deleteButtonIsPressed(_ sender: Any) {
+        showDeleteAlert()
+    }
+    
+    private func deletePlace(alert: UIAlertAction?) {
+        guard let id = placeContext.place.placeID else { return }
+        
+        let container = CKContainer.default()
+        let publicDB = container.publicCloudDatabase
+        
+        let recordID = CKRecord.ID(recordName: id)
+        publicDB.delete(withRecordID: recordID) { (recordID, error) in
+            if let _error = error {
+                // TODO: error handle
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.setToolbarHidden(with: true)
+                if let _recordID = recordID?.recordName {
+                    self.delegate?.deleteAnnotation(with: _recordID)
+                }
+                self.performSegue(withIdentifier: "backToMapFromEdit", sender: self)
+            }
+        }
     }
 }
 

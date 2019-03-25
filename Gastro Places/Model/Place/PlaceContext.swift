@@ -174,12 +174,10 @@ class PlaceContext {
                 }
                 
                 if self.state == .Canceled {
-                    self.state = .Finished
                     return
                 } else {
                     let address = Address.init(city: city, zipCode: zipCode, street: street)
                     self.place.address = address
-                    self.state = .Finished
                     DispatchQueue.main.async {
                         self.delegateAddress?.placeContextDidDecodeAddress(address: address.full, error: error)
                     }

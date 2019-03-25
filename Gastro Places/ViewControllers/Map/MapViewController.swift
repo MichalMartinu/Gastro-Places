@@ -12,7 +12,7 @@ import CoreLocation
 import CloudKit
 import CoreData
 
-class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDelegateAdress {
+class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDelegateAdress, CreatePlaceViewControllerDelegate {
     
     @IBOutlet weak var loadingIndicatorView: UIView!
     @IBOutlet weak var mapView: MKMapView!
@@ -276,6 +276,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
             showCreateNewPlaceDialog(coordinate: location)
         }
         if let annotation = view.annotation as? PlaceAnnotation {
+            view.setSelected(false, animated: false)
             placeContext = PlaceContext.init(annotation: annotation)
             performSegue(withIdentifier: "showPlace", sender: self)
         }
@@ -373,6 +374,12 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         }
     }
     
+    func deleteAnnotation(with id: String) {
+        unmountGeocontext(geoContext)
+        geoContext?.deleteAnnotation(with: id)
+        mountGeocontext()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "createPlaceDialog" {
             centerOnLocationButton.isHidden = false
@@ -383,6 +390,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         if segue.identifier == "showPlace" {
             if let vc = segue.destination as? ShowPlaceTableViewController {
                 vc.placeContext = placeContext
+                vc.delegate = self
             }
         }
 
