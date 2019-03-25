@@ -254,7 +254,7 @@ class OpeningTime {
     private func checkDayBefore(day: Int, minutes: Int) -> Open {
         var dayBeforeIndex = day - 1
         
-        if dayBeforeIndex == -1 {
+        if dayBeforeIndex < 0 {
             // Monday <- Sunday
             dayBeforeIndex = 6
         }
@@ -266,8 +266,7 @@ class OpeningTime {
                 return .open
             }
         }
-        
-        
+    
         return .closed
     }
     

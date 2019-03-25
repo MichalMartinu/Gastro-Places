@@ -56,12 +56,12 @@ class CreatePlaceViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        createOpeningTimeAndImageContext()
         cathegoryPickerView.dataSource = cathegories
         cathegoryPickerView.delegate = cathegories
         roundButtons()
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
-        createOpeningTimeAndImageContext()
         checkIfPlaceContextIsFinished()
     }
     
@@ -128,6 +128,7 @@ class CreatePlaceViewController: UITableViewController {
     private func createOpeningTimeAndImageContext() {
         if openingTime == nil {
             openingTime = OpeningTime(intervalInMinutes: 15)
+            openingTime.initDays()
         }
         if imageContext == nil {
             imageContext = ImageContext()

@@ -274,6 +274,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
             }
             
             showCreateNewPlaceDialog(coordinate: location)
+            //view.setSelected(false, animated: false)
         }
         if let annotation = view.annotation as? PlaceAnnotation {
             placeContext = PlaceContext.init(annotation: annotation)
@@ -352,6 +353,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         unmountPlaceContext()
         createPlaceDialogView.isHidden = true
         centerOnLocationButton.isHidden = false
+        mountGeocontext()
     }
     
     @IBAction private func createPlaceDialogYesButtonPressed(_ sender: UIButton) {

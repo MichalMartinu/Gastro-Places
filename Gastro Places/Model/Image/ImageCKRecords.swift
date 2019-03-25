@@ -41,8 +41,8 @@ class ImageCKRecord {
             .appendingPathExtension("jpg")
         
         // Write to disk
-        let scaledImage = image.picture.scaled(width: 1000)
-        if let data = scaledImage.jpegData(compressionQuality: 0.5) {
+        let scaledImage = image.picture.scaled(width: 800)
+        if let data = scaledImage.jpegData(compressionQuality: 0.4) {
             do {
                 try data.write(to: url)
                 return url
