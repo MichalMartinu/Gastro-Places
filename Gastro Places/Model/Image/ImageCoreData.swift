@@ -29,7 +29,7 @@ class ImageCoreData: NSManagedObject {
         }
         
         recordToSave?.imageID = id
-        guard let asset = record["picture"] as? CKAsset, let data = try? Data(contentsOf: asset.fileURL) else {
+        guard let asset = record["picture"] as? CKAsset, let url = asset.fileURL,let data = try? Data(contentsOf: url) else {
             return
         }
         

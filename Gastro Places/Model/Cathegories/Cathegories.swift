@@ -95,7 +95,7 @@ class Cathegories: NSObject {
     }
     
     func indexForCathegory(_ cathegory: String) -> Int? {
-        return cathegories.index(where: { $0.name == cathegory })
+        return cathegories.firstIndex(where: { $0.name == cathegory })
     }
 }
 

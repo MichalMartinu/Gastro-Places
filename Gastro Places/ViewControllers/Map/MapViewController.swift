@@ -266,23 +266,6 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         mapView.addGestureRecognizer(gesture)
     }
     
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if view.annotation is MKUserLocation {
-            // Check if user selected current location
-            guard let location = locationManager.location?.coordinate else {
-                return
-            }
-            
-            showCreateNewPlaceDialog(coordinate: location)
-            //view.setSelected(false, animated: false)
-        }
-        if let annotation = view.annotation as? PlaceAnnotation {
-            placeContext = PlaceContext.init(annotation: annotation)
-            performSegue(withIdentifier: "showPlace", sender: self)
-        }
-        mapView.deselectAnnotation(view.annotation, animated: false)
-    }
-    
     private func destroyPlaceContext() {
         if placeContext != nil {
             placeContext?.delegateAddress = nil
@@ -433,6 +416,22 @@ extension MapViewController: CLLocationManagerDelegate {
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         checkIfGeoContextCanBeUpdated()
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if view.annotation is MKUserLocation {
+            // Check if user selected current location
+            guard let location = locationManager.location?.coordinate else {
+                return
+            }
+            
+            showCreateNewPlaceDialog(coordinate: location)
+        }
+        if let annotation = view.annotation as? PlaceAnnotation {
+            placeContext = PlaceContext.init(annotation: annotation)
+            performSegue(withIdentifier: "showPlace", sender: self)
+        }
+        mapView.deselectAnnotation(view.annotation, animated: false)
     }
 }
 

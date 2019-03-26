@@ -159,9 +159,7 @@ class CreatePlaceViewController: UITableViewController {
         emailTextFieldLine.backgroundColor = wrongInputColor
     }
     
-    @IBAction private func saveButtonIsPressed(_ sender: UIBarButtonItem) {
-        //self.view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
-       
+    @IBAction private func saveButtonIsPressed(_ sender: UIBarButtonItem) {       
         enableNavigationBarButtons(enabled: false)
         
         let name = nameTextField.text!

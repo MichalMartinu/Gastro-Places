@@ -47,7 +47,7 @@ class ImageCellFetcher {
 
         queryOperation.recordFetchedBlock = { (record) in
             
-            guard let asset = record["picture"] as? CKAsset, let data = try? Data(contentsOf: asset.fileURL), let image = UIImage(data: data) else {
+            guard let asset = record["picture"] as? CKAsset, let url = asset.fileURL, let data = try? Data(contentsOf: url), let image = UIImage(data: data) else {
                 return
             }
             
