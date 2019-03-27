@@ -52,6 +52,8 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     
     var openingTime: OpeningTime!
     
+    var sourceIsShowPlace = false
+    
     weak var delegate: CreatePlaceViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -233,6 +235,7 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
                 vc.placeContext = placeContext
                 vc.openingTime = openingTime
                 vc.imageContext = imageContext
+                vc.sourceIsShowPlace = sourceIsShowPlace
             }
         }
     }

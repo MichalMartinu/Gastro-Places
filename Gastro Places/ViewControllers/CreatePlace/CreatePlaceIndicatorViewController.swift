@@ -14,6 +14,16 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
     var imageContext: ImageContext!
     var openingTime: OpeningTime!
     
+    var sourceIsShowPlace = false
+
+    var segueIdentifier: String {
+        if sourceIsShowPlace == true {
+            return "backToShowPlace"
+        } else {
+            return "unwindToMapViewController"
+        }
+    }
+    
     private var annotation: PlaceAnnotation?
     
     override func viewDidLoad() {
@@ -45,7 +55,7 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
             }
         }
         navigationController?.isNavigationBarHidden = false
-        performSegue(withIdentifier: "unwindToMapViewController", sender: self)
+        performSegue(withIdentifier: segueIdentifier, sender: self)
     }
     
     private func showAlert(title: String?, message: String?, confirmTitle: String?) {
@@ -55,7 +65,7 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
     }
     
     func backToMap(alert: UIAlertAction!) {
-        performSegue(withIdentifier: "unwindToMapViewController", sender: self)
+        performSegue(withIdentifier: segueIdentifier, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -64,6 +74,14 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
                 if let _annotation = annotation {
                     vc.geoContext?.appendAnnotation(_annotation)
                 }
+            }
+        }
+        if segue.identifier == "backToShowPlace" {
+            if let vc = segue.destination as? ShowPlaceTableViewController {
+                imageContext.deleteCreatedImages()
+                vc.placeContext = placeContext
+                vc.openingTime = openingTime
+                vc.imageContext = imageContext
             }
         }
     }

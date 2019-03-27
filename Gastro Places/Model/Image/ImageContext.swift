@@ -108,4 +108,10 @@ class ImageContext {
         }
         return nil
     }
+    
+    func deleteCreatedImages() {
+        images = [Image]()
+        imagesToDelete = [CKRecord.ID]()
+        imagesToSave = [String]()
+    }
 }

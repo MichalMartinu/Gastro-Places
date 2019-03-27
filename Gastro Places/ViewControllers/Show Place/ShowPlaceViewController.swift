@@ -24,9 +24,9 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     
     
     var placeContext: PlaceContext!
-    let imageContext = ImageContext()
-    let openingTime = OpeningTime(intervalInMinutes: 15)
-    let placeRepresentation = PlaceRepresentation()
+    var imageContext = ImageContext()
+    var openingTime = OpeningTime(intervalInMinutes: 15)
+    private var  placeRepresentation = PlaceRepresentation()
     
     weak var delegate: CreatePlaceViewControllerDelegate?
     
@@ -35,6 +35,14 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         placeContext.delegateLoad = self
         placeContext.loadPlace()
         openingTime.initDays()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if imageContext.imageIDs.count > 0 {
+            placeRepresentation.appendImageCell()
+        }
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -127,12 +135,20 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         MKMapItem.openMaps(with: [desitnation], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
     
+    @IBAction func unwindToShowPlaceViewController(segue: UIStoryboardSegue) {
+        if segue.source is CreatePlaceIndicatorViewController {
+            placeRepresentation = PlaceRepresentation()
+            placeRepresentation.initFromPlace(placeContext: placeContext, openingTime: openingTime)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editPlace" {
             if let vc = segue.destination as? CreatePlaceViewController {
                 vc.placeContext = placeContext
                 vc.openingTime = openingTime
                 vc.delegate = delegate
+                vc.sourceIsShowPlace = true
             }
         }
     }

@@ -1206,6 +1206,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <segue destination="n2n-Zg-f3U" kind="unwind" identifier="unwindToMapViewController" unwindAction="unwindToMapViewControllerWithSegue:" id="LuX-yz-JT6"/>
+                        <segue destination="n2n-Zg-f3U" kind="unwind" identifier="backToShowPlace" unwindAction="unwindToShowPlaceViewControllerWithSegue:" id="eNa-Nl-LeV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5rx-LW-lUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
