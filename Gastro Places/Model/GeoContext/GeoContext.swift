@@ -42,10 +42,14 @@ class GeoContext {
         annotations.append(annotation)
     }
     
-    func deleteAnnotation(with id: String) {
+    func deleteAnnotation(with id: String) -> PlaceAnnotation? {
         if let annotationIndex = annotations.firstIndex(where: { $0.id == id }) {
+            let annotation = annotations[annotationIndex]
             annotations.remove(at: annotationIndex)
+            return annotation
         }
+        
+        return nil
     }
     
     func start() {

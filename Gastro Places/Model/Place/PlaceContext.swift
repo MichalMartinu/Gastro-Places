@@ -200,7 +200,7 @@ class PlaceContext {
         records.append(openingTimeCKRecord.record)
         records.append(contentsOf: imagesCKRecordsToSave.record)
         
-        let saveOperation = CKModifyRecordsOperation(recordsToSave: records)
+        let saveOperation = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: images.imagesToDelete)
         saveOperation.savePolicy = .changedKeys
         saveOperation.modifyRecordsCompletionBlock = { (records, recordsID, error) in
             

@@ -13,7 +13,7 @@ protocol CreatePlaceViewControllerDelegate: AnyObject {
     func deleteAnnotation(with id: String)
 }
 
-class CreatePlaceViewController: UITableViewController {
+class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
 
     @IBOutlet weak var cathegoryPickerView: UIPickerView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -63,6 +63,10 @@ class CreatePlaceViewController: UITableViewController {
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
         checkIfPlaceContextIsFinished()
+        imageContext.delegate = self
+        if let id = placeContext.place.placeID {
+            imageContext.fetchImageIDs(placeID: id)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -220,6 +224,7 @@ class CreatePlaceViewController: UITableViewController {
         if segue.identifier == "createImages" {
             if let vc = segue.destination as? ImagesToSaveTableViewController {
                 vc.imageContext = imageContext
+                vc.placeContext = placeContext
             }
         }
         
@@ -255,6 +260,10 @@ class CreatePlaceViewController: UITableViewController {
         showDeleteAlert()
     }
     
+    func imageContextDidloadIDs() {
+        imageCollectionView.reloadData()
+    }
+    
     private func deletePlace(alert: UIAlertAction?) {
         guard let id = placeContext.place.placeID else { return }
         
@@ -282,18 +291,26 @@ class CreatePlaceViewController: UITableViewController {
 extension CreatePlaceViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if imageContext.images.count == 0 {
-            //Return at least one image
-            return 1
-        }
-        return imageContext.images.count
+        
+        return imageContext.imageIDs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "createPlaceImageCollectionViewCell", for: indexPath) as! CreatePlaceImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "createPlaceImageCollectionViewCell", for: indexPath) as! ShowPlaceImageCollectionViewCell
         
-        if imageContext.images.count != 0 {
-            cell.displayImage(image: imageContext.images[indexPath.row].picture)
+        let id = imageContext.imageIDs[indexPath.row]
+        cell.id = id
+        
+        if let image = imageContext.getLocalImageForID(with: id) {
+            cell.setCell(image: image)
+        } else {
+            cell.setCell(image: nil)
+            
+            DispatchQueue.global().async {
+                let cellFetcher = ImageCellFetcher()
+                cellFetcher.delegateCell = cell
+                cellFetcher.fetchImage(identifier: id, placeId: self.placeContext.place.placeID!)
+            }
         }
         
         return cell

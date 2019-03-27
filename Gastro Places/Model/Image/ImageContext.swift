@@ -27,7 +27,7 @@ protocol ImageContextDelegate: AnyObject {
 class ImageContext {
     
     var images = [Image]()
-    private var imagesToDelete = [String]()
+    var imagesToDelete = [CKRecord.ID]()
     private var imagesToSave = [String]()
     
     var imageIDs = [String]()
@@ -40,6 +40,7 @@ class ImageContext {
         let uuid = UUID().uuidString
         images.append(Image.init(id: uuid, picture: image))
         imagesToSave.append(uuid)
+        imageIDs.append(uuid)
     }
     
     func getImagesToSave() -> [Image] {
@@ -55,11 +56,14 @@ class ImageContext {
     }
     
     func deleteImageAtIndex(index: Int) {
-        if let saveIndex = imagesToSave.firstIndex(of: images[index].id) {
+        if let saveIndex = imagesToSave.firstIndex(of: imageIDs[index]) {
             imagesToSave.remove(at: saveIndex)
+        } else {
+            let deleteID = imageIDs[index]
+            imagesToDelete.append(CKRecord.ID(recordName: deleteID))
         }
         
-        images.remove(at: index)
+        imageIDs.remove(at: index)
     }
     
     func fetchImageIDs(placeID: String) {
@@ -96,5 +100,12 @@ class ImageContext {
         })
         
         publicDB.add(operation)
+    }
+    
+    func getLocalImageForID(with id: String) -> UIImage? {
+        if let index = images.firstIndex(where: { $0.id == id }) {
+            return images[index].picture
+        }
+        return nil
     }
 }

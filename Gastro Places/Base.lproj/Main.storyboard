@@ -825,35 +825,33 @@
                                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                             </collectionViewFlowLayout>
                                                             <cells>
-                                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="createPlaceImageCollectionViewCell" id="Un0-Ba-2oa" customClass="CreatePlaceImageCollectionViewCell" customModule="Gastro_Places" customModuleProvider="target">
+                                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="createPlaceImageCollectionViewCell" id="Un0-Ba-2oa" customClass="ShowPlaceImageCollectionViewCell" customModule="Gastro_Places" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.66666666666666663" width="108" height="88"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                                         <rect key="frame" x="0.0" y="0.0" width="108" height="88"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jO-MB-JRY">
-                                                                                <rect key="frame" x="17.666666666666671" y="33.666666666666664" width="73" height="21"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                <nil key="highlightedColor"/>
-                                                                            </label>
                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Ak-LO-QPY">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="108" height="88"/>
                                                                             </imageView>
+                                                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Yd1-a7-fkC">
+                                                                                <rect key="frame" x="44" y="34" width="20" height="20"/>
+                                                                            </activityIndicatorView>
                                                                         </subviews>
                                                                     </view>
-                                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstItem="7Ak-LO-QPY" firstAttribute="leading" secondItem="Un0-Ba-2oa" secondAttribute="leading" id="8lG-1x-ntv"/>
                                                                         <constraint firstAttribute="bottom" secondItem="7Ak-LO-QPY" secondAttribute="bottom" id="IMW-iM-bne"/>
+                                                                        <constraint firstItem="Yd1-a7-fkC" firstAttribute="centerX" secondItem="Un0-Ba-2oa" secondAttribute="centerX" id="YpA-fD-lXR"/>
+                                                                        <constraint firstItem="Yd1-a7-fkC" firstAttribute="centerY" secondItem="Un0-Ba-2oa" secondAttribute="centerY" id="cXm-Sf-SFD"/>
                                                                         <constraint firstItem="7Ak-LO-QPY" firstAttribute="top" secondItem="Un0-Ba-2oa" secondAttribute="top" id="pxc-dR-KHU"/>
-                                                                        <constraint firstItem="0jO-MB-JRY" firstAttribute="centerY" secondItem="Un0-Ba-2oa" secondAttribute="centerY" id="qYq-Sl-7d1"/>
-                                                                        <constraint firstItem="0jO-MB-JRY" firstAttribute="centerX" secondItem="Un0-Ba-2oa" secondAttribute="centerX" id="sih-Mb-aob"/>
                                                                         <constraint firstAttribute="trailing" secondItem="7Ak-LO-QPY" secondAttribute="trailing" id="xS7-bU-kg4"/>
                                                                     </constraints>
                                                                     <connections>
-                                                                        <outlet property="photoImageView" destination="7Ak-LO-QPY" id="wI6-fn-729"/>
+                                                                        <outlet property="activityIndicator" destination="Yd1-a7-fkC" id="eA8-zk-6id"/>
+                                                                        <outlet property="pictureImageView" destination="7Ak-LO-QPY" id="dfb-DH-iFe"/>
                                                                     </connections>
                                                                 </collectionViewCell>
                                                             </cells>
@@ -1224,7 +1222,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="createImageTableViewCell" rowHeight="200" id="FLq-nQ-V7f" customClass="CreateImageTableViewCell" customModule="Gastro_Places" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="imageTableViewCell" rowHeight="200" id="FLq-nQ-V7f" customClass="ImageTableViewCell" customModule="Gastro_Places" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FLq-nQ-V7f" id="ICX-Gr-5Yq">
@@ -1237,15 +1235,22 @@
                                                 <constraint firstAttribute="height" constant="200" id="jXu-6r-we9"/>
                                             </constraints>
                                         </imageView>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="tWa-hK-Bdu">
+                                            <rect key="frame" x="169" y="81.333333333333329" width="37" height="37"/>
+                                        </activityIndicatorView>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="JcK-8H-Wuu" secondAttribute="trailing" id="0l3-0M-M9e"/>
                                         <constraint firstItem="JcK-8H-Wuu" firstAttribute="centerY" secondItem="ICX-Gr-5Yq" secondAttribute="centerY" id="6hi-9t-tRr"/>
                                         <constraint firstItem="JcK-8H-Wuu" firstAttribute="leading" secondItem="ICX-Gr-5Yq" secondAttribute="leading" id="CmK-ia-sxh"/>
+                                        <constraint firstItem="tWa-hK-Bdu" firstAttribute="centerY" secondItem="ICX-Gr-5Yq" secondAttribute="centerY" id="HWe-DL-DAe"/>
+                                        <constraint firstItem="tWa-hK-Bdu" firstAttribute="centerX" secondItem="ICX-Gr-5Yq" secondAttribute="centerX" id="dLz-aN-hUy"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="photoImageView" destination="JcK-8H-Wuu" id="2BT-rX-IuJ"/>
+                                    <outlet property="activityIndicator" destination="tWa-hK-Bdu" id="OcE-SC-Gdv"/>
+                                    <outlet property="pictureImageView" destination="JcK-8H-Wuu" id="212-TH-z03"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

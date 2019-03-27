@@ -360,9 +360,9 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     }
     
     func deleteAnnotation(with id: String) {
-        unmountGeocontext(geoContext)
-        geoContext?.deleteAnnotation(with: id)
-        mountGeocontext()
+        if let annotation = geoContext?.deleteAnnotation(with: id) {
+            mapView.removeAnnotation(annotation)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -383,7 +383,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     
     @IBAction func unwindToMapViewController(segue: UIStoryboardSegue) {
         if segue.source is CreatePlaceIndicatorViewController {
-            // Add creted place
+            // Add created place
             mountGeocontext()
         }
     }

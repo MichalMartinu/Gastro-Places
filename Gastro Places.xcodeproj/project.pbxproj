@@ -33,6 +33,7 @@
 		0767F5DE2243FAEC00899271 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0767F5DD2243FAEB00899271 /* Assets.xcassets */; };
 		0769E1F72248C965005319B0 /* ImageCellFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0769E1F62248C965005319B0 /* ImageCellFetcher.swift */; };
 		076A547022442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */; };
+		0778BF1C224A845C0027F196 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0778BF1B224A845C0027F196 /* ImageTableViewCell.swift */; };
 		07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */; };
 		0794BBE622365C5A00CF8D70 /* CreatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */; };
 		0794BBEE2236841300CF8D70 /* PlaceCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BBED2236841300CF8D70 /* PlaceCKRecord.swift */; };
@@ -81,6 +82,7 @@
 		0767F5DD2243FAEB00899271 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0769E1F62248C965005319B0 /* ImageCellFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellFetcher.swift; sourceTree = "<group>"; };
 		076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceIndicatorViewController.swift; sourceTree = "<group>"; };
+		0778BF1B224A845C0027F196 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecord.swift; sourceTree = "<group>"; };
 		0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceViewController.swift; sourceTree = "<group>"; };
 		0794BBED2236841300CF8D70 /* PlaceCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCKRecord.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				07DBECB22238117300D3D13D /* OpeningHoursTableViewCell.swift */,
 				075154FC223ACF8100D3E7FE /* CreateImageTableViewCell.swift */,
 				075154FE223AD4C600D3E7FE /* CreatePlaceImageCollectionViewCell.swift */,
+				0778BF1B224A845C0027F196 /* ImageTableViewCell.swift */,
 			);
 			path = "Create Place";
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				0733D6C022350E59001F31C2 /* String.swift in Sources */,
 				075154FB223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift in Sources */,
 				075E215F22454186008F8F14 /* PlaceRepresentation.swift in Sources */,
+				0778BF1C224A845C0027F196 /* ImageTableViewCell.swift in Sources */,
 				07956E41223418DD001F1449 /* CathegoryCollectionViewCell.swift in Sources */,
 				075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */,
 				07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */,

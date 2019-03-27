@@ -14,6 +14,7 @@ class ImagesToSaveTableViewController: UITableViewController {
     @IBOutlet weak var editingButton: UIBarButtonItem!
     
     var imageContext: ImageContext!
+    var placeContext: PlaceContext!
     
     override func viewDidLoad() {
        enableOrDisableEditButton()
@@ -28,8 +29,23 @@ class ImagesToSaveTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "createImageTableViewCell", for: indexPath) as! CreateImageTableViewCell
-        cell.setImage(imageContext.images[indexPath.row].picture)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "imageTableViewCell", for: indexPath) as! ImageTableViewCell
+        
+        let id = imageContext.imageIDs[indexPath.row]
+        cell.id = id
+        
+        if let image = imageContext.getLocalImageForID(with: id) {
+            cell.setCell(image: image)
+        } else {
+            cell.setCell(image: nil)
+            
+            DispatchQueue.global().async {
+                let cellFetcher = ImageCellFetcher()
+                cellFetcher.delegateCell = cell
+                cellFetcher.fetchImage(identifier: id, placeId: self.placeContext.place.placeID!)
+            }
+        }
+        
         return cell
     }
     
@@ -38,7 +54,7 @@ class ImagesToSaveTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return imageContext.images.count
+        return imageContext.imageIDs.count
     }
     
     @IBAction private func newImageButtonPressed(_ sender: UIBarButtonItem) {
@@ -61,7 +77,7 @@ class ImagesToSaveTableViewController: UITableViewController {
     }
     
     private func enableOrDisableEditButton() {
-        if imageContext.images.count > 0 {
+        if imageContext.imageIDs.count > 0 {
             editButton.isEnabled = true
         } else {
             editButton.isEnabled = false
