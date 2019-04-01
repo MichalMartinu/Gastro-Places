@@ -9,7 +9,7 @@
 import Foundation
 import CloudKit
 
-struct OpeningTimeCKRecord {
+class OpeningTimeCKRecord {
     let record: CKRecord
     
     init(days: [Day], recordReference: CKRecord, openingRecordID: String?) {
@@ -27,6 +27,20 @@ struct OpeningTimeCKRecord {
         for day in days {
             record[day.name.lowercased()] = day.full
         }
+    }
+    
+    init(openingTimeCoreData: OpeningTimeCoreData) {
+        let record = CKRecord(recordType: "OpeningTime")
+        
+        record["monday"] = openingTimeCoreData.monday
+        record["tuesday"] = openingTimeCoreData.tuesday
+        record["wednesday"] = openingTimeCoreData.wednesday
+        record["thursday"] = openingTimeCoreData.tuesday
+        record["friday"] = openingTimeCoreData.friday
+        record["saturday"] = openingTimeCoreData.saturday
+        record["sunday"] = openingTimeCoreData.sunday
+        
+        self.record = record
     }
 }
 

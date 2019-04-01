@@ -34,7 +34,6 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         super.viewDidLoad()
         placeContext.delegateLoad = self
         placeContext.loadPlace()
-        openingTime.initDays()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,7 +62,7 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         placeRepresentation.initFromPlace(placeContext: placeContext, openingTime: openingTime)
         if let _placeID = placeContext.place.placeID {
             openingTime.delegate = self
-            openingTime.fetchOpeningHours(placeID: _placeID)
+            openingTime.fetchOpeningHours(placeID: _placeID, placeCoreData: placeContext.placeCoreData)
             imageContext.delegate = self
             imageContext.fetchImageIDs(placeID: _placeID)
         }
@@ -102,7 +101,10 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         switch place.cell {
         case .image:
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableImageViewCell
-            cell.imageCollectionView.dataSource = self
+            if imageContext.state == .Finished {
+                cell.imageCollectionView.dataSource = self
+                cell.loaded()
+            }
             return cell
         case .text:
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableTextViewCell

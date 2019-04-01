@@ -134,7 +134,6 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     private func createOpeningTimeAndImageContext() {
         if openingTime == nil {
             openingTime = OpeningTime(intervalInMinutes: 15)
-            openingTime.initDays()
         }
         if imageContext == nil {
             imageContext = ImageContext()
@@ -165,8 +164,24 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
         emailTextFieldLine.backgroundColor = wrongInputColor
     }
     
+    private func isICloudKitContainerAvailable() -> Bool {
+        // Check if iCloud is currently available
+        if FileManager.default.ubiquityIdentityToken != nil {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     @IBAction private func saveButtonIsPressed(_ sender: UIBarButtonItem) {       
         enableNavigationBarButtons(enabled: false)
+        
+        if isICloudKitContainerAvailable() == false {
+            showAlert(title: "iCloud account needed", message: "You need to login to your iCloud account on iPhone.", confirmTitle: "Ok")
+            enableNavigationBarButtons(enabled: true)
+            return
+        }
         
         let name = nameTextField.text!
         let web = webpageTextField.text!

@@ -11,4 +11,11 @@ import UIKit
 class ShowPlaceTableImageViewCell: UITableViewCell {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
+    @IBOutlet weak var loadingView: UIView!
+    
+    func loaded() {
+        loadingView.isHidden = true
+        imageCollectionView.isHidden = false
+        imageCollectionView.reloadData()
+    }
 }

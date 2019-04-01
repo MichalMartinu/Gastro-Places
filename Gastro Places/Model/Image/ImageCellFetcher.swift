@@ -56,7 +56,7 @@ class ImageCellFetcher {
                 ImageCoreData.saveImage(imageID: identifier, data: data, placeID: placeId, context: context)
                 self.delegateCell?.imageLoaded(image: image, id: identifier)
                 
-                try? context.save()
+                //try? context.save()
             }
         }
         queryOperation.queryCompletionBlock = { (cursor, error) in

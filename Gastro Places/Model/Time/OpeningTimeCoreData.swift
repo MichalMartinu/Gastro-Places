@@ -37,4 +37,17 @@ class OpeningTimeCoreData: NSManagedObject{
         
         place.openingTime = recordToSave
     }
+    
+    class func find(place: PlaceCoreData, context: NSManagedObjectContext) -> OpeningTimeCoreData? {
+        let query:NSFetchRequest<OpeningTimeCoreData> = OpeningTimeCoreData.fetchRequest()
+        
+        let predicate = NSPredicate(format: "place = %@", place)
+        query.predicate = predicate
+                
+        if let _records = try? context.fetch(query), _records.count == 1, let _record = _records.first {
+            return _record
+        }
+        
+        return nil
+    }
 }

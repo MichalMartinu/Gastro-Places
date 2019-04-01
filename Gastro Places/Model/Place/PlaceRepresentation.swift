@@ -60,6 +60,8 @@ class PlaceRepresentation {
     
     func initFromPlace(placeContext: PlaceContext, openingTime: OpeningTime) {
         let place = placeContext.place
+        
+        cells.append(PlaceCell.init(type: CellTypes.image))
                 
         cells.append(PlaceCell.init(type: CellTypes.space))
         
@@ -92,7 +94,7 @@ class PlaceRepresentation {
     }
     
     func appendImageCell() {
-        cells.insert(PlaceCell.init(type: CellTypes.image), at: 0)
+        cells[0] = PlaceCell.init(type: CellTypes.image)
     }
     
     

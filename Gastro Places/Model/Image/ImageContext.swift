@@ -24,6 +24,12 @@ protocol ImageContextDelegate: AnyObject {
     func imageContextDidloadIDs()
 }
 
+enum ImageContextState {
+    case Ready
+    case Executing
+    case Finished
+}
+
 class ImageContext {
     
     var images = [Image]()
@@ -31,6 +37,8 @@ class ImageContext {
     private var imagesToSave = [String]()
     
     var imageIDs = [String]()
+    
+    var state: ImageContextState = .Ready
     
     private static let imageContextQueue = DispatchQueue(label: "imageContextQueue", qos: .userInteractive, attributes: .concurrent)
 
@@ -65,14 +73,10 @@ class ImageContext {
         
         imageIDs.remove(at: index)
     }
-    
+ 
     func fetchImageIDs(placeID: String) {
-        ImageContext.imageContextQueue.async {
-            self.gtfetchImageIDs(placeID: placeID)
-        }
-    }
-    
-    private func gtfetchImageIDs(placeID: String) {
+        state = .Executing
+        
         let container = CKContainer.default()
         let publicDB = container.publicCloudDatabase
         
@@ -91,6 +95,7 @@ class ImageContext {
             }
             
             DispatchQueue.main.async {
+                self.state = .Finished
                 self.delegate?.imageContextDidloadIDs()
             }
         }

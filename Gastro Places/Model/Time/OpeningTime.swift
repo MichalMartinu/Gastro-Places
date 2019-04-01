@@ -34,7 +34,7 @@ class Time {
     }
 }
 
-class Day {
+struct Day {
     var name: String
     var from: Time?
     var to: Time?
@@ -57,9 +57,14 @@ class Day {
     }
 }
 
-
 protocol OpeningTimeDelegate: AnyObject {
     func openingTimeDidLoad()
+}
+
+enum OpeningTimeState {
+    case Ready
+    case Executing
+    case Finished
 }
 
 class OpeningTime {
@@ -67,6 +72,8 @@ class OpeningTime {
     var times = [Time]()
     private let dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     var days = [Day]()
+    
+    //var state =
     
     var recordID: String?
     
@@ -127,7 +134,7 @@ class OpeningTime {
     }
     
     func setDay(indexPath: Int, from: Time?, to: Time?) {
-        // When day is not initialized and day before is, set same time
+        // When day is not initialized and day before is, set same time        
         let beforeIndex = indexPath - 1
         if from != nil, to != nil, beforeIndex >= 0 {
             if days[indexPath].from == nil,  days[indexPath].to == nil {
@@ -143,14 +150,33 @@ class OpeningTime {
         days[indexPath].to = to
     }
     
-    func fetchOpeningHours(placeID: String) {
+    func fetchOpeningHours(placeID: String, placeCoreData: PlaceCoreData?) {
         //state = .Executing
+        
+        //Check if opening data are saved in CoreData
+        let context = AppDelegate.viewContext
+        
+        guard let _placeCoreData = placeCoreData else { return }
+        
+        if let record = OpeningTimeCoreData.find(place: _placeCoreData, context: context) {
+            let convertedRecord = OpeningTimeCKRecord.init(openingTimeCoreData: record)
+            initDaysFromCKRecord(convertedRecord.record)
+            
+            DispatchQueue.main.async {
+                self.delegate?.openingTimeDidLoad()
+            }
+            
+            return
+        }
+        
+        initDays()
+        
         OpeningTime.openingTimeQueue.async {
-            self.gtFetchOpeningHours(placeID: placeID)
+            self.gtFetchOpeningHours(placeID: placeID, placeCoreData: _placeCoreData)
         }
     }
     
-    private func gtFetchOpeningHours(placeID: String) {
+    private func gtFetchOpeningHours(placeID: String, placeCoreData: PlaceCoreData) {
         let container = CKContainer.default()
         let publicDB = container.publicCloudDatabase
         
@@ -167,10 +193,12 @@ class OpeningTime {
             self.initDaysFromCKRecord(record)
             
             DispatchQueue.main.async {
+                let context = AppDelegate.viewContext
+                OpeningTimeCoreData.changeOrCreate(place: placeCoreData, record: record, context: context)
+                
                 self.recordID =  record.recordID.recordName
                 self.delegate?.openingTimeDidLoad()
             }
-            
         }
         
         publicDB.add(queryOperation)
@@ -178,6 +206,7 @@ class OpeningTime {
     
     private func initDaysFromCKRecord(_ record: CKRecord) {
         days = [Day]()
+        
         for name in dayNames {
             if let string = record[name.lowercased()] as? String {
                 let separatedString = string.components(separatedBy: "-")
@@ -192,12 +221,10 @@ class OpeningTime {
                 let fromTime = Time.init(minutes: _fromHours * 60 + _fromMinutes)
                 let toTime = Time.init(minutes: _toHours * 60 + _toMinutes)
                 
-                
                 days.append(Day.init(day: name, from: fromTime, to: toTime))
             } else {
                 
                 days.append(Day.init(day: name))
-                
             }
         }
     }

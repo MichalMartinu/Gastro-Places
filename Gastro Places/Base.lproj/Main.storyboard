@@ -212,9 +212,8 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bW9-ue-3cg">
                                 <rect key="frame" x="70" y="198" width="235" height="50"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="auD-eZ-tmc">
-                                        <rect key="frame" x="46" y="14.666666666666671" width="143.33333333333334" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="auD-eZ-tmc">
+                                        <rect key="frame" x="46" y="15" width="143.33333333333334" height="20"/>
                                         <subviews>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="IcH-A4-Cep">
                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -234,6 +233,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="auD-eZ-tmc" firstAttribute="centerY" secondItem="bW9-ue-3cg" secondAttribute="centerY" id="0Cz-c8-IQE"/>
+                                    <constraint firstItem="auD-eZ-tmc" firstAttribute="centerX" secondItem="bW9-ue-3cg" secondAttribute="centerX" id="VuW-Y1-rSa"/>
                                     <constraint firstAttribute="height" constant="50" id="fvv-jg-Ryz"/>
                                 </constraints>
                             </view>
@@ -443,11 +444,11 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageTableViewCell" rowHeight="203" id="wXA-lb-O5f" customClass="ShowPlaceTableImageViewCell" customModule="Gastro_Places" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="203"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wXA-lb-O5f" id="z7H-RG-unp">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wXA-lb-O5f" id="z7H-RG-unp">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="203"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sYz-NX-SFm">
+                                        <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sYz-NX-SFm">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -490,9 +491,28 @@
                                                 </collectionViewCell>
                                             </cells>
                                         </collectionView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jeX-Hs-wTa">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="D3a-ob-eJE">
+                                                    <rect key="frame" x="169" y="81.333333333333329" width="37" height="37"/>
+                                                    <color key="color" cocoaTouchSystemColor="darkTextColor"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="D3a-ob-eJE" firstAttribute="centerY" secondItem="jeX-Hs-wTa" secondAttribute="centerY" id="DbQ-pE-z9E"/>
+                                                <constraint firstAttribute="height" constant="200" id="UVQ-08-vUE"/>
+                                                <constraint firstItem="D3a-ob-eJE" firstAttribute="centerX" secondItem="jeX-Hs-wTa" secondAttribute="centerX" id="lI7-oj-qIK"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="sYz-NX-SFm" secondAttribute="trailing" id="0RC-Qd-9RP"/>
+                                        <constraint firstItem="jeX-Hs-wTa" firstAttribute="leading" secondItem="z7H-RG-unp" secondAttribute="leading" id="BfW-ge-YdP"/>
+                                        <constraint firstItem="jeX-Hs-wTa" firstAttribute="top" secondItem="z7H-RG-unp" secondAttribute="top" id="LdD-DE-k76"/>
+                                        <constraint firstAttribute="bottom" secondItem="jeX-Hs-wTa" secondAttribute="bottom" priority="999" id="RHx-2f-2KV"/>
+                                        <constraint firstAttribute="trailing" secondItem="jeX-Hs-wTa" secondAttribute="trailing" id="eOF-rg-iD8"/>
                                         <constraint firstItem="sYz-NX-SFm" firstAttribute="top" secondItem="z7H-RG-unp" secondAttribute="top" id="lLq-gi-A1o"/>
                                         <constraint firstAttribute="bottom" secondItem="sYz-NX-SFm" secondAttribute="bottom" id="u62-PV-Uuw"/>
                                         <constraint firstItem="sYz-NX-SFm" firstAttribute="leading" secondItem="z7H-RG-unp" secondAttribute="leading" id="vpl-Ww-wAU"/>
@@ -500,6 +520,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="imageCollectionView" destination="sYz-NX-SFm" id="dcD-E1-GMf"/>
+                                    <outlet property="loadingView" destination="jeX-Hs-wTa" id="Gbm-pK-atn"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="textTableViewCell" rowHeight="54" id="NQp-Wd-8Uy" customClass="ShowPlaceTableTextViewCell" customModule="Gastro_Places" customModuleProvider="target">
@@ -560,8 +581,8 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="BqK-VO-yDE" firstAttribute="leading" secondItem="r2h-z5-wXk" secondAttribute="leadingMargin" id="5J0-N8-CAM"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="BqK-VO-yDE" secondAttribute="trailing" id="FJA-CV-nDW"/>
+                                        <constraint firstItem="BqK-VO-yDE" firstAttribute="leading" secondItem="r2h-z5-wXk" secondAttribute="leadingMargin" priority="999" id="5J0-N8-CAM"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="BqK-VO-yDE" secondAttribute="trailing" priority="999" id="FJA-CV-nDW"/>
                                         <constraint firstItem="BqK-VO-yDE" firstAttribute="bottom" secondItem="r2h-z5-wXk" secondAttribute="bottom" id="TDe-QM-iSP"/>
                                         <constraint firstItem="BqK-VO-yDE" firstAttribute="top" secondItem="r2h-z5-wXk" secondAttribute="top" id="lgw-cQ-PJA"/>
                                     </constraints>
@@ -624,13 +645,19 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="hPL-4S-neM" firstAttribute="top" secondItem="zr3-HX-w3f" secondAttribute="top" id="8WD-gp-2qZ"/>
+                                                        <constraint firstAttribute="bottom" secondItem="bDj-RM-46w" secondAttribute="bottom" id="Zor-Fs-lws"/>
+                                                        <constraint firstAttribute="bottom" secondItem="hPL-4S-neM" secondAttribute="bottom" id="cVT-ck-1Gi"/>
+                                                        <constraint firstItem="bDj-RM-46w" firstAttribute="top" secondItem="zr3-HX-w3f" secondAttribute="top" id="eoj-Fe-Y5S"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                         </stackView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="XmP-ZS-WGQ" firstAttribute="top" secondItem="1tZ-gD-OqK" secondAttribute="topMargin" id="0gM-a2-iEJ"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="XmP-ZS-WGQ" secondAttribute="bottom" id="DsK-9Y-rl6"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="XmP-ZS-WGQ" secondAttribute="bottom" priority="999" id="DsK-9Y-rl6"/>
                                         <constraint firstItem="XmP-ZS-WGQ" firstAttribute="trailing" secondItem="1tZ-gD-OqK" secondAttribute="trailingMargin" id="RqQ-vr-0Qc"/>
                                         <constraint firstItem="XmP-ZS-WGQ" firstAttribute="leading" secondItem="1tZ-gD-OqK" secondAttribute="leadingMargin" id="bfd-km-1Mm"/>
                                     </constraints>
@@ -1440,6 +1467,6 @@
         <image name="saving-place-icon" width="980" height="964"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="l7s-o1-oXh"/>
+        <segue reference="QVz-c3-Rkp"/>
     </inferredMetricsTieBreakers>
 </document>

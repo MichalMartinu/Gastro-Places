@@ -76,6 +76,8 @@ class PlaceContext {
     
     var annotation: PlaceAnnotation
     
+    var placeCoreData: PlaceCoreData?
+    
     var state = PlaceContextState.Ready
     
     private static let placeContextQueue = DispatchQueue(label: "placeContextQueue", qos: .userInteractive, attributes: .concurrent)
@@ -257,7 +259,7 @@ class PlaceContext {
             createAnnotation(placeCKRecord: _placeCKRecord)
         }
         
-        try? context.save()
+        //try? context.save()
         
         self.state = .Finished
         self.delegateSave?.placeContextSaved(annotation: annotation, error: nil)
@@ -290,6 +292,7 @@ class PlaceContext {
             }
             
             place = Place.init(place: recordToShow)
+            self.placeCoreData = recordToShow
             state = .Finished
             self.delegateLoad?.placeContextLoadedPlace()
         }

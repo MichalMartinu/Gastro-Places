@@ -110,7 +110,7 @@ class GeoContext {
             
             PlaceCoreData.changeOrCreatePlaces(records: records, context: context)
             
-            try? context.save()
+            //try? context.save()
 
             self.state = .Finished
             self.delegate?.geoContextDidLoadAnnotations(error: nil)
