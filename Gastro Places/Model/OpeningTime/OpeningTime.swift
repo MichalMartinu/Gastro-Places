@@ -72,9 +72,7 @@ class OpeningTime {
     var times = [Time]()
     private let dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     var days = [Day]()
-    
-    //var state =
-    
+        
     var recordID: String?
     
     weak var delegate: OpeningTimeDelegate?

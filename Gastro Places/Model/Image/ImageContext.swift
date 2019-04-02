@@ -10,35 +10,17 @@ import UIKit
 import CloudKit
 import CoreData
 
-struct Image {
-    var id: String
-    var picture: UIImage
-    
-    init(id: String, picture: UIImage) {
-        self.id = id
-        self.picture = picture
-    }
-}
-
 protocol ImageContextDelegate: AnyObject {
     func imageContextDidloadIDs()
 }
 
-enum ImageContextState {
-    case Ready
-    case Executing
-    case Finished
-}
-
-class ImageContext {
+class ImageContext: Operation {
     
     var images = [Image]()
     var imagesToDelete = [CKRecord.ID]()
     private var imagesToSave = [String]()
     
     var imageIDs = [String]()
-    
-    var state: ImageContextState = .Ready
     
     private static let imageContextQueue = DispatchQueue(label: "imageContextQueue", qos: .userInteractive, attributes: .concurrent)
 
@@ -96,17 +78,19 @@ class ImageContext {
         query.sortDescriptors?.append(NSSortDescriptor(key: "creationDate", ascending: false))
         
         let operation = CKQueryOperation(query: query)
-        operation.desiredKeys = []
         operation.qualityOfService = .userInteractive        
         operation.queryCompletionBlock = { results, error in
             
             if error != nil {
-                // TODO
+                self.state = .Failed
+                DispatchQueue.main.async {
+                    self.delegate?.imageContextDidloadIDs()
+                }
                 return
             }
             
+            self.state = .Finished
             DispatchQueue.main.async {
-                self.state = .Finished
                 self.delegate?.imageContextDidloadIDs()
             }
         }

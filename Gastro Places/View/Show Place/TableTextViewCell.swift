@@ -19,11 +19,11 @@ class ShowPlaceTableTextViewCell: UITableViewCell {
         
         if textCell.bold == true {
             itemTextLabel.font = UIFont.boldSystemFont(ofSize: defaultFontSize)
+        } else {
+            itemTextLabel.font = UIFont.systemFont(ofSize: defaultFontSize)
         }
         
-        if let _color = textCell.color {
-            itemTextLabel.textColor = _color
-        }
+        itemTextLabel.textColor = textCell.color
         
         if let _size = textCell.size {
             itemTextLabel.font = itemTextLabel.font.withSize(_size)

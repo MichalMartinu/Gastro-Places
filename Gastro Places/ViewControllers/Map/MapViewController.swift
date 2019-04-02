@@ -12,7 +12,7 @@ import CoreLocation
 import CloudKit
 import CoreData
 
-class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDelegateAdress, CreatePlaceViewControllerDelegate {
+class MapViewController: UIViewController {
     
     @IBOutlet weak var loadingIndicatorView: UIView!
     @IBOutlet weak var mapView: MKMapView!
@@ -32,11 +32,15 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     @IBOutlet weak var geoContextInformationLabel: UILabel!
     
     private let locationManager = CLLocationManager()
+    
     private var mapCentered = false
+    
     private let regionRadius: CLLocationDistance = 5000 // meters
     
     private(set) var geoContext: GeoContext?
+    
     private var placeContext: PlaceContext?
+    
     private var cathegories = Cathegories.init(type: .all)
     
     let noPlacesMessage = "No places in this area"
@@ -45,14 +49,15 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.register(PlaceAnnotationView.self,
-                         forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        // Set custom annotation class as points on map
+        mapView.register(PlaceAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         mapView.delegate = self
         
-        cathegoryCollectionView.dataSource = self.cathegories
+        cathegoryCollectionView.dataSource = self.cathegories // Class cathegories has datasource
         cathegoryCollectionView.delegate = self
         
         setRefreshButton(enabled: false)
+        
         initComponentsGraphic()
         initLocationManager()
         initLongPressGestureRecognizer()
@@ -61,6 +66,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     // MARK: Views graphic
     
     private func initComponentsGraphic() {
+        // Round buttons
         createPlaceDialogView.roundCornersLarge()
         createPlaceDialogYesButton.roundCornersLittle()
         createPlaceDialogViewNoButton.roundCornersLittle()
@@ -70,6 +76,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     }
     
     private func setRefreshButton(enabled: Bool) {
+        // Show refresh button
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(searchButtonIsPressed))
         navigationItem.rightBarButtonItem?.isEnabled = enabled
     }
@@ -79,10 +86,12 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     }
     
     private func setCancelButton() {
+        // Show cancel button
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(cancelButtonIsPressed))
     }
     
     private func showGeoContextInformationView(text: String) {
+        // Show information view on top of screen with message
         geoContextInformationView.isHidden = false
         geoContextInformationLabel.text = text
     }
@@ -93,6 +102,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         checkLocationAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
+            // Start locating user
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
@@ -100,6 +110,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     }
     
     private func checkLocationAuthorization() {
+        // Check if user enabled location services
         switch CLLocationManager.authorizationStatus() {
         case .denied:
             showAlert(title: "Location service is denined for this app", message: "To see actual location please enable location permission in setting for this application", confirmTitle: "Ok")
@@ -126,28 +137,14 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     
     // Mark: Geocontext
     
-    func geoContextDidLoadAnnotations(error: Error?) {
-        if let _error = error {
-            showAlert(title: "Error when loading places!", message: _error.localizedDescription, confirmTitle: "Ok")
-            showGeoContextInformationView(text: geoContextErrorMessage)
-            setRefreshButton(enabled: true)
-            return
-        }
-        
-        loadingIndicatorView.isHidden = true
-
-        mountGeocontext()
-        setRefreshButton(enabled: false)
-    }
-    
     // Showing geocontext annotations
     private func mountGeocontext() {
-        guard let annotations = geoContext?.annotations else {
-            return
-        }
+        guard let annotations = geoContext?.annotations else { return }
         
         if annotations.count == 0 {
+            // Show dialog that there are no places
             showGeoContextInformationView(text: noPlacesMessage)
+            return
         }
         
         mapView.addAnnotations(annotations)
@@ -158,9 +155,8 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         geoContext?.delegate = nil // Stop recieving messages from this GeoContext
         geoContext?.cancel()
         
-        guard let annotations = geoContext?.annotations else {
-            return
-        }
+        guard let annotations = geoContext?.annotations else { return }
+        
         mapView.removeAnnotations(annotations)
     }
     
@@ -170,13 +166,13 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         var updatedRadius: CLLocationDistance = 10000 // Smalest radius which can be used by CloudKit for searching
         
         if radius > 10000 {
+            // CloudKit can only work with radius 10000
             updatedRadius = radius
         }
 
         if let _geoContext = geoContext {
-            // When geocontext exist
             
-
+            // When geocontext exist and is finished
             if _geoContext.state == .Finished {
                 unmountGeocontext(_geoContext)
             }
@@ -189,7 +185,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         geoContextInformationView.isHidden = true
         loadingIndicatorView.isHidden = false
         
-        geoContext?.start()
+        geoContext?.start() // Get new places
     }
     
     private func checkIfGeoContextCanBeUpdated() {
@@ -201,9 +197,10 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
             // When geocontext exist
             let locationDistance = location.distance(from: _geoContext.location)
             let newArea = locationDistance + radius
-            let deviation = 100.0;
             
-            // Check if user needs to fetch new places
+            let deviation = 100.0 // Deviation of radius
+            
+            // Check if radius is different than old one
             if newArea < _geoContext.radius + deviation, geoContext?.state == .Finished {
                 enableRefreshButton(enabled: false)
                 return
@@ -211,6 +208,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         }
         
         if geoContext?.state == .Executing {
+            // Enable refresh button when geocontext is exectuing
             enableRefreshButton(enabled: false)
             return
         }
@@ -220,14 +218,16 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     
     @objc private func searchButtonIsPressed(_ sender: Any) {
         setCancelButton()
+        
         let coordinate = mapView.region.center
         let radius = getRadiusFromMapView(mapView)
         let cathegory = cathegories.selectedCathegory()
+        
         newGeocontext(coordinate: coordinate, radius: radius, cathegory: cathegory)
     }
     
     @objc private func cancelButtonIsPressed(_ sender: Any) {
-        // Remove GeoContext
+        // Remove GeoContext that is already executing
         geoContext?.cancel()
         geoContext = nil
         
@@ -242,6 +242,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         let span = mapView.region.span
         let center = mapView.region.center
         
+        //Generate radius as distance of two points in mapView
         let centerPoint = CLLocation(latitude: center.latitude, longitude: center.longitude)
         let upperRightPoint = CLLocation(latitude: center.latitude + span.latitudeDelta * 0.5, longitude: center.longitude + span.longitudeDelta * 0.5)
         
@@ -256,6 +257,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         if sender.state == .ended {
             let locationInView = sender.location(in: mapView)
             let locationOnMap = mapView.convert(locationInView, toCoordinateFrom: mapView)
+            
             showCreateNewPlaceDialog(coordinate: locationOnMap)
         }
     }
@@ -263,12 +265,20 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     private func initLongPressGestureRecognizer() {
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longTapGesture))
         gesture.minimumPressDuration = 0.5
+        
         mapView.addGestureRecognizer(gesture)
     }
     
+    private func initShowCreateNewPlaceDialog() {
+        createPlaceDialogView.isHidden = false
+        centerOnLocationButton.isHidden = true
+        createPlaceActivityIndicatorView.isHidden = false
+        createPlaceDialogStackView.isHidden = true
+    }
+    
     private func destroyPlaceContext() {
-        if placeContext != nil {
-            placeContext?.delegateAddress = nil
+        if let _placeContext = placeContext {
+            _placeContext.delegateAddress = nil
             unmountPlaceContext()
         }
     }
@@ -280,7 +290,7 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         
         let location = CLLocation.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
         
-        placeContext = PlaceContext.init(location: location)
+        placeContext = PlaceContext.init(location: location) // Create new placeContext
         placeContext?.delegateAddress = self
         
         mountPlaceContext(placeContext: placeContext)
@@ -288,38 +298,17 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         placeContext?.getAddress()
     }
     
-    private func initShowCreateNewPlaceDialog() {
-        createPlaceDialogView.isHidden = false
-        centerOnLocationButton.isHidden = true
-        createPlaceActivityIndicatorView.isHidden = false
-        createPlaceDialogStackView.isHidden = true
-    }
-
-    
     @IBAction private func createPlaceDialogCancelButtonIsPressed(_ sender: Any) {
+        // User canceled creating place before address has been decoded
         destroyPlaceContext()
-        createPlaceDialogView.isHidden = true
-    }
-    
-    func placeContextDidDecodeAddress(address: String?, error: Error?) {
-        createPlaceActivityIndicatorView.isHidden = true
-
-        if let _error = error {
-            createPlaceDialogView.isHidden = true
-            unmountPlaceContext()
-            showAlert(title: "Could not create new place!", message: _error.localizedDescription, confirmTitle: "Ok")
-            return
-        }
         
-        createPlaceAddress.text = address!
-        createPlaceDialogStackView.isHidden = false
+        createPlaceDialogView.isHidden = true
     }
     
     // Show annotation when creating place
     private func mountPlaceContext(placeContext: PlaceContext?) {
-        guard let annotation = placeContext?.annotation else {
-            return
-        }
+        guard let annotation = placeContext?.annotation else { return }
+        
         mapView.addAnnotation(annotation)
         mapView.setCenter(annotation.coordinate, animated: true)
     }
@@ -334,15 +323,20 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     
     @IBAction private func createPlaceDialogNoButtonPressed(_ sender: UIButton) {
         unmountPlaceContext()
+        
         createPlaceDialogView.isHidden = true
         centerOnLocationButton.isHidden = false
+        
         mountGeocontext()
     }
     
     @IBAction private func createPlaceDialogYesButtonPressed(_ sender: UIButton) {
+        // Check if user is logged into iCloud on iPhone
         if isICloudKitContainerAvailable() {
             createPlaceDialogView.isHidden = true
+            
             unmountPlaceContext()
+            
             performSegue(withIdentifier: "createPlaceDialog", sender: self)
         } else {
             showAlert(title: "No iCloud account!", message: "To create new place you need to login to your iCloud account in your settings.", confirmTitle: "Ok")
@@ -356,12 +350,6 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
         }
         else {
             return false
-        }
-    }
-    
-    func deleteAnnotation(with id: String) {
-        if let annotation = geoContext?.deleteAnnotation(with: id) {
-            mapView.removeAnnotation(annotation)
         }
     }
     
@@ -392,7 +380,9 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
     
     private func showAlert(title: String?, message: String?, confirmTitle: String?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
         alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: nil))
+        
         self.present(alert, animated: true, completion: nil)
     }
 
@@ -402,16 +392,21 @@ class MapViewController: UIViewController, GeoContextDelegate, PlaceContextDeleg
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // Execute only for the first time
         if mapCentered == false, let location = locations.first {
             // Initialization of GeoContext when location is obtained for the firs time
             centerMapOnUserLocation(location: location, radius: regionRadius)
 
             let cathegory = cathegories.selectedCathegory()
+            
             newGeocontext(coordinate: location.coordinate, radius: regionRadius, cathegory: cathegory)
+            
             mapCentered = true
         }
     }
 }
+
+// MARK: MKMapView delegate
 
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -421,16 +416,17 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if view.annotation is MKUserLocation {
             // Check if user selected current location
-            guard let location = locationManager.location?.coordinate else {
-                return
-            }
+            guard let location = locationManager.location?.coordinate else { return }
             
             showCreateNewPlaceDialog(coordinate: location)
         }
+        
         if let annotation = view.annotation as? PlaceAnnotation {
             placeContext = PlaceContext.init(annotation: annotation)
+            
             performSegue(withIdentifier: "showPlace", sender: self)
         }
+        
         mapView.deselectAnnotation(view.annotation, animated: false)
     }
 }
@@ -440,6 +436,7 @@ extension MapViewController: MKMapViewDelegate {
 extension MapViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         cathegories.selectedIndex = indexPath.row
+        
         collectionView.reloadData()
         
         let coordinate = mapView.region.center
@@ -450,6 +447,8 @@ extension MapViewController: UICollectionViewDelegate {
         cathegoryLineView.backgroundColor = cathegories.getColorForSelectedIndex()
         
         setCancelButton()
+        
+        // Get new GeoContext
         newGeocontext(coordinate: coordinate, radius: radius, cathegory: cathegory)
     }
 }
@@ -457,8 +456,10 @@ extension MapViewController: UICollectionViewDelegate {
 // MARK: Collection view resizing cells
 
 extension MapViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let string = cathegories.cathegories[indexPath.row] // Get string of current cell
+        
         var font =  UIFont.systemFont(ofSize: 16)
         let height: CGFloat = 20 // Height of cell
         
@@ -467,10 +468,62 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
             font = UIFont.boldSystemFont(ofSize: 18)
         }
         
+        // Count width for cell by string
         let width = string.name.width(withConstrainedHeight: height, font: font)
+        
         return CGSize(width: width, height: height)
     }
 }
 
+// MARK: GeoContext delegate
 
+extension MapViewController: GeoContextDelegate {
+    
+    func geoContextDidLoadAnnotations(error: Error?) {
+        if let _error = error {
+            showAlert(title: "Error when loading places!", message: _error.localizedDescription, confirmTitle: "Ok")
+            showGeoContextInformationView(text: geoContextErrorMessage)
+            setRefreshButton(enabled: true)
+            return
+        }
+        
+        loadingIndicatorView.isHidden = true
+        
+        mountGeocontext()
+        setRefreshButton(enabled: false)
+    }
+}
 
+// MARK: PlaceContext delegate
+
+extension MapViewController: PlaceContextDelegateAdress {
+    
+    func placeContextDidDecodeAddress(address: String?, error: Error?) {
+        createPlaceActivityIndicatorView.isHidden = true
+        
+        if let _error = error {
+            createPlaceDialogView.isHidden = true
+            
+            unmountPlaceContext()
+            
+            showAlert(title: "Could not create new place!", message: _error.localizedDescription, confirmTitle: "Ok")
+            
+            return
+        }
+        
+        createPlaceAddress.text = address!
+        
+        createPlaceDialogStackView.isHidden = false
+    }
+}
+
+// MARK: CreatePlaceViewController delegate
+
+extension MapViewController: CreatePlaceViewControllerDelegate {
+    
+    func deleteAnnotation(with id: String) {
+        if let annotation = geoContext?.deleteAnnotation(with: id) {
+            mapView.removeAnnotation(annotation)
+        }
+    }
+}

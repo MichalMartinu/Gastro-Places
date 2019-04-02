@@ -14,6 +14,10 @@ enum CellTypes: String {
     case link = "linkTableViewCell"
     case hour = "hourTableViewCell"
     case space = "spaceTableViewCell"
+    case review = "reviewTableViewCell"
+    case createReview = "createReviewTableViewCell"
+    case userReview = "userReviewTableViewCell"
+    case loading = "loadingTableViewCell"
 }
 
 class TextCell {
@@ -58,6 +62,7 @@ class PlaceRepresentation {
     
     var cells = [PlaceCell]()
     
+    
     func initFromPlace(placeContext: PlaceContext, openingTime: OpeningTime) {
         let place = placeContext.place
         
@@ -91,27 +96,30 @@ class PlaceRepresentation {
             cells.append(linkCell(link: _email, type: .email))
         }
         
+        cells.append(PlaceCell.init(type: CellTypes.space))
+
+        cells.append(basicTextCell(text: "Reviews", bold: true, size: 18, color: nil))
+        cells.append(PlaceCell.init(type: CellTypes.loading))
     }
     
-    func appendImageCell() {
+    func changeImageCell() {
         cells[0] = PlaceCell.init(type: CellTypes.image)
     }
     
-    
-    func basicTextCell(text: String, bold: Bool, size: CGFloat?, color: UIColor?) -> PlaceCell {
+    private func basicTextCell(text: String, bold: Bool, size: CGFloat?, color: UIColor?) -> PlaceCell {
         let textCell = TextCell.init(text: text, bold: bold, size: size, color: color)
         let placeCell = PlaceCell.init(type: .text, data: textCell)
         
         return placeCell
     }
     
-    func linkCell(link: String, type: LinkType) -> PlaceCell {
+    private func linkCell(link: String, type: LinkType) -> PlaceCell {
         let linkCell = LinkCell.init(link: link, type: type)
         let placeCell = PlaceCell.init(type: .link, data: linkCell)
         return placeCell
     }
     
-    func hourCell(openintTime: OpeningTime) -> PlaceCell {
+    private func hourCell(openintTime: OpeningTime) -> PlaceCell {
         let placeCell = PlaceCell.init(type: .hour, data: openintTime)
         return placeCell
     }
@@ -125,5 +133,31 @@ class PlaceRepresentation {
         }
         
         return nil
+    }
+    
+    private func createNewReviewCell() -> PlaceCell {
+        let placeCell = PlaceCell.init(type: .createReview)
+        return placeCell
+    }
+    
+    private func createUserReviewCell() -> PlaceCell {
+        let placeCell = PlaceCell.init(type: .userReview)
+        return placeCell
+    }
+    
+    func changeReviews(userReview: Review?, reviews: [Review]) {
+        cells.removeLast()
+        
+        cells.append(createUserReviewCell())
+        
+        if let _userReview = userReview {
+            
+        } else {
+            cells.append(createNewReviewCell())
+        }
+        
+        if reviews.count == 0 {
+            return
+        }
     }
 }

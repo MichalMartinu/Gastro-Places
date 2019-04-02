@@ -34,7 +34,9 @@ class PlaceAnnotationView: MKMarkerAnnotationView {
     override var annotation: MKAnnotation? {
         willSet {
             guard let place = newValue as? PlaceAnnotation else { return }
+            
             markerTintColor = PlacesCathegories.colorForCathegory(cathegory: place.cathegory)
+            
             if place.cathegory.count > 0 {
                 // When cathegory string is longer than 0 chars
                 glyphText = String(place.cathegory.first!)

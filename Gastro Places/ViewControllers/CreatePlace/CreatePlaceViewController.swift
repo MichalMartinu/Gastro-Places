@@ -134,6 +134,7 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     private func createOpeningTimeAndImageContext() {
         if openingTime == nil {
             openingTime = OpeningTime(intervalInMinutes: 15)
+            openingTime.initDays()
         }
         if imageContext == nil {
             imageContext = ImageContext()

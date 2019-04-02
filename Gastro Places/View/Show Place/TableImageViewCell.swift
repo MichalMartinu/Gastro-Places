@@ -12,10 +12,16 @@ class ShowPlaceTableImageViewCell: UITableViewCell {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     func loaded() {
         loadingView.isHidden = true
         imageCollectionView.isHidden = false
         imageCollectionView.reloadData()
+        loadingIndicator.stopAnimating()
+    }
+    
+    func setSpinning() {
+        loadingIndicator.startAnimating()
     }
 }

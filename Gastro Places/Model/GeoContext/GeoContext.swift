@@ -11,18 +11,13 @@ import CoreLocation
 import CloudKit
 import MapKit
 
-enum GeoContextState {
-    case Ready, Executing, Finished, Failed, Canceled
-}
-
 protocol GeoContextDelegate: AnyObject {
     func geoContextDidLoadAnnotations(error: Error?)
 }
 
-class GeoContext {
+class GeoContext: Operation {
     
-    private(set) var annotations = [PlaceAnnotation]()
-    private(set) var state = GeoContextState.Ready
+    private(set) var annotations = [PlaceAnnotation]() // Annotations that will be shown on map
     
     let location: CLLocation
     let radius: CLLocationDistance
@@ -43,10 +38,13 @@ class GeoContext {
     }
     
     func deleteAnnotation(with id: String) -> PlaceAnnotation? {
+        // Get index of annotation to delete
         if let annotationIndex = annotations.firstIndex(where: { $0.id == id }) {
             let annotation = annotations[annotationIndex]
+            
             annotations.remove(at: annotationIndex)
-            return annotation
+            
+            return annotation // Return deleted annotation
         }
         
         return nil
@@ -54,6 +52,7 @@ class GeoContext {
     
     func start() {
         state = .Executing
+        
         GeoContext.geoContextQueue.async {
             self.fetchCloudkitPlaces()
         }
@@ -67,11 +66,14 @@ class GeoContext {
         let query = CKQuery(recordType: PlaceCKRecordNames.record, predicate: predicate)
         
         publicDB.perform(query, inZoneWith: nil) { results, error in
+            
             if let _error = error {
                 self.state = .Failed
+                
                 DispatchQueue.main.async {
                     self.delegate?.geoContextDidLoadAnnotations(error: _error)
                 }
+                
                 return
             }
             
@@ -91,12 +93,12 @@ class GeoContext {
                 return
             }
             
-            guard let name = record[PlaceCKRecordNames.name] as? String, let cathegory = record[PlaceCKRecordNames.cathegory] as? String,
-                let placeLoacation = record[PlaceCKRecordNames.location] as? CLLocation else {
-                    continue
-            }
+            guard let name = record[PlaceCKRecordNames.name] as? String,
+                let cathegory = record[PlaceCKRecordNames.cathegory] as? String,
+                let placeLoacation = record[PlaceCKRecordNames.location] as? CLLocation else { continue }
             
             let placeAnnotationItem = PlaceAnnotation.init(title: name, cathegory: cathegory, id: record.recordID.recordName, coordinate: placeLoacation.coordinate)
+            
             self.annotations.append(placeAnnotationItem)
         }
         
@@ -108,18 +110,18 @@ class GeoContext {
             
             let context = AppDelegate.viewContext
             
-            PlaceCoreData.changeOrCreatePlaces(records: records, context: context)
+            PlaceCoreData.changeOrCreatePlaces(records: records, context: context) // Save to CoreData
             
-            //try? context.save()
-
             self.state = .Finished
+            
             self.delegate?.geoContextDidLoadAnnotations(error: nil)
         }
     }
     
     private func createPredicateToFetchPlaces(location: CLLocation, radius: CLLocationDistance, cathegory: String) ->  NSCompoundPredicate {
         let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(location, %@) < %f",  location, Double(radius))
-        var cathegoryPredicate = NSPredicate(value: true)
+        
+        var cathegoryPredicate = NSPredicate(value: true) // Default cathegory predicate used for search "all"
         
         if cathegory != "All" {
             cathegoryPredicate = NSPredicate(format: "\(PlaceCKRecordNames.cathegory) = %@", cathegory)

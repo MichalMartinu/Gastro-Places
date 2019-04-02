@@ -27,6 +27,7 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     var imageContext = ImageContext()
     var openingTime = OpeningTime(intervalInMinutes: 15)
     private var  placeRepresentation = PlaceRepresentation()
+    private let reviewsContext = ReviewsContext()
     
     weak var delegate: CreatePlaceViewControllerDelegate?
     
@@ -34,12 +35,14 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         super.viewDidLoad()
         placeContext.delegateLoad = self
         placeContext.loadPlace()
+        
+        reviewsContext.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if imageContext.imageIDs.count > 0 {
-            placeRepresentation.appendImageCell()
+            placeRepresentation.changeImageCell()
         }
         tableView.reloadData()
     }
@@ -63,8 +66,11 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         if let _placeID = placeContext.place.placeID {
             openingTime.delegate = self
             openingTime.fetchOpeningHours(placeID: _placeID, placeCoreData: placeContext.placeCoreData)
+            
             imageContext.delegate = self
             imageContext.fetchImageIDs(placeID: _placeID, placeCoreData: placeContext.placeCoreData)
+            
+            reviewsContext.fetchCurrentUser()
         }
         
         tableView.reloadData()
@@ -90,7 +96,7 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     
     func imageContextDidloadIDs() {
         if imageContext.imageIDs.count > 0 {
-            placeRepresentation.appendImageCell()
+            placeRepresentation.changeImageCell()
             tableView.reloadData()
         }
     }
@@ -104,7 +110,7 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             if imageContext.state == .Finished {
                 cell.imageCollectionView.dataSource = self
                 cell.loaded()
-            }
+            } else { cell.setSpinning() }
             return cell
         case .text:
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableTextViewCell
@@ -121,7 +127,22 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             let textData = place.data as! OpeningTime
             cell.setHours(openingTime: textData)
             return cell
-        case .space:
+        case .review:
+            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath)
+            return cell
+        case .loading:
+            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! LoadingTableViewCell
+            cell.setSpinning()
+            return cell
+        case .createReview:
+            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! CreateReviewTableViewCell
+            cell.delegate = self
+            return cell
+        case .userReview:
+            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! UserReviewTableViewCell
+            cell.showButtons(with: reviewsContext.hasUserReview)
+            return cell
+        default:
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath)
             return cell
         }
@@ -185,3 +206,25 @@ extension ShowPlaceTableViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
+extension ShowPlaceTableViewController: ReviewsContextDelegate {
+    func userFetched() {
+        
+        guard let _placeID = placeContext.place.placeID else { return } //TODO
+        
+        reviewsContext.fetchReviews(placeID: _placeID)
+    }
+    
+    func fetchedMyReviews() {
+        placeRepresentation.changeReviews(userReview: reviewsContext.currentUserReview, reviews: reviewsContext.reviews)
+        tableView.reloadData()
+    }
+}
+
+extension ShowPlaceTableViewController: CreateReviewTableViewCellDelegate {
+    func createButtonPressed() {
+        performSegue(withIdentifier: "editReview", sender: self)
+    }
+}
+
+
