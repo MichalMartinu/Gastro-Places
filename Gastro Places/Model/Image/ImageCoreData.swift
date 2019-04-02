@@ -34,8 +34,9 @@ class ImageCoreData: NSManagedObject {
         }
         
         recordToSave?.picture = data
+        recordToSave?.creationDate = record.creationDate
         
-        place.image = recordToSave
+        place.addToImage(recordToSave!)
     }
     
     class func find(id: String, context: NSManagedObjectContext) -> UIImage? {
@@ -53,16 +54,30 @@ class ImageCoreData: NSManagedObject {
         }
     }
     
-    class func saveImage(imageID: String, data: Data, placeID: String, context: NSManagedObjectContext) {
+    class func findSavedIDs(placeCoreData: PlaceCoreData, context: NSManagedObjectContext) -> [String]? {
         
-        let queryImage:NSFetchRequest<ImageCoreData> = ImageCoreData.fetchRequest()
+        let query:NSFetchRequest<ImageCoreData> = ImageCoreData.fetchRequest()
         
-        let predicateImage = NSPredicate(format: "imageID = %@", imageID)
-        queryImage.predicate = predicateImage
+        let predicate = NSPredicate(format: "place = %@", placeCoreData)
+        query.predicate = predicate
+       
+        query.sortDescriptors = [] // Start with empty array
+        query.sortDescriptors?.append(NSSortDescriptor(key: "creationDate", ascending: true))
+        query.sortDescriptors?.append(NSSortDescriptor(key: "imageID", ascending: true))
         
-        if let record = try? context.fetch(queryImage), record.count == 1 {
-            return
+        if let records = try? context.fetch(query), records.count > 0 {
+            var imageIDs = [String]()
+        
+            for record in records {
+                imageIDs.append(record.imageID!)
+            }
+            return imageIDs
+        } else {
+            return nil
         }
+    }
+    
+    class func saveID(imageID: String, creationDate: Date, placeID: String, context: NSManagedObjectContext) {
         
         let queryPlace:NSFetchRequest<PlaceCoreData> = PlaceCoreData.fetchRequest()
         let predicatePlace = NSPredicate(format: "placeID = %@", placeID)
@@ -70,10 +85,25 @@ class ImageCoreData: NSManagedObject {
         
         if let placeRecords = try? context.fetch(queryPlace), placeRecords.count == 1, let placeRecord = placeRecords.first {
             let imageRecord = ImageCoreData(context: context)
-            imageRecord.imageID = imageID
-            imageRecord.picture = data
             
-            placeRecord.image = imageRecord
+            imageRecord.imageID = imageID
+            imageRecord.creationDate = creationDate
+            
+            placeRecord.addToImage(imageRecord)
+        } else {
+            return
+        }
+    }
+    
+    class func saveImage(imageID: String, data: Data, context: NSManagedObjectContext) {
+        
+        let queryImage:NSFetchRequest<ImageCoreData> = ImageCoreData.fetchRequest()
+        
+        let predicateImage = NSPredicate(format: "imageID = %@", imageID)
+        queryImage.predicate = predicateImage
+        
+        if let record = try? context.fetch(queryImage), record.count == 1 {
+            record.first?.picture = data
         } else {
             return
         }

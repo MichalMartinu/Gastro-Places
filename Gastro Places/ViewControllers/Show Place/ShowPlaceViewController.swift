@@ -64,7 +64,7 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             openingTime.delegate = self
             openingTime.fetchOpeningHours(placeID: _placeID, placeCoreData: placeContext.placeCoreData)
             imageContext.delegate = self
-            imageContext.fetchImageIDs(placeID: _placeID)
+            imageContext.fetchImageIDs(placeID: _placeID, placeCoreData: placeContext.placeCoreData)
         }
         
         tableView.reloadData()

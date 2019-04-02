@@ -53,7 +53,7 @@ class ImageCellFetcher {
             
             DispatchQueue.main.async {
                 let context = AppDelegate.viewContext
-                ImageCoreData.saveImage(imageID: identifier, data: data, placeID: placeId, context: context)
+                ImageCoreData.saveImage(imageID: identifier, data: data, context: context)
                 self.delegateCell?.imageLoaded(image: image, id: identifier)
                 
                 //try? context.save()

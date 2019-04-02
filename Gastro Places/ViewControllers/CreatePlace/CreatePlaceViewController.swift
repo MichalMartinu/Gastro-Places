@@ -67,7 +67,7 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
         checkIfPlaceContextIsFinished()
         imageContext.delegate = self
         if let id = placeContext.place.placeID {
-            imageContext.fetchImageIDs(placeID: id)
+            imageContext.fetchImageIDs(placeID: id, placeCoreData: placeContext.placeCoreData)
         }
     }
     

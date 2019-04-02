@@ -74,8 +74,16 @@ class ImageContext {
         imageIDs.remove(at: index)
     }
  
-    func fetchImageIDs(placeID: String) {
+    func fetchImageIDs(placeID: String, placeCoreData: PlaceCoreData?) {
         state = .Executing
+        let context = AppDelegate.viewContext
+        
+        if let imageIDs = ImageCoreData.findSavedIDs(placeCoreData: placeCoreData!, context: context) {
+            self.imageIDs = imageIDs
+            self.state = .Finished
+            self.delegate?.imageContextDidloadIDs()
+            return
+        }
         
         let container = CKContainer.default()
         let publicDB = container.publicCloudDatabase
@@ -85,12 +93,15 @@ class ImageContext {
         
         let predicate = NSPredicate(format: "place == %@", recordToMatch)
         let query = CKQuery(recordType: "Image", predicate: predicate)
+        query.sortDescriptors?.append(NSSortDescriptor(key: "creationDate", ascending: false))
+        
         let operation = CKQueryOperation(query: query)
         operation.desiredKeys = []
-        operation.qualityOfService = .userInteractive
+        operation.qualityOfService = .userInteractive        
         operation.queryCompletionBlock = { results, error in
             
             if error != nil {
+                // TODO
                 return
             }
             
@@ -101,6 +112,11 @@ class ImageContext {
         }
         
         operation.recordFetchedBlock = ( { (record) -> Void in
+            
+            DispatchQueue.main.async {
+                ImageCoreData.saveID(imageID: record.recordID.recordName, creationDate: record.creationDate!,placeID: placeID, context: context)
+            }
+            
             self.imageIDs.append(record.recordID.recordName)
         })
         
