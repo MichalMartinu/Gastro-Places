@@ -81,7 +81,8 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
         openingHoursDaysLabel.text = openingTime.stringDays
         openingHoursLabel.text = openingTime.stringHours
         
-        if placeContext.state == .Finished {
+        if placeContext.place.placeID != nil {
+            // Show delete button when place exist
             setToolbarHidden(with: false)
         }
     }
@@ -275,7 +276,9 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     
     private func showAlert(title: String?, message: String?, confirmTitle: String?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
         alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: nil))
+        
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -300,32 +303,11 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
         imageCollectionView.reloadData()
     }
     
+    // TODO: Move to model
     private func deletePlace(alert: UIAlertAction?) {
-        guard let id = placeContext.place.placeID else { return }
+        placeContext.delegateDelete = self
         
-        let container = CKContainer.default()
-        let publicDB = container.publicCloudDatabase
-        
-        let recordID = CKRecord.ID(recordName: id)
-        publicDB.delete(withRecordID: recordID) { (recordID, error) in
-            if error != nil {
-                self.showAlert(title: "Cannot delete place", message: "There are some problems with deleting place. Try again later.", confirmTitle: "Ok")
-                self.enableNavigationBarButtons(enabled: true)
-                
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.setToolbarHidden(with: true)
-                
-                if let _recordID = recordID?.recordName {
-                    
-                    self.delegate?.deleteAnnotation(with: _recordID)
-                }
-                
-                self.performSegue(withIdentifier: "backToMapFromEdit", sender: self)
-            }
-        }
+        placeContext.deletePlace()
     }
 }
 
@@ -355,5 +337,25 @@ extension CreatePlaceViewController: UICollectionViewDelegate, UICollectionViewD
         }
         
         return cell
+    }
+}
+
+extension CreatePlaceViewController: PlaceContextDelegateDelete {
+    func placeContextDeleted(error: Error?, recordID: String?) {
+        if error != nil {
+            self.showAlert(title: "Cannot delete place", message: "There are some problems with deleting place. Try again later.", confirmTitle: "Ok")
+            self.enableNavigationBarButtons(enabled: true)
+            
+            return
+        }
+        
+        self.setToolbarHidden(with: true)
+        
+        guard let _recordID = recordID else { return }
+        
+        self.delegate?.deleteAnnotation(with: _recordID)
+        
+        self.performSegue(withIdentifier: "backToMapFromEdit", sender: self)
+        
     }
 }

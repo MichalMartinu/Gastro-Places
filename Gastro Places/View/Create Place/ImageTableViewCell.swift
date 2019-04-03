@@ -19,6 +19,7 @@ class ImageTableViewCell: UITableViewCell, ImageContextDelegateCell {
     func setCell(image: UIImage?) {
         if let _image = image {
             pictureImageView.image = _image
+            
             showImage()
         } else {
             showLoadingView()
@@ -28,6 +29,7 @@ class ImageTableViewCell: UITableViewCell, ImageContextDelegateCell {
     func imageLoaded(image: UIImage, id: String) {
         if self.id == id {
             pictureImageView.image = image
+            
             showImage()
         }
     }

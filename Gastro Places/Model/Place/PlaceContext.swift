@@ -24,6 +24,10 @@ protocol PlaceContextDelegateLoad: AnyObject {
     func placeContextLoadedPlace()
 }
 
+protocol PlaceContextDelegateDelete: AnyObject {
+    func placeContextDeleted(error: Error?, recordID: String?)
+}
+
 enum InputTypes: String {
     case email = "email"
     case web = "web"
@@ -38,6 +42,8 @@ class PlaceContext: Operation {
     weak var delegateSave: PlaceContextDelegateSave?
     weak var delegateLoad: PlaceContextDelegateLoad?
     weak var delegateAddress: PlaceContextDelegateAdress?
+    weak var delegateDelete: PlaceContextDelegateDelete?
+
     
     private(set) var annotation: PlaceAnnotation
     
@@ -54,6 +60,7 @@ class PlaceContext: Operation {
     init(annotation: PlaceAnnotation) {
         // Used for initializing existing place
         self.annotation = annotation
+        
         place = Place.init(placeID: annotation.id!)
     }
     
@@ -286,6 +293,27 @@ class PlaceContext: Operation {
         else {
             state = .Failed
             self.delegateLoad?.placeContextLoadedPlace()
+        }
+    }
+    
+    func deletePlace() {
+        guard let id = place.placeID else { return }
+        
+        let container = CKContainer.default()
+        let publicDB = container.publicCloudDatabase
+        
+        let recordID = CKRecord.ID(recordName: id)
+        publicDB.delete(withRecordID: recordID) { (recordID, error) in
+            if let _error = error {
+                DispatchQueue.main.async {
+                    self.delegateDelete?.placeContextDeleted(error: _error, recordID: nil)
+                }
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.delegateDelete?.placeContextDeleted(error: error, recordID: id)
+            }
         }
     }
 }

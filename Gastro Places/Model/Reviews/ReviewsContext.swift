@@ -84,15 +84,16 @@ class ReviewsContext {
         saveOperation.savePolicy = .changedKeys
         saveOperation.modifyRecordsCompletionBlock = { (records, recordsID, error) in
             
-            if let _error = error {
+            if error != nil {
+                // TODO
                 DispatchQueue.main.async {
-                    //self.delegateSave?.placeContextSaved(annotation: nil, error: _error)
+                    //TODO delegate
                 }
                 return
             }
             
             DispatchQueue.main.async {
-                //
+                // TODO
             }
         }
         

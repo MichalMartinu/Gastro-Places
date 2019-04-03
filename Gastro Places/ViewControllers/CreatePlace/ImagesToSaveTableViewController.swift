@@ -16,6 +16,8 @@ class ImagesToSaveTableViewController: UITableViewController {
     var imageContext: ImageContext!
     var placeContext: PlaceContext!
     
+    let imagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
        enableOrDisableEditButton()
     }
@@ -58,7 +60,6 @@ class ImagesToSaveTableViewController: UITableViewController {
     }
     
     @IBAction private func newImageButtonPressed(_ sender: UIBarButtonItem) {
-        let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .savedPhotosAlbum
         imagePicker.allowsEditing = false
         imagePicker.delegate = self

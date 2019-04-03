@@ -11,6 +11,7 @@ import UIKit
 extension String {    
     func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
         
         return ceil(boundingBox.width)
@@ -27,6 +28,7 @@ extension String {
         case .web:
             let head = "((http|https)://)?([(w|W)]{3}+\\.)?"
             let tail = "\\.+[A-Za-z]{2,3}+(\\.)?+(/(.)*)?"
+            
             regexPattern = head+"+(.)+"+tail
         case .phone:
             regexPattern = "(?:\\+\\d{2}\\s*(?:\\(\\d{2}\\))|(?:\\(\\d{2}\\)))?\\s*(\\d{4,5}\\-?\\d{4})"

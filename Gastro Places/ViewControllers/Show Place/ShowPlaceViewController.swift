@@ -44,9 +44,11 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         if imageContext.imageIDs.count > 0 {
             placeRepresentation.changeImageCell()
         }
+        
         tableView.reloadData()
     }
     
@@ -113,7 +115,7 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             if imageContext.state == .Finished {
                 cell.imageCollectionView.dataSource = self
                 cell.loaded()
-            } else { cell.setSpinning() }
+            } else { cell.reload(); cell.setSpinning() }
             return cell
         case .text:
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceTableTextViewCell

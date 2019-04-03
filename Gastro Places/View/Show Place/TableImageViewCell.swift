@@ -17,8 +17,14 @@ class ShowPlaceTableImageViewCell: UITableViewCell {
     func loaded() {
         loadingView.isHidden = true
         imageCollectionView.isHidden = false
+        
         imageCollectionView.reloadData()
+        
         loadingIndicator.stopAnimating()
+    }
+    
+    func reload() {
+        imageCollectionView.reloadData()
     }
     
     func setSpinning() {

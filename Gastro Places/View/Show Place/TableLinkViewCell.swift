@@ -24,7 +24,9 @@ class ShowPlaceTableLinkViewCell: UITableViewCell {
     
     func setWeb(linkCell: LinkCell) {
         typeTextLabel.text = linkCell.type.rawValue
+        
         webButton.setTitle(linkCell.link, for: .normal)
+        
         self.link = linkCell.link
         self.type = linkCell.type
     }
@@ -33,6 +35,8 @@ class ShowPlaceTableLinkViewCell: UITableViewCell {
         guard let _link = link else { return }
         
         var url: URL?
+        
+        // Create url based on type
         switch type {
         case .web?:
             if _link.hasPrefix("http") {
@@ -48,8 +52,8 @@ class ShowPlaceTableLinkViewCell: UITableViewCell {
         case .none:
             return
         }
-    
+        
+        // Open external application
         UIApplication.shared.open(url!)
-
     }
 }

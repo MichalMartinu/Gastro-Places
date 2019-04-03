@@ -28,10 +28,10 @@ class EditReviewTableViewController: UITableViewController {
 
     
     func initFields() {
-        if let userReview = reviewsContext?.currentUserReview {
+        /*if let userReview = reviewsContext?.currentUserReview {
             // TODO rating
             //reviewTextField.text = userReview.text
-        } //TODO else pak s rating
+         } //TODO else pak s rating{*/
     }
     
     @IBAction func cancelButtonIsPressed(_ sender: Any) {

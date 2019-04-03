@@ -17,6 +17,7 @@ class ShowPlaceTableHoursViewCell: UITableViewCell {
     func setHours(openingTime: OpeningTime) {
         daysLabel.text = openingTime.stringDays
         hoursLabel.text = openingTime.stringHours
+        
         switch openingTime.isOpen() {
         case .open:
             isOpenLabel.text = "Open"

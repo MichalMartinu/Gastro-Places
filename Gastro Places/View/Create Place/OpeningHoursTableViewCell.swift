@@ -19,32 +19,45 @@ class OpeningHoursTableViewCell: UITableViewCell {
     
     func setValues(day: Day, times: [Time]){
         dayLabel.text = day.name
+        
         self.times = times
+        
         hourPickerView.delegate = self
         hourPickerView.dataSource = self
+        
         if let _from = day.from, let _to = day.to {
+            // If day is set
             switchLabel.isOn = true
             hourPickerView.isHidden = false
+            
             guard let indexFrom = indexOfTime(_from.string), let indexTo = indexOfTime(_to.string) else { return }
+            
             hourPickerView.selectRow(indexFrom, inComponent: 0, animated: false)
             hourPickerView.selectRow(indexTo, inComponent: 1, animated: false)
         }
     }
     
     func indexOfTime(_ searched: String) -> Int? {
+        
         for (index, time) in times.enumerated() {
+            
             if time.string == searched {
+                
                 return index
             }
         }
+        
         return nil
     }
     
     @IBAction private func daySwitchTapped(_ sender: Any) {
         hourPickerView.isHidden.toggle()
+        
         var from: Time?
         var to: Time?
+        
         if hourPickerView.isHidden == false {
+            
             from = times[hourPickerView.selectedRow(inComponent: 0)]
             to = times[hourPickerView.selectedRow(inComponent: 1)]
         }

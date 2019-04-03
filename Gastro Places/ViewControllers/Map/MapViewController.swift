@@ -286,7 +286,9 @@ class MapViewController: UIViewController {
     private func showCreateNewPlaceDialog(coordinate: CLLocationCoordinate2D) {
         initShowCreateNewPlaceDialog()
 
-        destroyPlaceContext()
+        if placeContext?.annotation.id == nil {
+            destroyPlaceContext()
+        }
         
         let location = CLLocation.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
         
@@ -315,9 +317,7 @@ class MapViewController: UIViewController {
     
     // Remove annotation when creating place
     private func unmountPlaceContext() {
-        guard let annotation = placeContext?.annotation else {
-            return
-        }
+        guard let annotation = placeContext?.annotation else { return }
         mapView.removeAnnotation(annotation)
     }
     
@@ -421,7 +421,7 @@ extension MapViewController: MKMapViewDelegate {
             showCreateNewPlaceDialog(coordinate: location)
         }
         
-        if let annotation = view.annotation as? PlaceAnnotation {
+        if let annotation = view.annotation as? PlaceAnnotation, annotation.id != nil {
             placeContext = PlaceContext.init(annotation: annotation)
             
             performSegue(withIdentifier: "showPlace", sender: self)

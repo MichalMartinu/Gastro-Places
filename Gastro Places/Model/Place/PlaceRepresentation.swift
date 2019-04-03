@@ -150,8 +150,8 @@ class PlaceRepresentation {
         
         cells.append(createUserReviewCell())
         
-        if let _userReview = userReview {
-            
+        if userReview != nil {
+            //TODO
         } else {
             cells.append(createNewReviewCell())
         }
