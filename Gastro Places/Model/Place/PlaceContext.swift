@@ -52,6 +52,7 @@ class PlaceContext: Operation {
     }
     
     init(annotation: PlaceAnnotation) {
+        // Used for initializing existing place
         self.annotation = annotation
         place = Place.init(placeID: annotation.id!)
     }
@@ -116,18 +117,21 @@ class PlaceContext: Operation {
         
         let geoCoder = CLGeocoder()
         
-        geoCoder.reverseGeocodeLocation(place.location!, completionHandler:
-            {
+        geoCoder.reverseGeocodeLocation(place.location!, completionHandler: {
                 placemarks, error -> Void in
                 
                 if let _error = error {
-                    self.delegateAddress?.placeContextDidDecodeAddress(address: nil, error: _error)
+                    DispatchQueue.main.async {
+                        self.delegateAddress?.placeContextDidDecodeAddress(address: nil, error: _error)
+                    }
                     return
                 }
                 
                 // Place details
                 guard let placeMark = placemarks?.first else {
-                    self.delegateAddress?.placeContextDidDecodeAddress(address: nil, error: error)
+                    DispatchQueue.main.async {
+                         self.delegateAddress?.placeContextDidDecodeAddress(address: nil, error: error)
+                    }
                     return
                 }
                 

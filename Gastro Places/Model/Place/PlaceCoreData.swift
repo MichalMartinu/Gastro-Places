@@ -29,8 +29,10 @@ class PlaceCoreData: NSManagedObject{
         query.predicate = predicate
         
         if let _recordToSave = try? context.fetch(query), _recordToSave.count == 1 {
+            // Found existing record (rewrite it)
             recordToSave = _recordToSave.first
         } else {
+            //Create new record
             recordToSave = PlaceCoreData(context: context)
         }
         

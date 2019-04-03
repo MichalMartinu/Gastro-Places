@@ -40,6 +40,10 @@
 		075EEF5E2236DA4300FA5869 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075EEF5D2236DA4300FA5869 /* Address.swift */; };
 		075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */; };
 		075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075FE1752232811B007EC555 /* PlaceCKRecordNames.swift */; };
+		076128D8225491C300BAB0A5 /* Cathegory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076128D7225491C300BAB0A5 /* Cathegory.swift */; };
+		076128DA2254921300BAB0A5 /* PlaceCathegories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076128D92254921300BAB0A5 /* PlaceCathegories.swift */; };
+		076128DC225498C900BAB0A5 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076128DB225498C900BAB0A5 /* Time.swift */; };
+		076128DE225498DD00BAB0A5 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076128DD225498DD00BAB0A5 /* Day.swift */; };
 		07663C9C2246532700275CBC /* TableHoursViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07663C9B2246532700275CBC /* TableHoursViewCell.swift */; };
 		0767F5DC2243E33800899271 /* ImageCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767F5DB2243E33800899271 /* ImageCoreData.swift */; };
 		0767F5DE2243FAEC00899271 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0767F5DD2243FAEB00899271 /* Assets.xcassets */; };
@@ -101,6 +105,10 @@
 		075EEF5D2236DA4300FA5869 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		075FE173223265C8007EC555 /* PlaceAnnotationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotationItem.swift; sourceTree = "<group>"; };
 		075FE1752232811B007EC555 /* PlaceCKRecordNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCKRecordNames.swift; sourceTree = "<group>"; };
+		076128D7225491C300BAB0A5 /* Cathegory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cathegory.swift; sourceTree = "<group>"; };
+		076128D92254921300BAB0A5 /* PlaceCathegories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCathegories.swift; sourceTree = "<group>"; };
+		076128DB225498C900BAB0A5 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		076128DD225498DD00BAB0A5 /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		07663C9B2246532700275CBC /* TableHoursViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHoursViewCell.swift; sourceTree = "<group>"; };
 		0767F5DB2243E33800899271 /* ImageCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCoreData.swift; sourceTree = "<group>"; };
 		0767F5DD2243FAEB00899271 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -194,6 +202,8 @@
 			isa = PBXGroup;
 			children = (
 				07956E3D223411CE001F1449 /* Cathegories.swift */,
+				076128D7225491C300BAB0A5 /* Cathegory.swift */,
+				076128D92254921300BAB0A5 /* PlaceCathegories.swift */,
 			);
 			path = Cathegories;
 			sourceTree = "<group>";
@@ -212,6 +222,8 @@
 				07DBECB42238124E00D3D13D /* OpeningTime.swift */,
 				07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */,
 				07C321CE223AC06F00EB9CD0 /* OpeningTimeCoreData.swift */,
+				076128DB225498C900BAB0A5 /* Time.swift */,
+				076128DD225498DD00BAB0A5 /* Day.swift */,
 			);
 			path = OpeningTime;
 			sourceTree = "<group>";
@@ -491,6 +503,7 @@
 				07C321CF223AC06F00EB9CD0 /* OpeningTimeCoreData.swift in Sources */,
 				0794BBE622365C5A00CF8D70 /* CreatePlaceViewController.swift in Sources */,
 				07A5F8942232DCFD0071FB3A /* PlaceContext.swift in Sources */,
+				076128D8225491C300BAB0A5 /* Cathegory.swift in Sources */,
 				075154FF223AD4C600D3E7FE /* CreatePlaceImageCollectionViewCell.swift in Sources */,
 				07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */,
 				074944DB2243AFC700121D78 /* ResizeImage.swift in Sources */,
@@ -504,6 +517,7 @@
 				0733D6C022350E59001F31C2 /* String.swift in Sources */,
 				07043EC222538A7400EE6D5B /* LoadingTableViewCell.swift in Sources */,
 				07043EBA22537B6700EE6D5B /* Review.swift in Sources */,
+				076128DA2254921300BAB0A5 /* PlaceCathegories.swift in Sources */,
 				075154FB223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift in Sources */,
 				075E215F22454186008F8F14 /* PlaceRepresentation.swift in Sources */,
 				07043ECD2254007100EE6D5B /* Operation.swift in Sources */,
@@ -519,11 +533,13 @@
 				07B7F14722301AD000E22A27 /* RoundObjects.swift in Sources */,
 				075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */,
 				07043EBE2253814C00EE6D5B /* ReviewCKRecord.swift in Sources */,
+				076128DC225498C900BAB0A5 /* Time.swift in Sources */,
 				07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */,
 				071CCDDF2248311100D5F0BE /* ImageCollectionViewCell.swift in Sources */,
 				07043EC722539E5000EE6D5B /* EditReviewTableViewController.swift in Sources */,
 				0767F5DC2243E33800899271 /* ImageCoreData.swift in Sources */,
 				075E216422457412008F8F14 /* TableLinkViewCell.swift in Sources */,
+				076128DE225498DD00BAB0A5 /* Day.swift in Sources */,
 				07B7F14A22302B4200E22A27 /* GeoContext.swift in Sources */,
 				075E21592244FFA9008F8F14 /* ShowPlaceViewController.swift in Sources */,
 				070004672242A80E002A19C7 /* ImageCKRecords.swift in Sources */,

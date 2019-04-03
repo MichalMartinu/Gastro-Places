@@ -33,6 +33,9 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        openingTime.generateTime()
+        
         placeContext.delegateLoad = self
         placeContext.loadPlace()
         

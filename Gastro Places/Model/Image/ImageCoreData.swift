@@ -23,15 +23,15 @@ class ImageCoreData: NSManagedObject {
         query.predicate = predicate
         
         if let _recordToSave = try? context.fetch(query), _recordToSave.count == 1 {
+            // Found existing record (rewrite it)
             recordToSave = _recordToSave.first
         } else {
+            // Create new record
             recordToSave = ImageCoreData(context: context)
         }
         
         recordToSave?.imageID = id
-        guard let asset = record["picture"] as? CKAsset, let url = asset.fileURL,let data = try? Data(contentsOf: url) else {
-            return
-        }
+        guard let asset = record["picture"] as? CKAsset, let url = asset.fileURL,let data = try? Data(contentsOf: url) else { return }
         
         recordToSave?.picture = data
         recordToSave?.creationDate = record.creationDate

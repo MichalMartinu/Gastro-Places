@@ -59,13 +59,17 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         createOpeningTimeAndImageContext()
+        
         cathegoryPickerView.dataSource = cathegories
         cathegoryPickerView.delegate = cathegories
+        
         roundButtons()
+        
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
+        
         checkIfPlaceContextIsFinished()
-        imageContext.delegate = self
+        
         if let id = placeContext.place.placeID {
             imageContext.fetchImageIDs(placeID: id, placeCoreData: placeContext.placeCoreData)
         }
@@ -73,6 +77,7 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         openingHoursDaysLabel.text = openingTime.stringDays
         openingHoursLabel.text = openingTime.stringHours
         
@@ -83,11 +88,13 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         setToolbarHidden(with: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         imageCollectionView.reloadData()
     }
     
@@ -120,12 +127,17 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     }
     
     private func checkIfPlaceContextIsFinished() {
+        // When placeContext is from existing place and is finished.
+        // Load values from it.
+        
         if placeContext.state == .Finished {
             let place = placeContext.place
+            
             nameTextField.text = place.name
             webpageTextField.text = place.web
             emailTextField.text = place.email
             phoneNumberTextField.text = place.phone
+            
             guard let cathegory = place.cathegory, let row = cathegories.indexForCathegory(cathegory) else { return }
             cathegoryPickerView.selectRow(row, inComponent: 0, animated: false)
         }
@@ -134,10 +146,12 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     private func createOpeningTimeAndImageContext() {
         if openingTime == nil {
             openingTime = OpeningTime(intervalInMinutes: 15)
+            openingTime.generateTime()
             openingTime.initDays()
         }
         if imageContext == nil {
             imageContext = ImageContext()
+            imageContext.delegate = self
         }
     }
     
@@ -179,8 +193,10 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
         enableNavigationBarButtons(enabled: false)
         
         if isICloudKitContainerAvailable() == false {
+            //When there is no iCloud account cancel operation and show message
             showAlert(title: "iCloud account needed", message: "You need to login to your iCloud account on iPhone.", confirmTitle: "Ok")
             enableNavigationBarButtons(enabled: true)
+            
             return
         }
         
@@ -199,8 +215,9 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
            
             let wrongInputString = setWrongInput(_wrongInput)
             showAlert(title: "Invalid input", message: wrongInputString, confirmTitle: "Ok")
-            //self.view.activityStopAnimating()
+            
             enableNavigationBarButtons(enabled: true)
+            
             return
         }
         
@@ -291,16 +308,21 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
         
         let recordID = CKRecord.ID(recordName: id)
         publicDB.delete(withRecordID: recordID) { (recordID, error) in
-            if let _error = error {
-                // TODO: error handle
+            if error != nil {
+                self.showAlert(title: "Cannot delete place", message: "There are some problems with deleting place. Try again later.", confirmTitle: "Ok")
+                self.enableNavigationBarButtons(enabled: true)
+                
                 return
             }
             
             DispatchQueue.main.async {
                 self.setToolbarHidden(with: true)
+                
                 if let _recordID = recordID?.recordName {
+                    
                     self.delegate?.deleteAnnotation(with: _recordID)
                 }
+                
                 self.performSegue(withIdentifier: "backToMapFromEdit", sender: self)
             }
         }

@@ -16,18 +16,19 @@ protocol ImageContextDelegate: AnyObject {
 
 class ImageContext: Operation {
     
+    // Used when creating place
     var images = [Image]()
     var imagesToDelete = [CKRecord.ID]()
     private var imagesToSave = [String]()
     
-    var imageIDs = [String]()
+    var imageIDs = [String]() // Images that will be shown
     
     private static let imageContextQueue = DispatchQueue(label: "imageContextQueue", qos: .userInteractive, attributes: .concurrent)
 
     weak var delegate: ImageContextDelegate?
     
     func insertNewImage(image: UIImage) {
-        let uuid = UUID().uuidString
+        let uuid = UUID().uuidString // Generate UUID
         images.append(Image.init(id: uuid, picture: image))
         imagesToSave.append(uuid)
         imageIDs.append(uuid)
@@ -35,7 +36,9 @@ class ImageContext: Operation {
     
     func getImagesToSave() -> [Image] {
         var images = [Image]()
+        
         for id in imagesToSave {
+            // Get image by id from images
             let image = self.images.filter { $0.id == id }
             
             if let _image = image.first {
@@ -47,8 +50,10 @@ class ImageContext: Operation {
     
     func deleteImageAtIndex(index: Int) {
         if let saveIndex = imagesToSave.firstIndex(of: imageIDs[index]) {
+            // Image havent been uploaded
             imagesToSave.remove(at: saveIndex)
         } else {
+            // Image is on CloudKit
             let deleteID = imageIDs[index]
             imagesToDelete.append(CKRecord.ID(recordName: deleteID))
         }
@@ -67,6 +72,13 @@ class ImageContext: Operation {
             return
         }
         
+        ImageContext.imageContextQueue.async {
+            self.gtFetchImageIDs(placeID: placeID, placeCoreData: placeCoreData)
+        }
+    }
+    
+    func gtFetchImageIDs(placeID: String, placeCoreData: PlaceCoreData?) {
+        
         let container = CKContainer.default()
         let publicDB = container.publicCloudDatabase
         
@@ -75,10 +87,11 @@ class ImageContext: Operation {
         
         let predicate = NSPredicate(format: "place == %@", recordToMatch)
         let query = CKQuery(recordType: "Image", predicate: predicate)
-        query.sortDescriptors?.append(NSSortDescriptor(key: "creationDate", ascending: false))
         
         let operation = CKQueryOperation(query: query)
-        operation.qualityOfService = .userInteractive        
+        operation.qualityOfService = .userInteractive
+        operation.desiredKeys = ["recordName"] // Fetch only recordID
+        
         operation.queryCompletionBlock = { results, error in
             
             if error != nil {
@@ -98,6 +111,9 @@ class ImageContext: Operation {
         operation.recordFetchedBlock = ( { (record) -> Void in
             
             DispatchQueue.main.async {
+                let context = AppDelegate.viewContext
+
+                //Save id to CoreData
                 ImageCoreData.saveID(imageID: record.recordID.recordName, creationDate: record.creationDate!,placeID: placeID, context: context)
             }
             
@@ -115,6 +131,8 @@ class ImageContext: Operation {
     }
     
     func deleteCreatedImages() {
+        // Used when imageContext needs to be cleared
+        
         images = [Image]()
         imagesToDelete = [CKRecord.ID]()
         imagesToSave = [String]()

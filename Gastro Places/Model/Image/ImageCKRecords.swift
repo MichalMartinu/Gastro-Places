@@ -34,8 +34,8 @@ class ImageCKRecord {
     }
     
     func saveImageToTmpDirectory(_ image: Image) -> URL? {
-        // When saving image to CloudKit you need to create url of file
         
+        // When saving image to CloudKit url of file needs to be created
         let url = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
             .appendingPathComponent(image.id, isDirectory: false)
             .appendingPathExtension("jpg")
@@ -47,10 +47,10 @@ class ImageCKRecord {
                 try data.write(to: url)
                 return url
             } catch {
-                print("Handle the error, i.e. disk can be full")
+                return nil
             }
-            return nil
         }
+        
         return nil
     }
 }

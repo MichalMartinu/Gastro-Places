@@ -14,6 +14,7 @@ import CoreLocation
 class OpeningTimeCoreData: NSManagedObject{
     
     class func changeOrCreate(place: PlaceCoreData, record: CKRecord, context: NSManagedObjectContext) {
+        
         var recordToSave: OpeningTimeCoreData?
         
         let query:NSFetchRequest<OpeningTimeCoreData> = OpeningTimeCoreData.fetchRequest()
@@ -22,8 +23,10 @@ class OpeningTimeCoreData: NSManagedObject{
         query.predicate = predicate
         
         if let _recordToSave = try? context.fetch(query), _recordToSave.count == 1 {
+            // Found existing record (rewrite it)
             recordToSave = _recordToSave.first
         } else {
+            // Create new record
             recordToSave = OpeningTimeCoreData(context: context)
         }
         
