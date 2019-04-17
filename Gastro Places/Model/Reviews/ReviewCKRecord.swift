@@ -12,11 +12,10 @@ import CloudKit
 class ReviewCKRecord {
     let record: CKRecord
     
-    init(review: Review, placeID: String, reviewRecordID: String?) {
+    init(review: Review, placeID: String, reviewRecordID: CKRecord.ID?) {
         
         if let id = reviewRecordID {
-            let recordID = CKRecord.ID(recordName: id)
-            self.record = CKRecord(recordType: "Review", recordID: recordID)
+            self.record = CKRecord(recordType: "Review", recordID: id)
         } else {
             self.record = CKRecord(recordType: "Review")
         }

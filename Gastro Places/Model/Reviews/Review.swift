@@ -7,21 +7,28 @@
 //
 
 import Foundation
+import CloudKit
 
 struct Review {
     let date: Date?
     let rating: Int
     let text: String?
+    let user: String?
+    var cloudID:  CKRecord.ID?
     
-    init(date: Date, rating: Int, text: String?) {
+    init(date: Date, rating: Int, text: String?, user: String?, cloudID: CKRecord.ID?) {
         self.date = date
         self.rating = rating
         self.text = text
+        self.user = user
+        self.cloudID = cloudID
     }
     
     init(rating: Int, text: String?) {
         self.date = nil
+        self.user = nil
         self.rating = rating
         self.text = text
+        cloudID = nil
     }
 }

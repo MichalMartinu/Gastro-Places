@@ -11,14 +11,9 @@ import UIKit
 class UserReviewTableViewCell: UITableViewCell {
     
     @IBOutlet weak var editButton: UIButton!
-    @IBOutlet weak var deleteButton: UIButton!
-    
-    @IBOutlet weak var deleteButtonIsPressed: UIButton!
-    @IBOutlet weak var editButtonIsPressed: UIButton!
-    
+        
     func showButtons(with value: Bool) {
         editButton.isHidden = !value
-        deleteButton.isHidden = !value
     }
     
 }

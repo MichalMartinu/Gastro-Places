@@ -27,7 +27,7 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     var imageContext = ImageContext()
     var openingTime = OpeningTime(intervalInMinutes: 15)
     private var  placeRepresentation = PlaceRepresentation()
-    private let reviewsContext = ReviewsContext()
+    let reviewsContext = ReviewsContext()
     
     weak var delegate: CreatePlaceViewControllerDelegate?
     
@@ -75,7 +75,8 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             imageContext.delegate = self
             imageContext.fetchImageIDs(placeID: _placeID, placeCoreData: placeContext.placeCoreData)
             
-            reviewsContext.fetchCurrentUser()
+            reviewsContext.delegate = self
+            reviewsContext.fetchReviews(placeID: _placeID, place: placeContext.placeCoreData!)
         }
         
         tableView.reloadData()
@@ -133,7 +134,9 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             cell.setHours(openingTime: textData)
             return cell
         case .review:
-            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! ShowPlaceReviewTableViewCell
+            let data = place.data as! Review
+            cell.setValues(review: data)
             return cell
         case .loading:
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! LoadingTableViewCell
@@ -168,6 +171,12 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             placeRepresentation = PlaceRepresentation()
             placeRepresentation.initFromPlace(placeContext: placeContext, openingTime: openingTime)
         }
+        if segue.source is SaveReviewViewController {
+            guard let review = reviewsContext.currentUserReview,
+                let index = placeRepresentation.changeUserReview(userReview: review) else { return }
+            let indexPath = IndexPath(row: index, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -177,6 +186,18 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
                 vc.openingTime = openingTime
                 vc.delegate = delegate
                 vc.sourceIsShowPlace = true
+            }
+        }
+        if segue.identifier == "editReview" {
+            if let vc = segue.destination as? EditReviewTableViewController {
+                vc.placeContext = placeContext
+                vc.reviewsContext = reviewsContext
+            }
+        }
+        if segue.identifier == "editButton" {
+            if let vc = segue.destination as? EditReviewTableViewController {
+                vc.placeContext = placeContext
+                vc.reviewsContext = reviewsContext
             }
         }
     }
@@ -213,15 +234,9 @@ extension ShowPlaceTableViewController: UICollectionViewDataSource {
 }
 
 extension ShowPlaceTableViewController: ReviewsContextDelegate {
-    func userFetched() {
-        
-        guard let _placeID = placeContext.place.placeID else { return } //TODO
-        
-        reviewsContext.fetchReviews(placeID: _placeID)
-    }
-    
     func fetchedMyReviews() {
         placeRepresentation.changeReviews(userReview: reviewsContext.currentUserReview, reviews: reviewsContext.reviews)
+        
         tableView.reloadData()
     }
 }

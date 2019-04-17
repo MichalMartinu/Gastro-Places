@@ -7,17 +7,26 @@
 //
 
 import UIKit
+import Cosmos
 
 class EditReviewTableViewController: UITableViewController {
     
     @IBOutlet weak var reviewTextView: UITextView!
+    @IBOutlet weak var reviewStarView: CosmosView!
     
     var reviewsContext: ReviewsContext?
+    var placeContext: PlaceContext!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         initReviewTextView()
         initFields()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.setToolbarHidden(true, animated: true)
     }
     
     private func initReviewTextView() {
@@ -28,10 +37,14 @@ class EditReviewTableViewController: UITableViewController {
 
     
     func initFields() {
-        /*if let userReview = reviewsContext?.currentUserReview {
-            // TODO rating
-            //reviewTextField.text = userReview.text
-         } //TODO else pak s rating{*/
+        if let userReview = reviewsContext?.currentUserReview {
+            reviewStarView.rating = Double(userReview.rating)
+            reviewTextView.text = userReview.text
+            
+            if userReview.cloudID != nil {
+                navigationController?.setToolbarHidden(false, animated: true)
+            }
+        }
     }
     
     @IBAction func cancelButtonIsPressed(_ sender: Any) {
@@ -43,11 +56,10 @@ class EditReviewTableViewController: UITableViewController {
     }
     
     func createReviewToSave() -> Review {
-        let rating = 1
+        let rating = Int(reviewStarView.rating)
         let text = reviewTextView.text
 
         return Review(rating: rating, text: text)
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -55,8 +67,27 @@ class EditReviewTableViewController: UITableViewController {
             if let vc = segue.destination as? SaveReviewViewController {
                 vc.reviewsContext = reviewsContext
                 vc.review = createReviewToSave()
+                vc.placeContext = placeContext
             }
         }
     }
+    
+    @IBAction func deleteButtonIsPressed(_ sender: Any) {
+        showDeleteAlert()
+    }
+    
+    private func showDeleteAlert() {
+        let alert = UIAlertController(title: "Delete review", message: "Do you really want to delete review", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: deleteReview))
+        
+        self.present(alert, animated: true)
+    }
+    
+    private func deleteReview(alert: UIAlertAction?) {
+        reviewsContext?.deleteUserReview()
+    }
+    
     
 }

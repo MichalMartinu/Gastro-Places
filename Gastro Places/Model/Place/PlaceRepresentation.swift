@@ -62,6 +62,7 @@ class PlaceRepresentation {
     
     var cells = [PlaceCell]()
     
+    private var userReviewIndex: Int?
     
     func initFromPlace(placeContext: PlaceContext, openingTime: OpeningTime) {
         let place = placeContext.place
@@ -145,19 +146,41 @@ class PlaceRepresentation {
         return placeCell
     }
     
+    private func createReviewCell(review: Review) -> PlaceCell {
+        let placeCell = PlaceCell.init(type: .review, data: review)
+        return placeCell
+    }
+    
+    func changeUserReview(userReview: Review) -> Int? {
+        guard let index = userReviewIndex else { return nil }
+        
+        cells[index] = createReviewCell(review: userReview)
+        return index
+    }
+    
     func changeReviews(userReview: Review?, reviews: [Review]) {
+        cells.removeLast()
         cells.removeLast()
         
         cells.append(createUserReviewCell())
         
-        if userReview != nil {
-            //TODO
+        if let _userReview = userReview {
+            cells.append(createReviewCell(review: _userReview))
         } else {
             cells.append(createNewReviewCell())
         }
+        userReviewIndex = cells.count - 1
         
         if reviews.count == 0 {
             return
         }
+        
+        cells.append(PlaceCell.init(type: CellTypes.space))
+        cells.append(basicTextCell(text: "Reviews", bold: true, size: 17, color: nil))
+        
+        for review in reviews {
+            cells.append(createReviewCell(review: review))
+        }
+
     }
 }

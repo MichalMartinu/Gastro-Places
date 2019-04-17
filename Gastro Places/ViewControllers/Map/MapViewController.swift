@@ -63,6 +63,12 @@ class MapViewController: UIViewController {
         initLongPressGestureRecognizer()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        placeContext = nil
+    }
+    
     // MARK: Views graphic
     
     private func initComponentsGraphic() {
@@ -422,6 +428,10 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         if let annotation = view.annotation as? PlaceAnnotation, annotation.id != nil {
+            unmountPlaceContext()
+            createPlaceDialogView.isHidden = true
+            centerOnLocationButton.isHidden = false
+            
             placeContext = PlaceContext.init(annotation: annotation)
             
             performSegue(withIdentifier: "showPlace", sender: self)

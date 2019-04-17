@@ -23,8 +23,10 @@
 		071CCDDD224811D500D5F0BE /* TableImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071CCDDC224811D500D5F0BE /* TableImageViewCell.swift */; };
 		071CCDDF2248311100D5F0BE /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071CCDDE2248311100D5F0BE /* ImageCollectionViewCell.swift */; };
 		071E458422380FAF0087453B /* OpeningTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E458322380FAF0087453B /* OpeningTimeTableViewController.swift */; };
+		072F82822264640200003D27 /* ReviewCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F82812264640200003D27 /* ReviewCoreData.swift */; };
 		0733D6C022350E59001F31C2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0733D6BF22350E59001F31C2 /* String.swift */; };
 		07423120223B1402003B5304 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0742311F223B1402003B5304 /* ImageIO.framework */; };
+		0749401B22670F5600305B9C /* Cosmos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0749401A22670F5600305B9C /* Cosmos.framework */; };
 		074944DB2243AFC700121D78 /* ResizeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074944DA2243AFC700121D78 /* ResizeImage.swift */; };
 		074944DD2243BA7700121D78 /* TmpDirectoryClean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074944DC2243BA7700121D78 /* TmpDirectoryClean.swift */; };
 		075154F9223ACDCB00D3E7FE /* ImageContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075154F8223ACDCB00D3E7FE /* ImageContext.swift */; };
@@ -86,9 +88,11 @@
 		071CCDDC224811D500D5F0BE /* TableImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableImageViewCell.swift; sourceTree = "<group>"; };
 		071CCDDE2248311100D5F0BE /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		071E458322380FAF0087453B /* OpeningTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeTableViewController.swift; sourceTree = "<group>"; };
+		072F82812264640200003D27 /* ReviewCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCoreData.swift; sourceTree = "<group>"; };
 		0733D6BF22350E59001F31C2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		0742311D223B13DE003B5304 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		0742311F223B1402003B5304 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		0749401A22670F5600305B9C /* Cosmos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cosmos.framework; path = Carthage/Build/iOS/Cosmos.framework; sourceTree = "<group>"; };
 		074944DA2243AFC700121D78 /* ResizeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeImage.swift; sourceTree = "<group>"; };
 		074944DC2243BA7700121D78 /* TmpDirectoryClean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmpDirectoryClean.swift; sourceTree = "<group>"; };
 		074E9AAA2232616B00F8E494 /* Gastro Places.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Gastro Places.entitlements"; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 			files = (
 				07423120223B1402003B5304 /* ImageIO.framework in Frameworks */,
 				075EEF56223692E900FA5869 /* CloudKit.framework in Frameworks */,
+				0749401B22670F5600305B9C /* Cosmos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +160,7 @@
 				07043EB72253797800EE6D5B /* ReviewsContext.swift */,
 				07043EB922537B6700EE6D5B /* Review.swift */,
 				07043EBD2253814C00EE6D5B /* ReviewCKRecord.swift */,
+				072F82812264640200003D27 /* ReviewCoreData.swift */,
 			);
 			path = Reviews;
 			sourceTree = "<group>";
@@ -259,6 +265,7 @@
 		075FE16E22326246007EC555 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0749401A22670F5600305B9C /* Cosmos.framework */,
 				0742311F223B1402003B5304 /* ImageIO.framework */,
 				0742311D223B13DE003B5304 /* CoreImage.framework */,
 				075EEF55223692E900FA5869 /* CloudKit.framework */,
@@ -421,6 +428,7 @@
 				07B7F128222FF5F800E22A27 /* Sources */,
 				07B7F129222FF5F800E22A27 /* Frameworks */,
 				07B7F12A222FF5F800E22A27 /* Resources */,
+				0749401C22670FC000305B9C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -486,6 +494,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0749401C22670FC000305B9C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Cosmos.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		07B7F128222FF5F800E22A27 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -527,6 +556,7 @@
 				07956E41223418DD001F1449 /* CathegoryCollectionViewCell.swift in Sources */,
 				075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */,
 				07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */,
+				072F82822264640200003D27 /* ReviewCoreData.swift in Sources */,
 				07DBECB32238117300D3D13D /* OpeningHoursTableViewCell.swift in Sources */,
 				075EEF5E2236DA4300FA5869 /* Address.swift in Sources */,
 				076A547022442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift in Sources */,
@@ -694,6 +724,10 @@
 				CODE_SIGN_ENTITLEMENTS = "Gastro Places/Gastro Places.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H84BAJDPWF;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Gastro Places/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -713,6 +747,10 @@
 				CODE_SIGN_ENTITLEMENTS = "Gastro Places/Gastro Places.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H84BAJDPWF;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Gastro Places/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
