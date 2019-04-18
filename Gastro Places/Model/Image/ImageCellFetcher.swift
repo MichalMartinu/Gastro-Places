@@ -44,7 +44,7 @@ class ImageCellFetcher {
         let query = CKQuery(recordType: "Image", predicate: predicate)
         let queryOperation = CKQueryOperation(query: query)
         queryOperation.qualityOfService = .userInteractive
-
+        queryOperation.queuePriority = .veryHigh
         queryOperation.recordFetchedBlock = { (record) in
             
             // Get image from CKRecord

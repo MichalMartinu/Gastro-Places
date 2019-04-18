@@ -44,9 +44,7 @@ class ReviewsContext {
             
             self.delegate?.fetchedMyReviews()
         } else {
-            DispatchQueue.global(qos: .userInteractive).async {
-                self.fetchFromCloudkit(placeID: placeID, place: place)
-            }
+            self.fetchFromCloudkit(placeID: placeID, place: place)
         }
     }
     
@@ -66,7 +64,7 @@ class ReviewsContext {
         query.sortDescriptors = [NSSortDescriptor(key: "modificationDate", ascending: false)]
         let queryOperation = CKQueryOperation(query: query)
         queryOperation.qualityOfService = .userInteractive
-        
+        queryOperation.queuePriority = .veryHigh
         queryOperation.recordFetchedBlock = { record in
             let review = Review(date: record.creationDate!, rating: record["rating"]!, text: record["text"], user: record.creatorUserRecordID?.recordName, cloudID: record.recordID)
             
@@ -111,6 +109,9 @@ class ReviewsContext {
         
         let saveOperation = CKModifyRecordsOperation(recordsToSave: [reviewCKRecord.record])
         saveOperation.savePolicy = .changedKeys
+        saveOperation.queuePriority = .veryHigh
+        saveOperation.qualityOfService = .userInteractive
+        
         saveOperation.modifyRecordsCompletionBlock = { (records, recordsID, error) in
             
             if let _error = error {

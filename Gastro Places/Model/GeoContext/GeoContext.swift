@@ -53,9 +53,7 @@ class GeoContext: Operation {
     func start() {
         state = .Executing
         
-        GeoContext.geoContextQueue.async {
-            self.fetchCloudkitPlaces()
-        }
+        self.fetchCloudkitPlaces()
     }
     
     private func fetchCloudkitPlaces() {
@@ -65,11 +63,19 @@ class GeoContext: Operation {
         let predicate = createPredicateToFetchPlaces(location: location, radius: radius, cathegory: cathegory)
         let query = CKQuery(recordType: PlaceCKRecordNames.record, predicate: predicate)
         
-        publicDB.perform(query, inZoneWith: nil) { results, error in
-            
+        let queryOperation = CKQueryOperation(query: query)
+        queryOperation.qualityOfService = .userInteractive
+        queryOperation.queuePriority = .veryHigh
+        
+        var records = [CKRecord]()
+        
+        queryOperation.recordFetchedBlock = { record in
+            records.append(record)
+        }
+        
+        queryOperation.queryCompletionBlock = { cursor, error in
             if let _error = error {
                 self.state = .Failed
-                
                 DispatchQueue.main.async {
                     self.delegate?.geoContextDidLoadAnnotations(error: _error)
                 }
@@ -77,13 +83,19 @@ class GeoContext: Operation {
                 return
             }
             
-            guard let records = results else {
-                self.delegate?.geoContextDidLoadAnnotations(error: error)
+            if let cursor = cursor {
+                let newOperation = CKQueryOperation(cursor: cursor)
+                queryOperation.qualityOfService = .userInteractive
+                queryOperation.queuePriority = .veryHigh
+                newOperation.recordFetchedBlock = queryOperation.recordFetchedBlock
+                newOperation.queryCompletionBlock = queryOperation.queryCompletionBlock
+                publicDB.add(newOperation)
                 return
             }
             
             self.saveRecords(records: records)
         }
+        publicDB.add(queryOperation)
     }
     
     private func saveRecords(records: [CKRecord]) {

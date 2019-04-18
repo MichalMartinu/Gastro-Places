@@ -90,6 +90,7 @@ class ImageContext: Operation {
         
         let operation = CKQueryOperation(query: query)
         operation.qualityOfService = .userInteractive
+        operation.queuePriority = .veryHigh
         operation.desiredKeys = ["recordName"] // Fetch only recordID
         
         operation.queryCompletionBlock = { results, error in

@@ -152,6 +152,7 @@ class OpeningTime: Operation {
         
         let queryOperation = CKQueryOperation(query: query)
         queryOperation.qualityOfService = .userInteractive
+        queryOperation.queuePriority = .veryHigh
         
         queryOperation.recordFetchedBlock = { (record) in
             self.initDaysFromCKRecord(record)
