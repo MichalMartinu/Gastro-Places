@@ -12,6 +12,8 @@ import CoreLocation
 import CloudKit
 import CoreData
 
+
+
 class MapViewController: UIViewController {
     
     @IBOutlet weak var loadingIndicatorView: UIView!
@@ -31,7 +33,6 @@ class MapViewController: UIViewController {
     @IBOutlet weak var geoContextInformationView: UIView!
     @IBOutlet weak var geoContextInformationLabel: UILabel!
     
-    private let locationManager = CLLocationManager()
     
     private var mapCentered = false
     
@@ -109,9 +110,9 @@ class MapViewController: UIViewController {
         
         if CLLocationManager.locationServicesEnabled() {
             // Start locating user
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
+            CustomLocationManager.manager.delegate = self
+            CustomLocationManager.manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            CustomLocationManager.manager.startUpdatingLocation()
         }
     }
     
@@ -119,9 +120,9 @@ class MapViewController: UIViewController {
         // Check if user enabled location services
         switch CLLocationManager.authorizationStatus() {
         case .denied:
-            showAlert(title: "Location service is denined for this app", message: "To see actual location please enable location permission in setting for this application", confirmTitle: "Ok")
+            showAlert(title: "Location service is denined for this app", message: "To see actual location please enable location permission in setting for this application", confirmTitle: "Ok", handler: nil)
         case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
+            CustomLocationManager.manager.requestWhenInUseAuthorization()
         default:
             break
         }
@@ -130,7 +131,7 @@ class MapViewController: UIViewController {
     // MARK: Map
     
     @IBAction private func centerOnUserLocationButtonIsPressed(_ sender: Any) {
-        if let location = locationManager.location {
+        if let location = CustomLocationManager.manager.location {
             let radius = getRadiusFromMapView(mapView)
             centerMapOnUserLocation(location: location, radius: radius)
         }
@@ -345,7 +346,7 @@ class MapViewController: UIViewController {
             
             performSegue(withIdentifier: "createPlaceDialog", sender: self)
         } else {
-            showAlert(title: "No iCloud account!", message: "To create new place you need to login to your iCloud account in your settings.", confirmTitle: "Ok")
+            showAlert(title: "No iCloud account!", message: "To create new place you need to login to your iCloud account in your settings.", confirmTitle: "Ok", handler: nil)
         }
     }
     
@@ -381,17 +382,6 @@ class MapViewController: UIViewController {
             mountGeocontext()
         }
     }
-    
-    // MARK: Alert
-    
-    private func showAlert(title: String?, message: String?, confirmTitle: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        
-        alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: nil))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
-
 }
 
 // MARK: Location manager delegate
@@ -422,7 +412,7 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if view.annotation is MKUserLocation {
             // Check if user selected current location
-            guard let location = locationManager.location?.coordinate else { return }
+            guard let location = CustomLocationManager.manager.location?.coordinate else { return }
             
             showCreateNewPlaceDialog(coordinate: location)
         }
@@ -491,7 +481,7 @@ extension MapViewController: GeoContextDelegate {
     
     func geoContextDidLoadAnnotations(error: Error?) {
         if let _error = error {
-            showAlert(title: "Error when loading places!", message: _error.localizedDescription, confirmTitle: "Ok")
+            showAlert(title: "Error when loading places!", message: _error.localizedDescription, confirmTitle: "Ok", handler: nil)
             showGeoContextInformationView(text: geoContextErrorMessage)
             setRefreshButton(enabled: true)
             return
@@ -516,7 +506,7 @@ extension MapViewController: PlaceContextDelegateAdress {
             
             unmountPlaceContext()
             
-            showAlert(title: "Could not create new place!", message: _error.localizedDescription, confirmTitle: "Ok")
+            showAlert(title: "Could not create new place!", message: _error.localizedDescription, confirmTitle: "Ok", handler: nil)
             
             return
         }

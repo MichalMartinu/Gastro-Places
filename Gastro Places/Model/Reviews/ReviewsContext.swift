@@ -17,6 +17,10 @@ protocol ReviewsContextSaveDelegate: AnyObject {
     func reviewSaved(error: Error?)
 }
 
+protocol ReviewsContextDeleteDelegate: AnyObject {
+    func reviewDeleted(error: Error?)
+}
+
 
 class ReviewsContext {
     var reviews = [Review]()
@@ -29,6 +33,7 @@ class ReviewsContext {
     
     weak var delegate: ReviewsContextDelegate?
     weak var delegateSave: ReviewsContextSaveDelegate?
+    weak var delegateDelete: ReviewsContextDeleteDelegate?
     
     func fetchReviews(placeID: String, place: PlaceCoreData) {
         let context = AppDelegate.viewContext
@@ -95,7 +100,7 @@ class ReviewsContext {
         publicDB.add(queryOperation)
     }
     
-    func saveToCloudkit(review: Review, placeID: String) {
+    func saveToCloudkit(review: Review, place: PlaceCoreData) {
         let container = CKContainer.default()
         let publicDB = container.publicCloudDatabase
         
@@ -105,7 +110,7 @@ class ReviewsContext {
             reviewRecordID = id
         }
      
-        let reviewCKRecord = ReviewCKRecord(review: review, placeID: placeID, reviewRecordID: reviewRecordID)
+        let reviewCKRecord = ReviewCKRecord(review: review, placeID: place.placeID!, reviewRecordID: reviewRecordID)
         
         let saveOperation = CKModifyRecordsOperation(recordsToSave: [reviewCKRecord.record])
         saveOperation.savePolicy = .changedKeys
@@ -125,7 +130,12 @@ class ReviewsContext {
             
             self.currentUserReview = Review(date: record.creationDate!, rating: record["rating"]!, text: record["text"], user: record.creatorUserRecordID?.recordName, cloudID: record.recordID)
             
+
+            
             DispatchQueue.main.async {
+                let context = AppDelegate.viewContext
+                ReviewCoreData.changeOrCreate(place: place, record: record, context: context)
+
                 self.delegateSave?.reviewSaved(error: nil)
             }
         }
@@ -142,14 +152,17 @@ class ReviewsContext {
         publicDB.delete(withRecordID: id) { (recordID, error) in
             if error != nil {
                 DispatchQueue.main.async {
-                    //TODO
+                    self.delegateDelete?.reviewDeleted(error: error)
                 }
                 return
             }
             
             DispatchQueue.main.async {
-                print("deleted")
-                //TODO
+                let context = AppDelegate.viewContext
+                ReviewCoreData.deleteCurrentUser(context: context)
+                self.currentUserReview = nil
+                
+                self.delegateDelete?.reviewDeleted(error: nil)
             }
         }
     }

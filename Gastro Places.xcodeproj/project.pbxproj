@@ -29,6 +29,9 @@
 		0749401B22670F5600305B9C /* Cosmos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0749401A22670F5600305B9C /* Cosmos.framework */; };
 		074944DB2243AFC700121D78 /* ResizeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074944DA2243AFC700121D78 /* ResizeImage.swift */; };
 		074944DD2243BA7700121D78 /* TmpDirectoryClean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074944DC2243BA7700121D78 /* TmpDirectoryClean.swift */; };
+		074C4785226A199400557244 /* SearchContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C4784226A199400557244 /* SearchContext.swift */; };
+		074C4788226A321B00557244 /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C4787226A321B00557244 /* PlaceTableViewCell.swift */; };
+		074C478B226A406700557244 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074C478A226A406700557244 /* LocationManager.swift */; };
 		075154F9223ACDCB00D3E7FE /* ImageContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075154F8223ACDCB00D3E7FE /* ImageContext.swift */; };
 		075154FB223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075154FA223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift */; };
 		075154FD223ACF8100D3E7FE /* CreateImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075154FC223ACF8100D3E7FE /* CreateImageTableViewCell.swift */; };
@@ -52,6 +55,7 @@
 		0769E1F72248C965005319B0 /* ImageCellFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0769E1F62248C965005319B0 /* ImageCellFetcher.swift */; };
 		076A547022442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */; };
 		0778BF1C224A845C0027F196 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0778BF1B224A845C0027F196 /* ImageTableViewCell.swift */; };
+		077A47DB22690A95002A6729 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A47DA22690A95002A6729 /* UIViewController.swift */; };
 		07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */; };
 		0794BBE622365C5A00CF8D70 /* CreatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */; };
 		0794BBEE2236841300CF8D70 /* PlaceCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BBED2236841300CF8D70 /* PlaceCKRecord.swift */; };
@@ -95,6 +99,9 @@
 		0749401A22670F5600305B9C /* Cosmos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cosmos.framework; path = Carthage/Build/iOS/Cosmos.framework; sourceTree = "<group>"; };
 		074944DA2243AFC700121D78 /* ResizeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeImage.swift; sourceTree = "<group>"; };
 		074944DC2243BA7700121D78 /* TmpDirectoryClean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmpDirectoryClean.swift; sourceTree = "<group>"; };
+		074C4784226A199400557244 /* SearchContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContext.swift; sourceTree = "<group>"; };
+		074C4787226A321B00557244 /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
+		074C478A226A406700557244 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		074E9AAA2232616B00F8E494 /* Gastro Places.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Gastro Places.entitlements"; sourceTree = "<group>"; };
 		075154F8223ACDCB00D3E7FE /* ImageContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContext.swift; sourceTree = "<group>"; };
 		075154FA223ACE5E00D3E7FE /* ImagesToSaveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesToSaveTableViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +126,7 @@
 		0769E1F62248C965005319B0 /* ImageCellFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellFetcher.swift; sourceTree = "<group>"; };
 		076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceIndicatorViewController.swift; sourceTree = "<group>"; };
 		0778BF1B224A845C0027F196 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
+		077A47DA22690A95002A6729 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecord.swift; sourceTree = "<group>"; };
 		0794BBE522365C5A00CF8D70 /* CreatePlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceViewController.swift; sourceTree = "<group>"; };
 		0794BBED2236841300CF8D70 /* PlaceCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCKRecord.swift; sourceTree = "<group>"; };
@@ -234,6 +242,30 @@
 			path = OpeningTime;
 			sourceTree = "<group>";
 		};
+		074C4783226A196900557244 /* SearchContext */ = {
+			isa = PBXGroup;
+			children = (
+				074C4784226A199400557244 /* SearchContext.swift */,
+			);
+			path = SearchContext;
+			sourceTree = "<group>";
+		};
+		074C4786226A320E00557244 /* SearchPlace */ = {
+			isa = PBXGroup;
+			children = (
+				074C4787226A321B00557244 /* PlaceTableViewCell.swift */,
+			);
+			path = SearchPlace;
+			sourceTree = "<group>";
+		};
+		074C4789226A405700557244 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				074C478A226A406700557244 /* LocationManager.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
 		075154F7223ACD8E00D3E7FE /* Image */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +372,7 @@
 		07956E3F223418BA001F1449 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				074C4786226A320E00557244 /* SearchPlace */,
 				07663CA1224670AA00275CBC /* Map */,
 				07663CA2224670B200275CBC /* Create Place */,
 				075E2162224573BB008F8F14 /* Show Place */,
@@ -399,6 +432,7 @@
 				0733D6BF22350E59001F31C2 /* String.swift */,
 				074944DA2243AFC700121D78 /* ResizeImage.swift */,
 				074944DC2243BA7700121D78 /* TmpDirectoryClean.swift */,
+				077A47DA22690A95002A6729 /* UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -406,6 +440,8 @@
 		07B7F14822302B3100E22A27 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				074C4789226A405700557244 /* Location */,
+				074C4783226A196900557244 /* SearchContext */,
 				0738F04322386F7900FD36F1 /* GeoContext */,
 				0738F04422386F8900FD36F1 /* Place */,
 				0738F04622386FD400FD36F1 /* Cathegories */,
@@ -552,6 +588,7 @@
 				07043ECD2254007100EE6D5B /* Operation.swift in Sources */,
 				07043ED222540C9D00EE6D5B /* Image.swift in Sources */,
 				07043EC0225386DE00EE6D5B /* CreateReviewTableViewCell.swift in Sources */,
+				074C478B226A406700557244 /* LocationManager.swift in Sources */,
 				0778BF1C224A845C0027F196 /* ImageTableViewCell.swift in Sources */,
 				07956E41223418DD001F1449 /* CathegoryCollectionViewCell.swift in Sources */,
 				075FE174223265C8007EC555 /* PlaceAnnotationItem.swift in Sources */,
@@ -561,15 +598,18 @@
 				075EEF5E2236DA4300FA5869 /* Address.swift in Sources */,
 				076A547022442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift in Sources */,
 				07B7F14722301AD000E22A27 /* RoundObjects.swift in Sources */,
+				077A47DB22690A95002A6729 /* UIViewController.swift in Sources */,
 				075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */,
 				07043EBE2253814C00EE6D5B /* ReviewCKRecord.swift in Sources */,
 				076128DC225498C900BAB0A5 /* Time.swift in Sources */,
 				07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */,
 				071CCDDF2248311100D5F0BE /* ImageCollectionViewCell.swift in Sources */,
+				074C4785226A199400557244 /* SearchContext.swift in Sources */,
 				07043EC722539E5000EE6D5B /* EditReviewTableViewController.swift in Sources */,
 				0767F5DC2243E33800899271 /* ImageCoreData.swift in Sources */,
 				075E216422457412008F8F14 /* TableLinkViewCell.swift in Sources */,
 				076128DE225498DD00BAB0A5 /* Day.swift in Sources */,
+				074C4788226A321B00557244 /* PlaceTableViewCell.swift in Sources */,
 				07B7F14A22302B4200E22A27 /* GeoContext.swift in Sources */,
 				075E21592244FFA9008F8F14 /* ShowPlaceViewController.swift in Sources */,
 				070004672242A80E002A19C7 /* ImageCKRecords.swift in Sources */,

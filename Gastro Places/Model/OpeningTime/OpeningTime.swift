@@ -29,7 +29,7 @@ class OpeningTime: Operation {
     
     var days = [Day]()
         
-    private(set) var recordID: String?
+    private(set) var recordID: CKRecord.ID?
     
     weak var delegate: OpeningTimeDelegate?
     
@@ -163,7 +163,7 @@ class OpeningTime: Operation {
                 // Save to CoreData
                 OpeningTimeCoreData.changeOrCreate(place: placeCoreData, record: record, context: context)
                 
-                self.recordID =  record.recordID.recordName
+                self.recordID =  record.recordID
                 
                 self.state = .Finished
                 self.delegate?.openingTimeDidLoad()

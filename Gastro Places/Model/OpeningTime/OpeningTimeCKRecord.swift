@@ -12,9 +12,8 @@ import CloudKit
 class OpeningTimeCKRecord {
     let record: CKRecord
     
-    init(days: [Day], recordReference: CKRecord, openingRecordID: String?) {
-        if let id = openingRecordID {
-            let recordID = CKRecord.ID(recordName: id)
+    init(days: [Day], recordReference: CKRecord, openingRecordID: CKRecord.ID?) {
+        if let recordID = openingRecordID {
             self.record = CKRecord(recordType: "OpeningTime", recordID: recordID)
         } else {
             self.record = CKRecord(recordType: "OpeningTime")
@@ -35,7 +34,7 @@ class OpeningTimeCKRecord {
         record["monday"] = openingTimeCoreData.monday
         record["tuesday"] = openingTimeCoreData.tuesday
         record["wednesday"] = openingTimeCoreData.wednesday
-        record["thursday"] = openingTimeCoreData.tuesday
+        record["thursday"] = openingTimeCoreData.thursday
         record["friday"] = openingTimeCoreData.friday
         record["saturday"] = openingTimeCoreData.saturday
         record["sunday"] = openingTimeCoreData.sunday

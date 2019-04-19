@@ -21,16 +21,11 @@ class SaveReviewViewController: UIViewController {
         
         reviewsContext.delegateSave = self
         
-        guard let placeID = placeContext.place.placeID else { return }
+        guard let place = placeContext.placeCoreData else { return }
         
-        reviewsContext.saveToCloudkit(review: review, placeID: placeID)
+        reviewsContext.saveToCloudkit(review: review, place: place)
     }
     
-    private func showAlert(title: String?, message: String?, confirmTitle: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: backToMap))
-        self.present(alert, animated: true, completion: nil)
-    }
     
     func backToMap(alert: UIAlertAction!) {
         navigationController?.isNavigationBarHidden = false
@@ -51,7 +46,7 @@ extension SaveReviewViewController: ReviewsContextSaveDelegate {
     func reviewSaved(error: Error?) {
         
         if let _error = error {
-            showAlert(title: "Error when saving review!", message: _error.localizedDescription, confirmTitle: "Ok")
+            showAlert(title: "Error when saving review!", message: _error.localizedDescription, confirmTitle: "Ok", handler: backToMap)
             return
         }
         

@@ -17,6 +17,12 @@ class EditReviewTableViewController: UITableViewController {
     var reviewsContext: ReviewsContext?
     var placeContext: PlaceContext!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        reviewsContext?.delegateDelete = self
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         initReviewTextView()
@@ -88,6 +94,16 @@ class EditReviewTableViewController: UITableViewController {
     private func deleteReview(alert: UIAlertAction?) {
         reviewsContext?.deleteUserReview()
     }
+}
+
+extension EditReviewTableViewController: ReviewsContextDeleteDelegate {
+    func reviewDeleted(error: Error?) {
+        if let _error = error {
+            showAlert(title: "Error when deleting review", message: _error.localizedDescription, confirmTitle: "ok", handler: nil)
+            navigationController?.popViewController(animated: true)
+            return
+        }
     
-    
+        navigationController?.popViewController(animated: true)
+    }
 }

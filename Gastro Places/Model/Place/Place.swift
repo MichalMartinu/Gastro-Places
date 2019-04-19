@@ -23,8 +23,11 @@ class Place {
         self.location = location
     }
     
-    init(placeID: String) {
+    init(placeID: String, name: String, cathegory: String, location: CLLocationCoordinate2D) {
         self.placeID = placeID
+        self.name = name
+        self.cathegory = cathegory
+        self.location = CLLocation.init(latitude: location.latitude, longitude: location.longitude)
     }
     
     init(place: PlaceCoreData) {

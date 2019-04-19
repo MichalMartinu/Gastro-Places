@@ -14,6 +14,10 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
     var imageContext: ImageContext!
     var openingTime: OpeningTime!
     
+    var openingTimeBackup: OpeningTime!
+    var imageContextBackup: ImageContext!
+
+    
     var sourceIsShowPlace = false
 
     var segueIdentifier: String {
@@ -28,6 +32,7 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         placeContext.delegateSave = self
         placeContext.save(openingTime: openingTime, images: imageContext)
     }
@@ -46,7 +51,7 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
         FileManager.default.clearTmpDirectory()
         
         if let _error = error {
-            showAlert(title: "Cannot create place!", message: _error.localizedDescription, confirmTitle: "Ok")
+            showAlert(title: "Cannot create place!", message: _error.localizedDescription, confirmTitle: "Ok", handler: backToMap)
             self.annotation = nil
             return
         } else {
@@ -56,12 +61,6 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
         }
         navigationController?.isNavigationBarHidden = false
         performSegue(withIdentifier: segueIdentifier, sender: self)
-    }
-    
-    private func showAlert(title: String?, message: String?, confirmTitle: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: backToMap))
-        self.present(alert, animated: true, completion: nil)
     }
     
     func backToMap(alert: UIAlertAction!) {

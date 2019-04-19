@@ -195,7 +195,7 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
         
         if isICloudKitContainerAvailable() == false {
             //When there is no iCloud account cancel operation and show message
-            showAlert(title: "iCloud account needed", message: "You need to login to your iCloud account on iPhone.", confirmTitle: "Ok")
+            showAlert(title: "iCloud account needed", message: "You need to login to your iCloud account on iPhone.", confirmTitle: "Ok", handler: nil)
             enableNavigationBarButtons(enabled: true)
             
             return
@@ -215,7 +215,7 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
         if let _wrongInput = wrongInput, _wrongInput.count > 0 {
            
             let wrongInputString = setWrongInput(_wrongInput)
-            showAlert(title: "Invalid input", message: wrongInputString, confirmTitle: "Ok")
+            showAlert(title: "Invalid input", message: wrongInputString, confirmTitle: "Ok", handler: nil)
             
             enableNavigationBarButtons(enabled: true)
             
@@ -272,14 +272,6 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
                 vc.sourceIsShowPlace = sourceIsShowPlace
             }
         }
-    }
-    
-    private func showAlert(title: String?, message: String?, confirmTitle: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        
-        alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: nil))
-        
-        self.present(alert, animated: true, completion: nil)
     }
     
     private func showDeleteAlert() {
@@ -343,7 +335,7 @@ extension CreatePlaceViewController: UICollectionViewDelegate, UICollectionViewD
 extension CreatePlaceViewController: PlaceContextDelegateDelete {
     func placeContextDeleted(error: Error?, recordID: String?) {
         if error != nil {
-            self.showAlert(title: "Cannot delete place", message: "There are some problems with deleting place. Try again later.", confirmTitle: "Ok")
+            self.showAlert(title: "Cannot delete place", message: "There are some problems with deleting place. Try again later.", confirmTitle: "Ok", handler: nil)
             self.enableNavigationBarButtons(enabled: true)
             
             return

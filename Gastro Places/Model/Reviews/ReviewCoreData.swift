@@ -52,4 +52,16 @@ class ReviewCoreData: NSManagedObject {
             return nil
         }
     }
+    
+    class func deleteCurrentUser(context: NSManagedObjectContext) {
+        
+        let query:NSFetchRequest<ReviewCoreData> = ReviewCoreData.fetchRequest()
+        
+        let predicate = NSPredicate(format: "user = %@", "__defaultOwner__")
+        query.predicate = predicate
+        
+        if let record = try? context.fetch(query), record.count == 1 {
+            context.delete(record.first!)
+        }
+    }
 }

@@ -32,7 +32,7 @@ class OpeningTimeCoreData: NSManagedObject{
         
         recordToSave?.monday = record["monday"]
         recordToSave?.tuesday = record["tuesday"]
-        recordToSave?.wednesday = record["wendesday"]
+        recordToSave?.wednesday = record["wednesday"]
         recordToSave?.thursday = record["thursday"]
         recordToSave?.friday = record["friday"]
         recordToSave?.saturday = record["saturday"]

@@ -49,6 +49,16 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             placeRepresentation.changeImageCell()
         }
         
+        if openingTime.state == .Finished, let _placeID = placeContext.place.placeID {
+            openingTime = OpeningTime(intervalInMinutes: 15)
+            openingTime.delegate = self
+            openingTime.fetchOpeningHours(placeID: _placeID, placeCoreData: placeContext.placeCoreData)
+        }
+        
+        if placeRepresentation.userReviewIndex != nil {
+            _ = placeRepresentation.changeUserReview(userReview: reviewsContext.currentUserReview)
+        }
+        
         tableView.reloadData()
     }
     
@@ -64,7 +74,7 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     
     func placeContextLoadedPlace() {
         if placeContext.state == .Failed {
-            showAlert(title: "Error", message: "Some error occurred, try again later please.", confirmTitle: "Ok")
+            showAlert(title: "Error", message: "Some error occurred, try again later please.", confirmTitle: "Ok", handler: popViewController)
             return
         }
         placeRepresentation.initFromPlace(placeContext: placeContext, openingTime: openingTime)
@@ -82,20 +92,12 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         tableView.reloadData()
     }
     
-    private func showAlert(title: String?, message: String?, confirmTitle: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: confirmTitle, style: UIAlertAction.Style.default, handler: popViewController))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     private func popViewController(alert: UIAlertAction!) {
         navigationController?.popViewController(animated: true)
     }
     
     func openingTimeDidLoad() {
-        guard let index = placeRepresentation.changeOpeningTime(openingTime: openingTime) else {
-            return
-        }
+        guard let index = placeRepresentation.changeOpeningTime(openingTime: openingTime) else { return }
         let indexPath = IndexPath.init(row: index, section: 0)
         tableView.reloadRows(at: [indexPath], with: .none)
     }

@@ -61,7 +61,7 @@ class PlaceContext: Operation {
         // Used for initializing existing place
         self.annotation = annotation
         
-        place = Place.init(placeID: annotation.id!)
+        place = Place.init(placeID: annotation.id!, name: annotation.title!, cathegory: annotation.cathegory, location: annotation.coordinate)
     }
     
     func changeData(cathegory: String, name: String, phone: String, email: String, web: String) {
