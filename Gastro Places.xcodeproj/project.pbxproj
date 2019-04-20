@@ -55,6 +55,7 @@
 		0769E1F72248C965005319B0 /* ImageCellFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0769E1F62248C965005319B0 /* ImageCellFetcher.swift */; };
 		076A547022442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */; };
 		076AD5C9226B291D00E13CBC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AD5C8226B291D00E13CBC /* Notification.swift */; };
+		076AD5CE226B413700E13CBC /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AD5CD226B413700E13CBC /* UIView.swift */; };
 		0778BF1C224A845C0027F196 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0778BF1B224A845C0027F196 /* ImageTableViewCell.swift */; };
 		077A47DB22690A95002A6729 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A47DA22690A95002A6729 /* UIViewController.swift */; };
 		07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */; };
@@ -127,6 +128,7 @@
 		0769E1F62248C965005319B0 /* ImageCellFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellFetcher.swift; sourceTree = "<group>"; };
 		076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceIndicatorViewController.swift; sourceTree = "<group>"; };
 		076AD5C8226B291D00E13CBC /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		076AD5CD226B413700E13CBC /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		0778BF1B224A845C0027F196 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		077A47DA22690A95002A6729 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecord.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				074944DC2243BA7700121D78 /* TmpDirectoryClean.swift */,
 				077A47DA22690A95002A6729 /* UIViewController.swift */,
 				076AD5C8226B291D00E13CBC /* Notification.swift */,
+				076AD5CD226B413700E13CBC /* UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				07043EBE2253814C00EE6D5B /* ReviewCKRecord.swift in Sources */,
 				076128DC225498C900BAB0A5 /* Time.swift in Sources */,
 				07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */,
+				076AD5CE226B413700E13CBC /* UIView.swift in Sources */,
 				071CCDDF2248311100D5F0BE /* ImageCollectionViewCell.swift in Sources */,
 				074C4785226A199400557244 /* SearchContext.swift in Sources */,
 				07043EC722539E5000EE6D5B /* EditReviewTableViewController.swift in Sources */,

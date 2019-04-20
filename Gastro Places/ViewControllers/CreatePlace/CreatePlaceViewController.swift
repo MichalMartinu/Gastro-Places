@@ -291,6 +291,10 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     
     // TODO: Move to model
     private func deletePlace(alert: UIAlertAction?) {
+        view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+        enableNavigationBarButtons(enabled: false)
+        setToolbarHidden(with: true)
+
         placeContext.delegateDelete = self
         
         placeContext.deletePlace()
@@ -328,14 +332,15 @@ extension CreatePlaceViewController: UICollectionViewDelegate, UICollectionViewD
 
 extension CreatePlaceViewController: PlaceContextDelegateDelete {
     func placeContextDeleted(error: Error?, recordID: String?) {
+        
         if error != nil {
             self.showAlert(title: "Cannot delete place", message: "There are some problems with deleting place. Try again later.", confirmTitle: "Ok", handler: nil)
             self.enableNavigationBarButtons(enabled: true)
-            
+            self.setToolbarHidden(with: false)
             return
         }
 
-        self.setToolbarHidden(with: true)
+        view.activityStopAnimating()
         
         guard let _recordID = recordID else { return }
         let data = ["id": _recordID]
