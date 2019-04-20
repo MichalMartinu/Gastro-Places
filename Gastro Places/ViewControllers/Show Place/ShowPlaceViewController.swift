@@ -28,9 +28,7 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     var openingTime = OpeningTime(intervalInMinutes: 15)
     private var  placeRepresentation = PlaceRepresentation()
     let reviewsContext = ReviewsContext()
-    
-    weak var delegate: CreatePlaceViewControllerDelegate?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -186,7 +184,6 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             if let vc = segue.destination as? CreatePlaceViewController {
                 vc.placeContext = placeContext
                 vc.openingTime = openingTime
-                vc.delegate = delegate
                 vc.sourceIsShowPlace = true
             }
         }

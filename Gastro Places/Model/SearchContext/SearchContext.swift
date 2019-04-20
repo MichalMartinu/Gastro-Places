@@ -20,11 +20,16 @@ class SearchContext: Operation {
     
     var delegate: SearchContextDelegate?
     
-    func fetchCloudkitPlaces(stringToMatch: String) {
+    func fetchCloudkitPlaces(stringToMatch: String?) {
         let container = CKContainer.default()
         let publicDB = container.publicCloudDatabase
         
-        let predicate = NSPredicate(format: "self CONTAINS %@", "brno")
+        var predicate = NSPredicate(value: true)
+        
+        if let _stringToMatch = stringToMatch {
+            predicate = NSPredicate(format: "self CONTAINS %@", _stringToMatch)
+        }
+        
         let query = CKQuery(recordType: PlaceCKRecordNames.record, predicate: predicate)
         query.sortDescriptors = []
         if let _location = CustomLocationManager.manager.location {
@@ -101,7 +106,30 @@ class SearchContext: Operation {
     func sortPlacesByDistance() {
         guard let _location = CustomLocationManager.manager.location else { return }
         
-        //Custom sort of places because CloudKit works only with range of 10km
+        //Custom sort of places by dostance because CloudKit works only with range of 10 km
         places.sort(by: { $0.place.location!.distance(from: _location) < $1.place.location!.distance(from: _location) })
+    }
+    
+    func deletePlace(with id: String) -> Int? {
+        if let placeIndex = places.firstIndex(where: { $0.place.placeID == id }) {
+            
+            places.remove(at: placeIndex)
+            
+            return placeIndex // Return deleted index
+        }
+        
+        return nil
+    }
+    
+    func changePlace(id: String, title: String, cathegory: String) -> Int? {
+        if let placeIndex = places.firstIndex(where: { $0.place.placeID == id }) {
+            
+            places[placeIndex].place.name = title
+            places[placeIndex].place.cathegory = cathegory
+
+            return placeIndex // Return deleted index
+        }
+        
+        return nil
     }
 }

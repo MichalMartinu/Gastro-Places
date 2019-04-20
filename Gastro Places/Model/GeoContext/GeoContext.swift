@@ -37,6 +37,19 @@ class GeoContext: Operation {
         annotations.append(annotation)
     }
     
+    func changeAnnotation(id: String, title: String, cathegory: String) -> PlaceAnnotation? {
+        // Get index of annotation to change
+        if let annotationIndex = annotations.firstIndex(where: { $0.id == id }) {
+            let annotation = annotations[annotationIndex]
+            annotation.title = title
+            annotation.cathegory = cathegory
+            
+            return annotation // Return changed annotation
+        }
+        
+        return nil
+    }
+    
     func deleteAnnotation(with id: String) -> PlaceAnnotation? {
         // Get index of annotation to delete
         if let annotationIndex = annotations.firstIndex(where: { $0.id == id }) {

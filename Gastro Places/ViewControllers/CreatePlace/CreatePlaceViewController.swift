@@ -9,10 +9,6 @@
 import UIKit
 import CloudKit
 
-protocol CreatePlaceViewControllerDelegate: AnyObject {
-    func deleteAnnotation(with id: String)
-}
-
 class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
 
     @IBOutlet weak var cathegoryPickerView: UIPickerView!
@@ -53,9 +49,7 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     var openingTime: OpeningTime!
     
     var sourceIsShowPlace = false
-    
-    weak var delegate: CreatePlaceViewControllerDelegate?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         createOpeningTimeAndImageContext()
@@ -340,14 +334,19 @@ extension CreatePlaceViewController: PlaceContextDelegateDelete {
             
             return
         }
-        
+
         self.setToolbarHidden(with: true)
         
         guard let _recordID = recordID else { return }
+        let data = ["id": _recordID]
+                
+        NotificationCenter.default.post(name: .didDeletePlace, object: nil, userInfo: data)
         
-        self.delegate?.deleteAnnotation(with: _recordID)
-        
-        self.performSegue(withIdentifier: "backToMapFromEdit", sender: self)
+        if tabBarController!.selectedIndex == 1 {
+            self.performSegue(withIdentifier: "backToSearchFromEdit", sender: self)
+        } else {
+            self.performSegue(withIdentifier: "backToMapFromEdit", sender: self)
+        }
         
     }
 }

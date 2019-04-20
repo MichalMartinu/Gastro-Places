@@ -76,12 +76,14 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
             }
         }
         if segue.identifier == "backToShowPlace" {
-            if let vc = segue.destination as? ShowPlaceTableViewController {
-                imageContext.deleteCreatedImages()
-                vc.placeContext = placeContext
-                vc.openingTime = openingTime
-                vc.imageContext = imageContext
-            }
+            imageContext.deleteCreatedImages()
+            
+            guard let placeID = placeContext.place.placeID, let title = placeContext.place.name, let cathegory = placeContext.place.cathegory else { return }
+            
+            let data = ["id": placeID, "title": title, "cathegory": cathegory]
+            
+            NotificationCenter.default.post(name: .didChangePlace, object: nil, userInfo: data)
+
         }
     }
 }

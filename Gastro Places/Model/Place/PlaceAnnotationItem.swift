@@ -12,8 +12,8 @@ import MapKit
 import CloudKit
 
 class PlaceAnnotation: NSObject, MKAnnotation {
-    let title: String?
-    let cathegory: String
+    var title: String?
+    var cathegory: String
     let coordinate: CLLocationCoordinate2D
     let id: String?
     

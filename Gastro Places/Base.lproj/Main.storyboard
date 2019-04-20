@@ -21,6 +21,7 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsCompass="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBz-80-zlY">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <color key="tintColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <gestureRecognizers/>
                             </mapView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="He4-hR-5vb">
@@ -44,7 +45,9 @@
                                                     </activityIndicatorView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njd-4v-j7R">
                                                         <rect key="frame" x="148.66666666666666" y="120" width="48" height="60"/>
-                                                        <state key="normal" title="Cancel"/>
+                                                        <state key="normal" title="Cancel">
+                                                            <color key="titleColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="createPlaceDialogCancelButtonIsPressed:" destination="1YZ-Al-IQI" eventType="touchUpInside" id="g05-5d-Wva"/>
                                                         </connections>
@@ -130,7 +133,7 @@
                                     <constraint firstAttribute="width" constant="40" id="uku-Mu-xKm"/>
                                     <constraint firstAttribute="height" constant="40" id="wE3-kd-Svm"/>
                                 </constraints>
-                                <state key="normal" image="centerIcon"/>
+                                <state key="normal" image="iconcenter2"/>
                                 <connections>
                                     <action selector="centerOnUserLocationButtonIsPressed:" destination="1YZ-Al-IQI" eventType="touchUpInside" id="1SJ-V8-kLw"/>
                                 </connections>
@@ -284,6 +287,7 @@
                     <navigationItem key="navigationItem" title="Gastro Places" id="Q9f-eI-gVy">
                         <barButtonItem key="backBarButtonItem" title="Back" id="5yW-Ie-1y2"/>
                         <barButtonItem key="leftBarButtonItem" title="Help" id="IUw-LZ-XIr">
+                            <color key="tintColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <segue destination="M4Q-CJ-quS" kind="show" id="I8a-kx-DJS"/>
                             </connections>
@@ -324,7 +328,12 @@
                         <subviews>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="tcM-nE-2bh">
                                 <rect key="frame" x="0.0" y="98" width="375" height="56"/>
+                                <color key="tintColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fbk-dl-Kvs">
                                 <rect key="frame" x="0.0" y="164" width="375" height="565"/>
@@ -941,6 +950,7 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Place" id="2sH-A2-w6G">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="vVr-rN-ohB">
+                            <color key="tintColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <segue destination="h9L-0x-1yA" kind="show" identifier="editPlace" id="l7s-o1-oXh"/>
                             </connections>
@@ -1061,7 +1071,7 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Review" id="TNj-Iq-7aZ">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="EkS-4O-pvS">
-                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="cancelButtonIsPressed:" destination="wnF-4j-z5w" id="3FM-bZ-ufQ"/>
                             </connections>
@@ -1498,7 +1508,7 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Create Place" id="USu-N1-48E">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="1JW-mq-Uze">
-                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="cancelButtonIsPressed:" destination="h9L-0x-1yA" id="Kaz-xV-Byy"/>
                             </connections>
@@ -1533,6 +1543,7 @@
                         <outlet property="webpageTextFieldLine" destination="Kkb-6Z-SrK" id="9vI-hQ-qrn"/>
                         <segue destination="2hK-ln-8Cx" kind="show" identifier="savePlaceIndicator" id="f9A-jn-BCZ"/>
                         <segue destination="Efg-w4-AtP" kind="unwind" identifier="backToMapFromEdit" unwindAction="unwindToMapViewControllerWithSegue:" id="2aB-Nu-D1V"/>
+                        <segue destination="Efg-w4-AtP" kind="unwind" identifier="backToSearchFromEdit" unwindAction="unwindToSearchViewControllerWithSegue:" id="e38-KL-8fC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JL6-KF-cck" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1656,11 +1667,13 @@
                     <navigationItem key="navigationItem" title="Images" id="MPb-c2-vpG">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="A6Z-0F-FAJ">
+                                <color key="tintColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="newImageButtonPressed:" destination="KLK-Fb-fog" id="ceK-l2-WbH"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem enabled="NO" title="Edit" id="2jQ-1K-3LA">
+                                <color key="tintColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="editButtonPressed:" destination="KLK-Fb-fog" id="qAQ-Ho-alt"/>
                                 </connections>
@@ -1776,6 +1789,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBar>
                     <connections>
                         <segue destination="awb-fE-Gfa" kind="relationship" relationship="viewControllers" id="AnJ-M9-8FK"/>
@@ -1795,6 +1810,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="k8o-vM-1Bb">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1892,13 +1908,13 @@
     </scenes>
     <resources>
         <image name="MapIcon" width="48.333332061767578" height="32.333332061767578"/>
-        <image name="centerIcon" width="40" height="40"/>
+        <image name="iconcenter2" width="96" height="96"/>
         <image name="newPlaceGuide" width="308" height="180"/>
         <image name="saving-place-icon" width="980" height="964"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="l7s-o1-oXh"/>
+        <segue reference="QVz-c3-Rkp"/>
         <segue reference="t1U-Fa-GfT"/>
-        <segue reference="YVs-ck-beB"/>
+        <segue reference="bPq-uO-umJ"/>
     </inferredMetricsTieBreakers>
 </document>

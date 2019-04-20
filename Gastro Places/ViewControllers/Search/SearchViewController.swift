@@ -14,7 +14,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var resultsTableView: UITableView!
     
-    let searchContext = SearchContext()
+    var searchContext = SearchContext()
     
     var selectedIndex: Int?
     
@@ -22,11 +22,13 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         searchBar.delegate = self
-        searchContext.delegate = self
+        
         resultsTableView.dataSource = self
         resultsTableView.delegate = self
         
-        searchContext.fetchCloudkitPlaces(stringToMatch: "b")
+        NotificationCenter.default.addObserver(self, selector: #selector(deletePlace(_:)), name: .didDeletePlace, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changePlace(_:)), name: .didChangePlace, object: nil)
+
     }
     
     
@@ -37,6 +39,27 @@ class SearchViewController: UIViewController {
             }
         }
         
+    }
+    
+    @objc func deletePlace(_ notification: Notification){
+        if let data = notification.userInfo as? [String: String], let id = data["id"], let index = searchContext.deletePlace(with: id) {
+            let indexPath = IndexPath(row: index, section: 0)
+            resultsTableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    @objc func changePlace(_ notification: Notification){
+        if let data = notification.userInfo as? [String: String] {
+            
+            guard let id = data["id"],
+                let title = data["title"],
+                let cathegory = data["cathegory"],
+                let index = searchContext.changePlace(id: id, title: title, cathegory: cathegory)
+                else { return }
+            
+            let indexPath = IndexPath(row: index, section: 0)
+            resultsTableView.reloadRows(at: [indexPath], with: .automatic)
+        }
     }
 }
 
@@ -73,7 +96,31 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchContext = SearchContext()
+        searchContext.delegate = self
+        
+        searchContext.fetchCloudkitPlaces(stringToMatch: searchBar.text)
+
         searchBar.resignFirstResponder()
+        
+        searchBar.setShowsCancelButton(true, animated: true)
+        
+        if let cancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
+        cancelButton.isEnabled = true
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.text = ""
+        searchContext = SearchContext()
+        resultsTableView.reloadData()
+    }
+    
+    @IBAction func unwindToSearchViewController(segue: UIStoryboardSegue) {
+        if segue.source is CreatePlaceIndicatorViewController {
+
+        }
     }
 }
 

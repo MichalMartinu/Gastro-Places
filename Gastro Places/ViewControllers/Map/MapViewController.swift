@@ -62,6 +62,9 @@ class MapViewController: UIViewController {
         initComponentsGraphic()
         initLocationManager()
         initLongPressGestureRecognizer()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteAnnotation(_:)), name: .didDeletePlace, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeAnnotation(_:)), name: .didChangePlace, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -370,7 +373,7 @@ class MapViewController: UIViewController {
         if segue.identifier == "showPlace" {
             if let vc = segue.destination as? ShowPlaceTableViewController {
                 vc.placeContext = placeContext
-                vc.delegate = self
+                //vc.delegate = self
             }
         }
 
@@ -380,6 +383,25 @@ class MapViewController: UIViewController {
         if segue.source is CreatePlaceIndicatorViewController {
             // Add created place
             mountGeocontext()
+        }
+    }
+    
+    @objc func deleteAnnotation(_ notification: Notification){
+        if let data = notification.userInfo as? [String: String], let id = data["id"], let annotation = geoContext?.deleteAnnotation(with: id) {
+            mapView.removeAnnotation(annotation)
+        }
+    }
+    
+    @objc func changeAnnotation(_ notification: Notification){
+        if let data = notification.userInfo as? [String: String] {
+            
+            guard let id = data["id"],
+                let title = data["title"],
+                let cathegory = data["cathegory"],
+                let annotation = geoContext?.changeAnnotation(id: id, title: title, cathegory: cathegory)
+                else { return }
+            mapView.removeAnnotation(annotation)
+            mapView.addAnnotation(annotation)
         }
     }
 }
@@ -514,16 +536,5 @@ extension MapViewController: PlaceContextDelegateAdress {
         createPlaceAddress.text = address!
         
         createPlaceDialogStackView.isHidden = false
-    }
-}
-
-// MARK: CreatePlaceViewController delegate
-
-extension MapViewController: CreatePlaceViewControllerDelegate {
-    
-    func deleteAnnotation(with id: String) {
-        if let annotation = geoContext?.deleteAnnotation(with: id) {
-            mapView.removeAnnotation(annotation)
-        }
     }
 }
