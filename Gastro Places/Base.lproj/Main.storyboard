@@ -657,8 +657,53 @@
                                     <outlet property="webButton" destination="Dem-bv-haz" id="tne-Zj-hlU"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ratingTableViewCell" rowHeight="52" id="1T9-iH-grK" customClass="RatingTableViewCell" customModule="Gastro_Places" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="329" width="375" height="52"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1T9-iH-grK" id="aZA-zq-AWr">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euW-yD-akZ" customClass="CosmosView" customModule="Cosmos">
+                                            <rect key="frame" x="16" y="11" width="343" height="30"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
+                                                    <color key="value" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
+                                                    <color key="value" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
+                                                    <color key="value" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="emptyBorderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                                    <real key="value" value="30"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="text" value="(0)"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="updateOnTouch" value="NO"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="euW-yD-akZ" firstAttribute="leading" secondItem="aZA-zq-AWr" secondAttribute="leadingMargin" id="5A2-O3-Ax2"/>
+                                        <constraint firstItem="euW-yD-akZ" firstAttribute="top" secondItem="aZA-zq-AWr" secondAttribute="topMargin" id="5y2-kA-clA"/>
+                                        <constraint firstItem="euW-yD-akZ" firstAttribute="bottom" secondItem="aZA-zq-AWr" secondAttribute="bottomMargin" id="Mct-f7-qiL"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="euW-yD-akZ" secondAttribute="trailing" id="zjW-hm-SHB"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="ratingView" destination="euW-yD-akZ" id="2Nw-Pz-KlC"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="hourTableViewCell" rowHeight="169" id="Gkw-39-hgj" customClass="ShowPlaceTableHoursViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="329" width="375" height="169"/>
+                                <rect key="frame" x="0.0" y="381" width="375" height="169"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gkw-39-hgj" id="1tZ-gD-OqK">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
@@ -740,7 +785,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="spaceTableViewCell" id="sfY-VL-VqZ">
-                                <rect key="frame" x="0.0" y="498" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="550" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sfY-VL-VqZ" id="Qj8-Q1-otg">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -763,7 +808,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userReviewTableViewCell" rowHeight="37" id="uSw-vh-LL9" customClass="UserReviewTableViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="542" width="375" height="37"/>
+                                <rect key="frame" x="0.0" y="594" width="375" height="37"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uSw-vh-LL9" id="R7y-cb-qDB">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="37"/>
@@ -802,7 +847,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="createReviewTableViewCell" rowHeight="76" id="WDM-ca-7xd" customClass="CreateReviewTableViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="579" width="375" height="76"/>
+                                <rect key="frame" x="0.0" y="631" width="375" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WDM-ca-7xd" id="AUM-x9-gpl">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
@@ -827,7 +872,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingTableViewCell" id="YUV-kx-vVg" customClass="LoadingTableViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="655" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="707" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YUV-kx-vVg" id="QCN-ug-I8V">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -850,27 +895,27 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reviewTableViewCell" rowHeight="86" id="f2T-Q9-bDn" customClass="ShowPlaceReviewTableViewCell" customModule="Gastro_Places" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="699" width="375" height="86"/>
+                                <rect key="frame" x="0.0" y="751" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f2T-Q9-bDn" id="CdX-VW-32N">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="85.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="E1b-gn-Dn1">
-                                            <rect key="frame" x="16" y="11" width="343" height="64"/>
+                                            <rect key="frame" x="8" y="8" width="359" height="69.666666666666671"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xvm-T0-YIa">
-                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="1"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="1"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="sop-Yu-hJl"/>
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Z8U-nP-u0Y">
-                                                    <rect key="frame" x="0.0" y="8" width="343" height="31"/>
+                                                    <rect key="frame" x="0.0" y="8" width="359" height="31"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYr-9w-DH8" customClass="CosmosView" customModule="Cosmos">
-                                                            <rect key="frame" x="0.0" y="0.0" width="310.66666666666669" height="31"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="326.66666666666669" height="31"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
@@ -892,7 +937,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y7q-CB-kte">
-                                                            <rect key="frame" x="310.66666666666669" y="0.0" width="32.333333333333314" height="31"/>
+                                                            <rect key="frame" x="326.66666666666669" y="0.0" width="32.333333333333314" height="31"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -903,7 +948,7 @@
                                                     </constraints>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEQ-9z-MNk">
-                                                    <rect key="frame" x="0.0" y="46" width="343" height="18"/>
+                                                    <rect key="frame" x="0.0" y="46" width="359" height="23.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -991,11 +1036,12 @@
                                                     <rect key="frame" x="102.66666666666669" y="29" width="170" height="30"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="170" id="r5g-YX-1cw"/>
                                                         <constraint firstAttribute="height" constant="30" id="tZA-Dt-aoH"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="rating">
-                                                            <real key="value" value="-1"/>
+                                                            <real key="value" value="1"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="starSize">
                                                             <real key="value" value="30"/>
@@ -1010,6 +1056,9 @@
                                                             <color key="value" red="0.36078431370000003" green="0.7843137255" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="emptyBorderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="minTouchRating">
                                                             <real key="value" value="1"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
@@ -1560,16 +1609,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Z9W-br-9h2">
-                                <rect key="frame" x="-302.66666666666669" y="265.33333333333326" width="980.33333333333348" height="281.66666666666674"/>
+                                <rect key="frame" x="92" y="265.33333333333326" width="191.33333333333337" height="281.66666666666674"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="saving-place-icon" translatesAutoresizingMaskIntoConstraints="NO" id="i3D-1Z-JhD">
-                                        <rect key="frame" x="0.0" y="0.0" width="980.33333333333337" height="80"/>
+                                        <rect key="frame" x="87.666666666666657" y="0.0" width="16" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="vTG-Km-rIY"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="RRR-Bp-M18">
-                                        <rect key="frame" x="394.66666666666669" y="110" width="191.33333333333331" height="104.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="110" width="191.33333333333334" height="104.66666666666669"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saving place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbP-0O-lyX">
                                                 <rect key="frame" x="0.0" y="0.0" width="191.33333333333334" height="42"/>
@@ -1592,7 +1641,7 @@
                                         </subviews>
                                     </stackView>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="BmY-6k-HLb">
-                                        <rect key="frame" x="471.66666666666669" y="244.66666666666669" width="37" height="37"/>
+                                        <rect key="frame" x="77" y="244.66666666666669" width="37" height="37"/>
                                         <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -1849,16 +1898,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="pZc-i3-bzC">
-                                <rect key="frame" x="-302.66666666666669" y="265.33333333333326" width="980.33333333333348" height="281.66666666666674"/>
+                                <rect key="frame" x="84" y="265.33333333333326" width="207" height="281.66666666666674"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="saving-place-icon" translatesAutoresizingMaskIntoConstraints="NO" id="J1Z-h9-tM0">
-                                        <rect key="frame" x="0.0" y="0.0" width="980.33333333333337" height="80"/>
+                                        <rect key="frame" x="95.666666666666657" y="0.0" width="16" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="NsD-7e-Xa8"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="i3e-L3-68S">
-                                        <rect key="frame" x="386.66666666666669" y="110" width="207.00000000000006" height="104.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="110" width="207" height="104.66666666666669"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saving review" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8T-If-kbC">
                                                 <rect key="frame" x="0.0" y="0.0" width="207" height="42"/>
@@ -1881,7 +1930,7 @@
                                         </subviews>
                                     </stackView>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Tm7-aB-CBb">
-                                        <rect key="frame" x="471.66666666666669" y="244.66666666666669" width="37" height="37"/>
+                                        <rect key="frame" x="85" y="244.66666666666669" width="37" height="37"/>
                                         <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -1913,8 +1962,8 @@
         <image name="saving-place-icon" width="980" height="964"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QVz-c3-Rkp"/>
+        <segue reference="l7s-o1-oXh"/>
         <segue reference="t1U-Fa-GfT"/>
-        <segue reference="bPq-uO-umJ"/>
+        <segue reference="YVs-ck-beB"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -47,6 +47,12 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
             placeRepresentation.changeImageCell()
         }
         
+        if imageContext.state == .Finished, let _placeID = placeContext.place.placeID {
+            imageContext = ImageContext()
+            imageContext.delegate = self
+            imageContext.fetchImageIDs(placeID: _placeID, placeCoreData: placeContext.placeCoreData)
+        }
+        
         if openingTime.state == .Finished, let _placeID = placeContext.place.placeID {
             openingTime = OpeningTime(intervalInMinutes: 15)
             openingTime.delegate = self
@@ -149,6 +155,10 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
         case .userReview:
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! UserReviewTableViewCell
             cell.showButtons(with: reviewsContext.hasUserReview)
+            return cell
+        case .rating:
+            let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath) as! RatingTableViewCell
+            cell.setData(count: reviewsContext.count, rating: reviewsContext.rating)
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: place.cell.rawValue, for: indexPath)

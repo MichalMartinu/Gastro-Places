@@ -56,6 +56,7 @@
 		076A547022442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */; };
 		076AD5C9226B291D00E13CBC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AD5C8226B291D00E13CBC /* Notification.swift */; };
 		076AD5CE226B413700E13CBC /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AD5CD226B413700E13CBC /* UIView.swift */; };
+		076AD5D0226B5F7100E13CBC /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AD5CF226B5F7100E13CBC /* RatingTableViewCell.swift */; };
 		0778BF1C224A845C0027F196 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0778BF1B224A845C0027F196 /* ImageTableViewCell.swift */; };
 		077A47DB22690A95002A6729 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A47DA22690A95002A6729 /* UIViewController.swift */; };
 		07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */; };
@@ -129,6 +130,7 @@
 		076A546F22442BFF00C6D361 /* CreatePlaceIndicatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePlaceIndicatorViewController.swift; sourceTree = "<group>"; };
 		076AD5C8226B291D00E13CBC /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		076AD5CD226B413700E13CBC /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		076AD5CF226B5F7100E13CBC /* RatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
 		0778BF1B224A845C0027F196 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		077A47DA22690A95002A6729 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecord.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 				07043EBF225386DE00EE6D5B /* CreateReviewTableViewCell.swift */,
 				07043EC122538A7400EE6D5B /* LoadingTableViewCell.swift */,
 				07043ECA2253A8C600EE6D5B /* UserReviewTableViewCell.swift */,
+				076AD5CF226B5F7100E13CBC /* RatingTableViewCell.swift */,
 			);
 			path = "Show Place";
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				075FE1762232811B007EC555 /* PlaceCKRecordNames.swift in Sources */,
 				07043EBE2253814C00EE6D5B /* ReviewCKRecord.swift in Sources */,
 				076128DC225498C900BAB0A5 /* Time.swift in Sources */,
+				076AD5D0226B5F7100E13CBC /* RatingTableViewCell.swift in Sources */,
 				07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */,
 				076AD5CE226B413700E13CBC /* UIView.swift in Sources */,
 				071CCDDF2248311100D5F0BE /* ImageCollectionViewCell.swift in Sources */,

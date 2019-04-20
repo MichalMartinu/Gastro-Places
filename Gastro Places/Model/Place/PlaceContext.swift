@@ -208,7 +208,7 @@ class PlaceContext: Operation {
                 
                 // Save record to Core Data
                 DispatchQueue.main.async {
-                    self.savePlacesToCoreData(records: _records)
+                    self.savePlacesToCoreData(records: _records, imagesToDelete: images.imagesToDelete)
                 }
             }
         }
@@ -216,7 +216,7 @@ class PlaceContext: Operation {
         publicDB.add(saveOperation)
     }
     
-    private func savePlacesToCoreData(records: [CKRecord]) {
+    private func savePlacesToCoreData(records: [CKRecord], imagesToDelete: [CKRecord.ID]) {
         let context = AppDelegate.viewContext
         
         var placeCKRecord: CKRecord?
@@ -244,6 +244,12 @@ class PlaceContext: Operation {
                 OpeningTimeCoreData.changeOrCreate(place: _placeCoreData, record: _openingTimeRecord, context: context)
                 
                 // Save all Images to CoreData
+                var imagesToDeleteIDs = [String]()
+                for image in imagesToDelete {
+                    imagesToDeleteIDs.append(image.recordName)
+                }
+                
+                ImageCoreData.deleteSavedImages(placeCoreData: _placeCoreData, imagesID: imagesToDeleteIDs, context: context)
                 for image in imageRecords {
                     ImageCoreData.changeOrCreate(place: _placeCoreData, record: image, context: context)
                 }

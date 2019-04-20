@@ -16,15 +16,26 @@ class ReviewCoreData: NSManagedObject {
         
         let query:NSFetchRequest<ReviewCoreData> = ReviewCoreData.fetchRequest()
         
-        let predicate = NSPredicate(format: "place = %@", place)
+        
+        let predicate = NSPredicate(format: "place = %@ AND user = %@", place, record.creatorUserRecordID!.recordName)
         query.predicate = predicate
         
-        let recordToSave = ReviewCoreData(context: context)
+        var recordToSave: ReviewCoreData!
+        
+        if let _recordToSave = try? context.fetch(query), _recordToSave.count == 1 {
+            // Found existing record (rewrite it)
+            recordToSave = _recordToSave.first
+        } else {
+            // Create new record
+            recordToSave = ReviewCoreData(context: context)
+        }
+        
         
         recordToSave.user = record.creatorUserRecordID?.recordName
         recordToSave.rating = record["rating"] as? Int16 ?? 0
         recordToSave.text = record["text"] as? String
         recordToSave.modifiedDate = record.modificationDate
+        recordToSave.recordID = record.recordID.recordName
         
         place.addToReviews(recordToSave)
     }
@@ -43,7 +54,8 @@ class ReviewCoreData: NSManagedObject {
             var reviews = [Review]()
             
             for record in records {
-                let review = Review(date: record.modifiedDate!, rating: Int(record.rating), text: record.text, user: record.user, cloudID: nil)
+                let cloudID = CKRecord.ID(recordName: record.recordID!)
+                let review = Review(date: record.modifiedDate!, rating: Int(record.rating), text: record.text, user: record.user, cloudID: cloudID)
                 
                 reviews.append(review)
             }

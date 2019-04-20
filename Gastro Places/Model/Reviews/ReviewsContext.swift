@@ -31,6 +31,34 @@ class ReviewsContext {
         return true
     }
     
+    var count: Int {
+        var count = reviews.count
+        
+        if currentUserReview != nil {
+            count += 1
+        }
+        
+        return count
+    }
+    
+    var rating: Double {
+        if count == 0 {
+            return 0
+        }
+        
+        var sumRating = 0.0
+        
+        for review in reviews {
+            sumRating += Double(review.rating)
+        }
+        
+        if let review = currentUserReview {
+            sumRating += Double(review.rating)
+        }
+        
+        return sumRating/Double(count)
+    }
+    
     weak var delegate: ReviewsContextDelegate?
     weak var delegateSave: ReviewsContextSaveDelegate?
     weak var delegateDelete: ReviewsContextDeleteDelegate?

@@ -120,6 +120,9 @@ class OpeningTime: Operation {
         guard let _placeCoreData = placeCoreData else { return }
         
         if let record = OpeningTimeCoreData.find(place: _placeCoreData, context: context) {
+            
+            self.recordID = CKRecord.ID(recordName: record.recordID!) 
+            
             // Convert CoreData record to CKRecord
             let convertedRecord = OpeningTimeCKRecord.init(openingTimeCoreData: record)
             

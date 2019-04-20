@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Image" representedClassName=".ImageCoreData" syncable="YES" codeGenerationType="category">
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="imageID" attributeType="String" syncable="YES"/>
@@ -9,6 +9,7 @@
     <entity name="OpeningTime" representedClassName=".OpeningTimeCoreData" syncable="YES" codeGenerationType="category">
         <attribute name="friday" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="monday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="saturday" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sunday" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thursday" optional="YES" attributeType="String" syncable="YES"/>
@@ -35,14 +36,15 @@
     <entity name="Review" representedClassName=".ReviewCoreData" syncable="YES" codeGenerationType="category">
         <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="rating" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="recordID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="place" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="reviews" inverseEntity="Place" syncable="YES"/>
     </entity>
     <elements>
         <element name="Image" positionX="-4869.6484375" positionY="-463.60546875" width="128" height="103"/>
-        <element name="OpeningTime" positionX="-4519.7890625" positionY="-461.87109375" width="128" height="163"/>
+        <element name="OpeningTime" positionX="-4519.7890625" positionY="-461.87109375" width="128" height="180"/>
         <element name="Place" positionX="-4688.3203125" positionY="-465.0703125" width="128" height="253"/>
-        <element name="Review" positionX="-4868.1875" positionY="-314.95703125" width="128" height="120"/>
+        <element name="Review" positionX="-4868.1875" positionY="-314.95703125" width="128" height="135"/>
     </elements>
 </model>

@@ -18,6 +18,7 @@ enum CellTypes: String {
     case createReview = "createReviewTableViewCell"
     case userReview = "userReviewTableViewCell"
     case loading = "loadingTableViewCell"
+    case rating = "ratingTableViewCell"
 }
 
 class TextCell {
@@ -82,6 +83,8 @@ class PlaceRepresentation {
         if let _address = place.address?.full {
             cells.append(basicTextCell(text: _address, bold: false, size: nil, color: nil))
         }
+        
+        cells.append(PlaceCell.init(type: CellTypes.rating))
         
         cells.append(hourCell(openintTime: openingTime))
         

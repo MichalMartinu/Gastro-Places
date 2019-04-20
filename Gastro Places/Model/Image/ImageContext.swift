@@ -87,6 +87,8 @@ class ImageContext: Operation {
         
         let predicate = NSPredicate(format: "place == %@", recordToMatch)
         let query = CKQuery(recordType: "Image", predicate: predicate)
+        query.sortDescriptors = [] // Start with empty array
+        query.sortDescriptors?.append(NSSortDescriptor(key: "modificationDate", ascending: true))
         
         let operation = CKQueryOperation(query: query)
         operation.qualityOfService = .userInteractive
@@ -132,7 +134,15 @@ class ImageContext: Operation {
     }
     
     func deleteCreatedImages() {
-        // Used when imageContext needs to be cleared
+        // Used when image Context needs to be cleared
+        
+        /*for imageToDelete in imagesToDelete {
+            if let index = imageIDs.firstIndex(of: imageToDelete.recordName) {
+                imageIDs.remove(at: index)
+            }
+        }
+        
+        imageIDs.append(contentsOf: imagesToSave)*/
         
         images = [Image]()
         imagesToDelete = [CKRecord.ID]()

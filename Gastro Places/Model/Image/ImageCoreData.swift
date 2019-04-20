@@ -108,4 +108,20 @@ class ImageCoreData: NSManagedObject {
             return
         }
     }
+    
+    class func deleteSavedImages(placeCoreData: PlaceCoreData, imagesID: [String], context: NSManagedObjectContext) {
+        
+        let query:NSFetchRequest<ImageCoreData> = ImageCoreData.fetchRequest()
+        
+        for imageID in imagesID {
+            let predicate = NSPredicate(format: "imageID = %@ ", imageID)
+            query.predicate = predicate
+            
+            if let records = try? context.fetch(query), records.count > 0 {
+                
+                context.delete(records.first!)
+            }
+        }
+        
+    }
 }
