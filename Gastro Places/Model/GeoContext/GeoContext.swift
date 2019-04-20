@@ -64,8 +64,9 @@ class GeoContext: Operation {
     }
     
     func start() {
-        state = .Executing
         
+        state = .Executing
+
         self.fetchCloudkitPlaces()
     }
     
@@ -80,7 +81,7 @@ class GeoContext: Operation {
         queryOperation.qualityOfService = .userInteractive
         queryOperation.queuePriority = .veryHigh
         
-        var records = [CKRecord]()
+        var records = [CKRecord]() // Array of fetched records
         
         queryOperation.recordFetchedBlock = { record in
             records.append(record)
@@ -96,18 +97,25 @@ class GeoContext: Operation {
                 return
             }
             
+            // When there is something to fetch
+            // Recursively call this function with cursor
             if let cursor = cursor {
                 let newOperation = CKQueryOperation(cursor: cursor)
+                
                 queryOperation.qualityOfService = .userInteractive
                 queryOperation.queuePriority = .veryHigh
+                
                 newOperation.recordFetchedBlock = queryOperation.recordFetchedBlock
                 newOperation.queryCompletionBlock = queryOperation.queryCompletionBlock
+                
                 publicDB.add(newOperation)
+                
                 return
             }
             
             self.saveRecords(records: records)
         }
+        
         publicDB.add(queryOperation)
     }
     
@@ -135,7 +143,8 @@ class GeoContext: Operation {
             
             let context = AppDelegate.viewContext
             
-            PlaceCoreData.changeOrCreatePlaces(records: records, context: context) // Save to CoreData
+            // Save to CoreData
+            PlaceCoreData.changeOrCreatePlaces(records: records, context: context)
             
             self.state = .Finished
             
@@ -144,15 +153,20 @@ class GeoContext: Operation {
     }
     
     private func createPredicateToFetchPlaces(location: CLLocation, radius: CLLocationDistance, cathegory: String) ->  NSCompoundPredicate {
+        
+        // Predicate to fetch places in location defined location
         let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(location, %@) < %f",  location, Double(radius))
         
-        var cathegoryPredicate = NSPredicate(value: true) // Default cathegory predicate used for search "all"
+        // Default cathegory predicate used for search "all"
+        var cathegoryPredicate = NSPredicate(value: true)
         
         if cathegory != "All" {
             cathegoryPredicate = NSPredicate(format: "\(PlaceCKRecordNames.cathegory) = %@", cathegory)
         }
         
+        // Combine both predicates
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [locationPredicate, cathegoryPredicate])
+        
         return predicate
     }
 

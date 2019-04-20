@@ -13,6 +13,8 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var resultsTableView: UITableView!
+    @IBOutlet weak var searchResultView: UIView!
+    @IBOutlet weak var searchActivityIndicator: UIActivityIndicatorView!
     
     var searchContext = SearchContext()
     
@@ -90,12 +92,16 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         performSegue(withIdentifier: "showPlaceFromSearch", sender: self)
         tableView.deselectRow(at: indexPath, animated: false)
     }
-    
-    
 }
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        searchResultView.isHidden = false
+        resultsTableView.isHidden = true
+        searchActivityIndicator.startAnimating()
+        
+        
         searchContext = SearchContext()
         searchContext.delegate = self
         
@@ -112,8 +118,14 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
+
         searchBar.text = ""
         searchContext = SearchContext()
+        
+        searchResultView.isHidden = false
+        resultsTableView.isHidden = true
+        searchActivityIndicator.stopAnimating()
+        
         resultsTableView.reloadData()
     }
     
@@ -125,7 +137,17 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 extension SearchViewController: SearchContextDelegate {
-    func searchContextLoadedPlace() {
+    func searchContextLoadedPlace(error: Error?) {
+        
+        searchActivityIndicator.stopAnimating()
+        searchResultView.isHidden = true
+        resultsTableView.isHidden = false
+        
+        if let _error = error {
+            searchContext = SearchContext()
+            showAlert(title: "Error when searching", message: _error.localizedDescription, confirmTitle: "Ok", handler: nil)
+        }
+        
         resultsTableView.reloadData()
     }
 }

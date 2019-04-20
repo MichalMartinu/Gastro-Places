@@ -9,6 +9,7 @@
 import CoreLocation
 
 class CustomLocationManager {
+    // Global custom location manager used locating user
     static let manager = CLLocationManager()
 }
 

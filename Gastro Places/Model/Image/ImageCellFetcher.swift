@@ -42,9 +42,11 @@ class ImageCellFetcher {
         let predicate = NSPredicate(format: "recordID = %@", recordID)
         
         let query = CKQuery(recordType: "Image", predicate: predicate)
+        
         let queryOperation = CKQueryOperation(query: query)
         queryOperation.qualityOfService = .userInteractive
         queryOperation.queuePriority = .veryHigh
+        
         queryOperation.recordFetchedBlock = { (record) in
             
             // Get image from CKRecord

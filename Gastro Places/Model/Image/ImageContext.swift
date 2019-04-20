@@ -134,15 +134,6 @@ class ImageContext: Operation {
     }
     
     func deleteCreatedImages() {
-        // Used when image Context needs to be cleared
-        
-        /*for imageToDelete in imagesToDelete {
-            if let index = imageIDs.firstIndex(of: imageToDelete.recordName) {
-                imageIDs.remove(at: index)
-            }
-        }
-        
-        imageIDs.append(contentsOf: imagesToSave)*/
         
         images = [Image]()
         imagesToDelete = [CKRecord.ID]()

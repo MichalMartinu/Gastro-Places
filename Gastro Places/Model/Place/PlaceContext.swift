@@ -190,9 +190,11 @@ class PlaceContext: Operation {
         records.append(contentsOf: imagesCKRecordsToSave.record)
 
         let saveOperation = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: images.imagesToDelete)
+        
         saveOperation.savePolicy = .changedKeys
         saveOperation.qualityOfService = .userInteractive
         saveOperation.queuePriority = .veryHigh
+        
         saveOperation.modifyRecordsCompletionBlock = { (records, recordsID, error) in
             
             if let _error = error {

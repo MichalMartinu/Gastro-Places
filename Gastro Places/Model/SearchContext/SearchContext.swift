@@ -12,18 +12,21 @@ import CoreData
 import CoreLocation
 
 protocol SearchContextDelegate: AnyObject {
-    func searchContextLoadedPlace()
+    func searchContextLoadedPlace(error: Error?)
 }
 
 class SearchContext: Operation {
+    
     private(set) var places = [PlaceContext]()
     
     var delegate: SearchContextDelegate?
     
     func fetchCloudkitPlaces(stringToMatch: String?) {
+        
         let container = CKContainer.default()
         let publicDB = container.publicCloudDatabase
         
+        // When there is no string fetch all places
         var predicate = NSPredicate(value: true)
         
         if let _stringToMatch = stringToMatch {
@@ -31,10 +34,13 @@ class SearchContext: Operation {
         }
         
         let query = CKQuery(recordType: PlaceCKRecordNames.record, predicate: predicate)
-        query.sortDescriptors = []
+        
+        query.sortDescriptors = [] // Init array for sort descriptors
+        
         if let _location = CustomLocationManager.manager.location {
             query.sortDescriptors?.append(CKLocationSortDescriptor(key: "location", relativeLocation: _location))
         }
+        
         query.sortDescriptors?.append(NSSortDescriptor(key: "name", ascending: true))
 
         
@@ -42,7 +48,7 @@ class SearchContext: Operation {
         queryOperation.qualityOfService = .userInteractive
         queryOperation.queuePriority = .veryHigh
         
-        var records = [CKRecord]()
+        var records = [CKRecord]() // Array of fetched records
         
         queryOperation.recordFetchedBlock = { record in
             records.append(record)
@@ -51,17 +57,16 @@ class SearchContext: Operation {
         queryOperation.queryCompletionBlock = { cursor, error in
             if let _error = error {
                 self.state = .Failed
-                print(_error)
                 DispatchQueue.main.async {
+                    self.delegate?.searchContextLoadedPlace(error: _error)
                 }
                 
                 return
             }
             
-            
-            
            self.saveRecords(records: records)
         }
+        
         publicDB.add(queryOperation)
     }
     
@@ -78,12 +83,13 @@ class SearchContext: Operation {
             
             
             let placeAnnotationItem = PlaceAnnotation.init(title: name, cathegory: cathegory, id: record.recordID.recordName, coordinate: placeLoacation.coordinate)
+            
             let placeContext = PlaceContext.init(annotation: placeAnnotationItem)
             
-            self.places.append(placeContext)
+            self.places.append(placeContext) // Append to places that will be shown
         }
         
-        sortPlacesByDistance()
+        sortPlacesByDistance() // Custom sort by distance
         
         DispatchQueue.main.async {
             if self.state == .Canceled {
@@ -93,12 +99,13 @@ class SearchContext: Operation {
             
             let context = AppDelegate.viewContext
             
-            PlaceCoreData.changeOrCreatePlaces(records: records, context: context) // Save to CoreData
+            // Save to CoreData
+            PlaceCoreData.changeOrCreatePlaces(records: records, context: context)
             
             self.state = .Finished
             
             DispatchQueue.main.async {
-                self.delegate?.searchContextLoadedPlace()
+                self.delegate?.searchContextLoadedPlace(error: nil)
             }
         }
     }

@@ -59,7 +59,6 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
                 self.annotation = _annotation
             }
         }
-        navigationController?.isNavigationBarHidden = false
         performSegue(withIdentifier: segueIdentifier, sender: self)
     }
     

@@ -335,7 +335,7 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fbk-dl-Kvs">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fbk-dl-Kvs">
                                 <rect key="frame" x="0.0" y="164" width="375" height="565"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -396,11 +396,29 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rvl-nd-Cvz">
+                                <rect key="frame" x="0.0" y="154" width="375" height="575"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="w6M-Dx-aPg">
+                                        <rect key="frame" x="169" y="269" width="37" height="37"/>
+                                        <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="w6M-Dx-aPg" firstAttribute="centerY" secondItem="rvl-nd-Cvz" secondAttribute="centerY" id="9cM-xY-hme"/>
+                                    <constraint firstItem="w6M-Dx-aPg" firstAttribute="centerX" secondItem="rvl-nd-Cvz" secondAttribute="centerX" id="jIA-1F-3fL"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fbk-dl-Kvs" firstAttribute="trailing" secondItem="uO8-dd-IEq" secondAttribute="trailing" id="6uJ-fj-3cq"/>
+                            <constraint firstItem="rvl-nd-Cvz" firstAttribute="trailing" secondItem="uO8-dd-IEq" secondAttribute="trailing" id="BAS-VJ-COJ"/>
+                            <constraint firstItem="uO8-dd-IEq" firstAttribute="bottom" secondItem="rvl-nd-Cvz" secondAttribute="bottom" id="F0j-YZ-vbp"/>
+                            <constraint firstItem="rvl-nd-Cvz" firstAttribute="top" secondItem="tcM-nE-2bh" secondAttribute="bottom" id="LNC-be-cpr"/>
                             <constraint firstItem="tcM-nE-2bh" firstAttribute="leading" secondItem="uO8-dd-IEq" secondAttribute="leading" id="Sfa-hO-fFh"/>
+                            <constraint firstItem="rvl-nd-Cvz" firstAttribute="leading" secondItem="uO8-dd-IEq" secondAttribute="leading" id="kbt-sS-aKA"/>
                             <constraint firstItem="tcM-nE-2bh" firstAttribute="top" secondItem="uO8-dd-IEq" secondAttribute="top" constant="10" id="pKS-aV-NYT"/>
                             <constraint firstItem="tcM-nE-2bh" firstAttribute="trailing" secondItem="uO8-dd-IEq" secondAttribute="trailing" id="qGX-0i-SI0"/>
                             <constraint firstItem="fbk-dl-Kvs" firstAttribute="bottom" secondItem="uO8-dd-IEq" secondAttribute="bottom" id="sOH-xK-r3W"/>
@@ -412,8 +430,10 @@
                     <navigationItem key="navigationItem" title="Search" id="POM-kN-wzZ"/>
                     <connections>
                         <outlet property="resultsTableView" destination="fbk-dl-Kvs" id="iCN-rO-dJz"/>
+                        <outlet property="searchActivityIndicator" destination="w6M-Dx-aPg" id="0aG-qa-XfT"/>
                         <outlet property="searchBar" destination="tcM-nE-2bh" id="D1F-qi-9zc"/>
                         <outlet property="searchDisplayController" destination="Zmr-pF-Jja" id="O9d-0A-F50"/>
+                        <outlet property="searchResultView" destination="rvl-nd-Cvz" id="gSe-kz-zuO"/>
                         <segue destination="9Ay-d4-tnv" kind="show" identifier="showPlaceFromSearch" id="YVs-ck-beB"/>
                     </connections>
                 </viewController>
@@ -1609,16 +1629,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Z9W-br-9h2">
-                                <rect key="frame" x="92" y="265.33333333333326" width="191.33333333333337" height="281.66666666666674"/>
+                                <rect key="frame" x="-302.66666666666669" y="265.33333333333326" width="980.33333333333348" height="281.66666666666674"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="saving-place-icon" translatesAutoresizingMaskIntoConstraints="NO" id="i3D-1Z-JhD">
-                                        <rect key="frame" x="87.666666666666657" y="0.0" width="16" height="80"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="980.33333333333337" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="vTG-Km-rIY"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="RRR-Bp-M18">
-                                        <rect key="frame" x="0.0" y="110" width="191.33333333333334" height="104.66666666666669"/>
+                                        <rect key="frame" x="394.66666666666669" y="110" width="191.33333333333331" height="104.66666666666669"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saving place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbP-0O-lyX">
                                                 <rect key="frame" x="0.0" y="0.0" width="191.33333333333334" height="42"/>
@@ -1641,7 +1661,7 @@
                                         </subviews>
                                     </stackView>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="BmY-6k-HLb">
-                                        <rect key="frame" x="77" y="244.66666666666669" width="37" height="37"/>
+                                        <rect key="frame" x="471.66666666666669" y="244.66666666666669" width="37" height="37"/>
                                         <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -1898,16 +1918,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="pZc-i3-bzC">
-                                <rect key="frame" x="84" y="265.33333333333326" width="207" height="281.66666666666674"/>
+                                <rect key="frame" x="-302.66666666666669" y="265.33333333333326" width="980.33333333333348" height="281.66666666666674"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="saving-place-icon" translatesAutoresizingMaskIntoConstraints="NO" id="J1Z-h9-tM0">
-                                        <rect key="frame" x="95.666666666666657" y="0.0" width="16" height="80"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="980.33333333333337" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="NsD-7e-Xa8"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="i3e-L3-68S">
-                                        <rect key="frame" x="0.0" y="110" width="207" height="104.66666666666669"/>
+                                        <rect key="frame" x="386.66666666666669" y="110" width="207.00000000000006" height="104.66666666666669"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saving review" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8T-If-kbC">
                                                 <rect key="frame" x="0.0" y="0.0" width="207" height="42"/>
@@ -1930,7 +1950,7 @@
                                         </subviews>
                                     </stackView>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Tm7-aB-CBb">
-                                        <rect key="frame" x="85" y="244.66666666666669" width="37" height="37"/>
+                                        <rect key="frame" x="471.66666666666669" y="244.66666666666669" width="37" height="37"/>
                                         <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </activityIndicatorView>
                                 </subviews>

@@ -43,6 +43,8 @@ class ShowPlaceTableViewController: UITableViewController, PlaceContextDelegateL
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.isNavigationBarHidden = false
+        
         if imageContext.imageIDs.count > 0 {
             placeRepresentation.changeImageCell()
         }

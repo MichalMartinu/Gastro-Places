@@ -22,6 +22,7 @@ class PlaceAnnotation: NSObject, MKAnnotation {
         self.cathegory = cathegory
         self.coordinate = coordinate
         self.id = id
+        
         super.init()
     }
     

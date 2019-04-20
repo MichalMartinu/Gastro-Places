@@ -72,6 +72,8 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.isNavigationBarHidden = false
+        
         openingHoursDaysLabel.text = openingTime.stringDays
         openingHoursLabel.text = openingTime.stringHours
         
