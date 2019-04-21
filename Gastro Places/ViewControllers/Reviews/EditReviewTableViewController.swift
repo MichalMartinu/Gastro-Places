@@ -40,7 +40,6 @@ class EditReviewTableViewController: UITableViewController {
         reviewTextView.layer.borderColor = UIColor.lightGray.cgColor
         reviewTextView.layer.borderWidth = 1
     }
-
     
     func initFields() {
         if let userReview = reviewsContext?.currentUserReview {

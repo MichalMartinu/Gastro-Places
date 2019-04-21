@@ -30,6 +30,7 @@ class SearchContext: Operation {
         var predicate = NSPredicate(value: true)
         
         if let _stringToMatch = stringToMatch {
+            // Predicete to match string set by user
             predicate = NSPredicate(format: "self CONTAINS %@", _stringToMatch)
         }
         
@@ -45,6 +46,8 @@ class SearchContext: Operation {
 
         
         let queryOperation = CKQueryOperation(query: query)
+        
+        // Prioritize operation
         queryOperation.qualityOfService = .userInteractive
         queryOperation.queuePriority = .veryHigh
         
@@ -55,8 +58,10 @@ class SearchContext: Operation {
         }
         
         queryOperation.queryCompletionBlock = { cursor, error in
+            
             if let _error = error {
                 self.state = .Failed
+                
                 DispatchQueue.main.async {
                     self.delegate?.searchContextLoadedPlace(error: _error)
                 }
@@ -64,13 +69,16 @@ class SearchContext: Operation {
                 return
             }
             
-           self.saveRecords(records: records)
+            // Fetched records will be saved to CoreData
+            self.saveRecords(records: records)
         }
         
         publicDB.add(queryOperation)
     }
     
     private func saveRecords(records: [CKRecord]) {
+        
+        // Process records individualy
         for record in records {
             if self.state == .Canceled {
                 self.state = .Finished
@@ -92,6 +100,7 @@ class SearchContext: Operation {
         sortPlacesByDistance() // Custom sort by distance
         
         DispatchQueue.main.async {
+            
             if self.state == .Canceled {
                 self.state = .Finished
                 return
@@ -118,6 +127,8 @@ class SearchContext: Operation {
     }
     
     func deletePlace(with id: String) -> Int? {
+        
+        // Get index of place to delete
         if let placeIndex = places.firstIndex(where: { $0.place.placeID == id }) {
             
             places.remove(at: placeIndex)
@@ -129,6 +140,8 @@ class SearchContext: Operation {
     }
     
     func changePlace(id: String, title: String, cathegory: String) -> Int? {
+        
+        // Get index of place to show
         if let placeIndex = places.firstIndex(where: { $0.place.placeID == id }) {
             
             places[placeIndex].place.name = title

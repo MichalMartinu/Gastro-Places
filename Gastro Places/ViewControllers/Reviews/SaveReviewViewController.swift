@@ -9,10 +9,12 @@
 import UIKit
 
 class SaveReviewViewController: UIViewController {
-    var reviewsContext: ReviewsContext!
-    var placeContext: PlaceContext!
-    var review: Review!
     
+    var reviewsContext: ReviewsContext!
+    
+    var placeContext: PlaceContext!
+    
+    var review: Review!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,7 @@ class SaveReviewViewController: UIViewController {
     
     func backToMap(alert: UIAlertAction!) {
         navigationController?.isNavigationBarHidden = false
+        
         performSegue(withIdentifier: "showPlace", sender: self)
     }
     
@@ -39,7 +42,6 @@ class SaveReviewViewController: UIViewController {
             }
         }
     }
-    
 }
 
 extension SaveReviewViewController: ReviewsContextSaveDelegate {
@@ -51,6 +53,7 @@ extension SaveReviewViewController: ReviewsContextSaveDelegate {
         }
         
         navigationController?.isNavigationBarHidden = false
+        
         performSegue(withIdentifier: "showPlace", sender: self)
     }
 }

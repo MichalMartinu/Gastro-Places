@@ -28,13 +28,6 @@ protocol PlaceContextDelegateDelete: AnyObject {
     func placeContextDeleted(error: Error?, recordID: String?)
 }
 
-enum InputTypes: String {
-    case email = "email"
-    case web = "web"
-    case phone = "phone"
-    case name = "name"
-}
-
 class PlaceContext: Operation {
     
     private(set) var place: Place
@@ -44,7 +37,6 @@ class PlaceContext: Operation {
     weak var delegateAddress: PlaceContextDelegateAdress?
     weak var delegateDelete: PlaceContextDelegateDelete?
 
-    
     private(set) var annotation: PlaceAnnotation
     
     private(set) var placeCoreData: PlaceCoreData?
@@ -54,6 +46,7 @@ class PlaceContext: Operation {
     init(location: CLLocation) {
         // Used when creating new place
         self.annotation = PlaceAnnotation.init(title: "New place", cathegory: "", id: nil, coordinate: location.coordinate)
+        
         place = Place(location: location)
     }
     
@@ -286,6 +279,7 @@ class PlaceContext: Operation {
         query.predicate = predicate
         
         if let _record = try? context.fetch(query), _record.count == 1 {
+            
             guard let recordToShow = _record.first else {
                 state = .Failed
                 self.delegateLoad?.placeContextLoadedPlace()
@@ -312,7 +306,9 @@ class PlaceContext: Operation {
         let publicDB = container.publicCloudDatabase
         
         let recordID = CKRecord.ID(recordName: id)
+        
         publicDB.delete(withRecordID: recordID) { (recordID, error) in
+        
             if let _error = error {
                 DispatchQueue.main.async {
                     self.delegateDelete?.placeContextDeleted(error: _error, recordID: nil)

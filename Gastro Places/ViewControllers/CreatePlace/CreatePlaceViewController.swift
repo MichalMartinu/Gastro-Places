@@ -48,10 +48,12 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     
     var openingTime: OpeningTime!
     
+    // Flag when it is edit or creating new place
     var sourceIsShowPlace = false
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         createOpeningTimeAndImageContext()
         
         cathegoryPickerView.dataSource = cathegories
@@ -143,11 +145,13 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
     private func createOpeningTimeAndImageContext() {
         if openingTime == nil {
             openingTime = OpeningTime(intervalInMinutes: 15)
+            
             openingTime.generateTime()
             openingTime.initDays()
         }
         if imageContext == nil {
             imageContext = ImageContext()
+            
             imageContext.delegate = self
         }
     }
@@ -291,9 +295,9 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
         imageCollectionView.reloadData()
     }
     
-    // TODO: Move to model
     private func deletePlace(alert: UIAlertAction?) {
         view.activityStartAnimating(activityColor: UIColor.white, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+        
         enableNavigationBarButtons(enabled: false)
         setToolbarHidden(with: true)
 

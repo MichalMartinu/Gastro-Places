@@ -39,11 +39,13 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         navigationController?.isNavigationBarHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         navigationController?.isNavigationBarHidden = false
     }
     
@@ -53,6 +55,7 @@ class CreatePlaceIndicatorViewController: UIViewController, PlaceContextDelegate
         if let _error = error {
             showAlert(title: "Cannot create place!", message: _error.localizedDescription, confirmTitle: "Ok", handler: backToMap)
             self.annotation = nil
+            
             return
         } else {
             if let _annotation = annotation {

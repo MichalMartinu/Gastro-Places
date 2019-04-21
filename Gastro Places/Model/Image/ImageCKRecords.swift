@@ -16,7 +16,9 @@ class ImageCKRecord {
     var record = [CKRecord]()
     
     func initImages(images: [Image], recordReference: CKRecord) {
+        
         for image in images {
+            
             let recordID = CKRecord.ID(recordName: image.id)
             let _record = CKRecord(recordType: "Image", recordID: recordID)
             let reference = CKRecord.Reference(record: recordReference, action: .deleteSelf)

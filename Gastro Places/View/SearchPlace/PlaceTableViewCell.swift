@@ -15,6 +15,7 @@ class PlaceTableViewCell: UITableViewCell {
     @IBOutlet weak var distanceLabel: UILabel!
     
     func setValues(placeContext: PlaceContext, distance: CLLocationDistance?) {
+        
         titleLabel.text = placeContext.place.name
         subtitleLabel.text = placeContext.place.cathegory
         subtitleLabel.textColor = PlacesCathegories.colorForCathegory(cathegory: placeContext.place.cathegory!)

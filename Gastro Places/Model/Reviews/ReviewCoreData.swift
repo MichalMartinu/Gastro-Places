@@ -18,6 +18,7 @@ class ReviewCoreData: NSManagedObject {
         
         
         let predicate = NSPredicate(format: "place = %@ AND user = %@", place, record.creatorUserRecordID!.recordName)
+        
         query.predicate = predicate
         
         var recordToSave: ReviewCoreData!
@@ -55,6 +56,7 @@ class ReviewCoreData: NSManagedObject {
             
             for record in records {
                 let cloudID = CKRecord.ID(recordName: record.recordID!)
+                
                 let review = Review(date: record.modifiedDate!, rating: Int(record.rating), text: record.text, user: record.user, cloudID: cloudID)
                 
                 reviews.append(review)
@@ -69,7 +71,9 @@ class ReviewCoreData: NSManagedObject {
         
         let query:NSFetchRequest<ReviewCoreData> = ReviewCoreData.fetchRequest()
         
+        // Current user is represented by __defaultOwner__
         let predicate = NSPredicate(format: "user = %@", "__defaultOwner__")
+        
         query.predicate = predicate
         
         if let record = try? context.fetch(query), record.count == 1 {

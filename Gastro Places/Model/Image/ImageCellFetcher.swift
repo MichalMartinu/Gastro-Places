@@ -23,7 +23,8 @@ class ImageCellFetcher {
         
         DispatchQueue.main.async {
             let context = AppDelegate.viewContext
-
+            
+            // Check if there is local cache in CoreData
             if let image = ImageCoreData.find(id: identifier, context: context) {
                     self.delegateCell?.imageLoaded(image: image, id: identifier)
             } else {
@@ -44,12 +45,13 @@ class ImageCellFetcher {
         let query = CKQuery(recordType: "Image", predicate: predicate)
         
         let queryOperation = CKQueryOperation(query: query)
+        
         queryOperation.qualityOfService = .userInteractive
         queryOperation.queuePriority = .veryHigh
         
         queryOperation.recordFetchedBlock = { (record) in
             
-            // Get image from CKRecord
+            // Parse image from CKRecord
             guard let asset = record["picture"] as? CKAsset,
                 let url = asset.fileURL, let data = try? Data(contentsOf: url),
                 let image = UIImage(data: data) else { return }

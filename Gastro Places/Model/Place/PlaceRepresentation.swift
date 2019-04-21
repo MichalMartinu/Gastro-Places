@@ -65,11 +65,12 @@ class PlaceRepresentation {
     
     var userReviewIndex: Int?
     
+    // Create array of cells that will be shown
     func initFromPlace(placeContext: PlaceContext, openingTime: OpeningTime) {
         let place = placeContext.place
         
         cells.append(PlaceCell.init(type: CellTypes.image))
-                
+        
         cells.append(PlaceCell.init(type: CellTypes.space))
         
         if let _name = place.name {
@@ -120,18 +121,22 @@ class PlaceRepresentation {
     private func linkCell(link: String, type: LinkType) -> PlaceCell {
         let linkCell = LinkCell.init(link: link, type: type)
         let placeCell = PlaceCell.init(type: .link, data: linkCell)
+        
         return placeCell
     }
     
     private func hourCell(openintTime: OpeningTime) -> PlaceCell {
         let placeCell = PlaceCell.init(type: .hour, data: openintTime)
+        
         return placeCell
     }
     
     func changeOpeningTime(openingTime: OpeningTime) -> Int? {
+        
         for (index, cell) in cells.enumerated() {
             if cell.cell == .hour {
                 cell.data = openingTime
+                
                 return index
             }
         }
@@ -141,16 +146,19 @@ class PlaceRepresentation {
     
     private func createNewReviewCell() -> PlaceCell {
         let placeCell = PlaceCell.init(type: .createReview)
+        
         return placeCell
     }
     
     private func createUserReviewCell() -> PlaceCell {
         let placeCell = PlaceCell.init(type: .userReview)
+        
         return placeCell
     }
     
     private func createReviewCell(review: Review) -> PlaceCell {
         let placeCell = PlaceCell.init(type: .review, data: review)
+        
         return placeCell
     }
     

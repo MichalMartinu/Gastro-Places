@@ -138,12 +138,14 @@ class MapViewController: UIViewController {
     @IBAction private func centerOnUserLocationButtonIsPressed(_ sender: Any) {
         if let location = CustomLocationManager.manager.location {
             let radius = getRadiusFromMapView(mapView)
+            
             centerMapOnUserLocation(location: location, radius: radius)
         }
     }
     
     private func centerMapOnUserLocation(location: CLLocation, radius: CLLocationDistance) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius, longitudinalMeters: radius)
+        
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
@@ -222,6 +224,7 @@ class MapViewController: UIViewController {
         if geoContext?.state == .Executing {
             // Enable refresh button when geocontext is exectuing
             enableRefreshButton(enabled: false)
+            
             return
         }
         
@@ -290,7 +293,9 @@ class MapViewController: UIViewController {
     
     private func destroyPlaceContext() {
         if let _placeContext = placeContext {
+            
             _placeContext.delegateAddress = nil
+            
             unmountPlaceContext()
         }
     }
@@ -368,6 +373,7 @@ class MapViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "createPlaceDialog" {
             centerOnLocationButton.isHidden = false
+            
             if let vc = segue.destination as? CreatePlaceViewController {
                 vc.placeContext = placeContext
             }
@@ -375,7 +381,6 @@ class MapViewController: UIViewController {
         if segue.identifier == "showPlace" {
             if let vc = segue.destination as? ShowPlaceTableViewController {
                 vc.placeContext = placeContext
-                //vc.delegate = self
             }
         }
 
@@ -389,12 +394,15 @@ class MapViewController: UIViewController {
     }
     
     @objc func deleteAnnotation(_ notification: Notification){
+        // Parse data and delete annotation
         if let data = notification.userInfo as? [String: String], let id = data["id"], let annotation = geoContext?.deleteAnnotation(with: id) {
+            
             mapView.removeAnnotation(annotation)
         }
     }
     
     @objc func changeAnnotation(_ notification: Notification){
+        // Parse data and change annotation
         if let data = notification.userInfo as? [String: String] {
             
             guard let id = data["id"],
@@ -402,6 +410,7 @@ class MapViewController: UIViewController {
                 let cathegory = data["cathegory"],
                 let annotation = geoContext?.changeAnnotation(id: id, title: title, cathegory: cathegory)
                 else { return }
+            
             mapView.removeAnnotation(annotation)
             mapView.addAnnotation(annotation)
         }
@@ -443,6 +452,7 @@ extension MapViewController: MKMapViewDelegate {
         
         if let annotation = view.annotation as? PlaceAnnotation, annotation.id != nil {
             unmountPlaceContext()
+            
             createPlaceDialogView.isHidden = true
             centerOnLocationButton.isHidden = false
             

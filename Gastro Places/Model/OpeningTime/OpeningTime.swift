@@ -151,9 +151,11 @@ class OpeningTime: Operation {
         let recordToMatch = CKRecord.Reference(recordID: recordID, action: .deleteSelf)
         
         let predicate = NSPredicate(format: "place == %@", recordToMatch)
+        
         let query = CKQuery(recordType: "OpeningTime", predicate: predicate)
         
         let queryOperation = CKQueryOperation(query: query)
+        
         queryOperation.qualityOfService = .userInteractive
         queryOperation.queuePriority = .veryHigh
         

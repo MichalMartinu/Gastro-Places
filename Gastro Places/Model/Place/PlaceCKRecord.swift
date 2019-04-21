@@ -14,9 +14,12 @@ struct PlaceCKRecord {
     let record: CKRecord
     
     init(place: Place) {
+        
         if let _recordID = place.placeID {
+            // Edit current record
             recordID = CKRecord.ID(recordName: _recordID)
         } else {
+            // Create new record
             let uuid = UUID().uuidString
             recordID = CKRecord.ID(recordName: uuid)
         }

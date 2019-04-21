@@ -29,6 +29,7 @@ class ImageContext: Operation {
     
     func insertNewImage(image: UIImage) {
         let uuid = UUID().uuidString // Generate UUID
+        
         images.append(Image.init(id: uuid, picture: image))
         imagesToSave.append(uuid)
         imageIDs.append(uuid)
@@ -53,7 +54,7 @@ class ImageContext: Operation {
             // Image havent been uploaded
             imagesToSave.remove(at: saveIndex)
         } else {
-            // Image is on CloudKit
+            // Image is on CloudKit and needs to be included in delete queue
             let deleteID = imageIDs[index]
             imagesToDelete.append(CKRecord.ID(recordName: deleteID))
         }
@@ -63,12 +64,16 @@ class ImageContext: Operation {
  
     func fetchImageIDs(placeID: String, placeCoreData: PlaceCoreData?) {
         state = .Executing
+        
         let context = AppDelegate.viewContext
         
+        // Check if there is local cache saved in CoreData
         if let imageIDs = ImageCoreData.findSavedIDs(placeCoreData: placeCoreData!, context: context) {
             self.imageIDs = imageIDs
+            
             self.state = .Finished
             self.delegate?.imageContextDidloadIDs()
+            
             return
         }
         
@@ -86,11 +91,14 @@ class ImageContext: Operation {
         let recordToMatch = CKRecord.Reference(recordID: recordID, action: .deleteSelf)
         
         let predicate = NSPredicate(format: "place == %@", recordToMatch)
+        
         let query = CKQuery(recordType: "Image", predicate: predicate)
+        
         query.sortDescriptors = [] // Start with empty array
         query.sortDescriptors?.append(NSSortDescriptor(key: "modificationDate", ascending: true))
         
         let operation = CKQueryOperation(query: query)
+        
         operation.qualityOfService = .userInteractive
         operation.queuePriority = .veryHigh
         operation.desiredKeys = ["recordName"] // Fetch only recordID
@@ -127,13 +135,17 @@ class ImageContext: Operation {
     }
     
     func getLocalImageForID(with id: String) -> UIImage? {
+        
+        // Get index of image
         if let index = images.firstIndex(where: { $0.id == id }) {
+            
             return images[index].picture
         }
         return nil
     }
     
     func deleteCreatedImages() {
+        // Used when save operation is completed a queue needs to be cleared
         
         images = [Image]()
         imagesToDelete = [CKRecord.ID]()

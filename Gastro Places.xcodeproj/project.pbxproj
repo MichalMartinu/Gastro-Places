@@ -64,6 +64,7 @@
 		0794BBEE2236841300CF8D70 /* PlaceCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BBED2236841300CF8D70 /* PlaceCKRecord.swift */; };
 		07956E3E223411CE001F1449 /* Cathegories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07956E3D223411CE001F1449 /* Cathegories.swift */; };
 		07956E41223418DD001F1449 /* CathegoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07956E40223418DD001F1449 /* CathegoryCollectionViewCell.swift */; };
+		07A0F105226C62F40000AC00 /* InputTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A0F104226C62F40000AC00 /* InputTypes.swift */; };
 		07A5F8942232DCFD0071FB3A /* PlaceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A5F8932232DCFD0071FB3A /* PlaceContext.swift */; };
 		07B7F130222FF5F800E22A27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F12F222FF5F800E22A27 /* AppDelegate.swift */; };
 		07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7F131222FF5F800E22A27 /* MapViewController.swift */; };
@@ -138,6 +139,7 @@
 		0794BBED2236841300CF8D70 /* PlaceCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCKRecord.swift; sourceTree = "<group>"; };
 		07956E3D223411CE001F1449 /* Cathegories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cathegories.swift; sourceTree = "<group>"; };
 		07956E40223418DD001F1449 /* CathegoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CathegoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		07A0F104226C62F40000AC00 /* InputTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTypes.swift; sourceTree = "<group>"; };
 		07A5F8932232DCFD0071FB3A /* PlaceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceContext.swift; sourceTree = "<group>"; };
 		07B7F12C222FF5F800E22A27 /* Gastro Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gastro Places.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B7F12F222FF5F800E22A27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				07D5126A2236F1DB0088DA9C /* PlaceCoreData.swift */,
 				075E215E22454186008F8F14 /* PlaceRepresentation.swift */,
 				07043ECF225405D300EE6D5B /* Place.swift */,
+				07A0F104226C62F40000AC00 /* InputTypes.swift */,
 			);
 			path = Place;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				075154FF223AD4C600D3E7FE /* CreatePlaceImageCollectionViewCell.swift in Sources */,
 				07B7F132222FF5F800E22A27 /* MapViewController.swift in Sources */,
 				074944DB2243AFC700121D78 /* ResizeImage.swift in Sources */,
+				07A0F105226C62F40000AC00 /* InputTypes.swift in Sources */,
 				07D5126B2236F1DB0088DA9C /* PlaceCoreData.swift in Sources */,
 				075E216122455512008F8F14 /* TableTextViewCell.swift in Sources */,
 				07043ECB2253A8C600EE6D5B /* UserReviewTableViewCell.swift in Sources */,

@@ -89,7 +89,9 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
+        
         performSegue(withIdentifier: "showPlaceFromSearch", sender: self)
+        
         tableView.deselectRow(at: indexPath, animated: false)
     }
 }

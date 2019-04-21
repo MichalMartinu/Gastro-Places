@@ -38,9 +38,12 @@ class GeoContext: Operation {
     }
     
     func changeAnnotation(id: String, title: String, cathegory: String) -> PlaceAnnotation? {
+        
         // Get index of annotation to change
         if let annotationIndex = annotations.firstIndex(where: { $0.id == id }) {
+            
             let annotation = annotations[annotationIndex]
+            
             annotation.title = title
             annotation.cathegory = cathegory
             
@@ -51,8 +54,10 @@ class GeoContext: Operation {
     }
     
     func deleteAnnotation(with id: String) -> PlaceAnnotation? {
+        
         // Get index of annotation to delete
         if let annotationIndex = annotations.firstIndex(where: { $0.id == id }) {
+            
             let annotation = annotations[annotationIndex]
             
             annotations.remove(at: annotationIndex)
@@ -78,6 +83,8 @@ class GeoContext: Operation {
         let query = CKQuery(recordType: PlaceCKRecordNames.record, predicate: predicate)
         
         let queryOperation = CKQueryOperation(query: query)
+        
+        // Prioritize operation
         queryOperation.qualityOfService = .userInteractive
         queryOperation.queuePriority = .veryHigh
         
@@ -88,8 +95,10 @@ class GeoContext: Operation {
         }
         
         queryOperation.queryCompletionBlock = { cursor, error in
+            
             if let _error = error {
                 self.state = .Failed
+            
                 DispatchQueue.main.async {
                     self.delegate?.geoContextDidLoadAnnotations(error: _error)
                 }
@@ -113,6 +122,7 @@ class GeoContext: Operation {
                 return
             }
             
+            // Save fetched records to CoreData
             self.saveRecords(records: records)
         }
         
@@ -120,7 +130,10 @@ class GeoContext: Operation {
     }
     
     private func saveRecords(records: [CKRecord]) {
+        
+        // Process each record individualy
         for record in records {
+            
             if self.state == .Canceled {
                 self.state = .Finished
                 return

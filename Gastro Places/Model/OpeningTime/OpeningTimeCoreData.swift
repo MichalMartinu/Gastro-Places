@@ -20,6 +20,7 @@ class OpeningTimeCoreData: NSManagedObject{
         let query:NSFetchRequest<OpeningTimeCoreData> = OpeningTimeCoreData.fetchRequest()
         
         let predicate = NSPredicate(format: "place = %@", place)
+        
         query.predicate = predicate
         
         if let _recordToSave = try? context.fetch(query), _recordToSave.count == 1 {

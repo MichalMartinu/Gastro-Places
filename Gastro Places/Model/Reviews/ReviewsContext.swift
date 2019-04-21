@@ -23,8 +23,9 @@ protocol ReviewsContextDeleteDelegate: AnyObject {
 
 
 class ReviewsContext {
+    
     var reviews = [Review]()
-    var currentUserReview: Review?
+    var currentUserReview: Review? // Review created by user which is using aplication
     
     var hasUserReview: Bool {
         if currentUserReview == nil { return false }
@@ -64,10 +65,14 @@ class ReviewsContext {
     weak var delegateDelete: ReviewsContextDeleteDelegate?
     
     func fetchReviews(placeID: String, place: PlaceCoreData) {
+        
         let context = AppDelegate.viewContext
         
+        // Check if local cache of review is available
         if let reviewsSaved = ReviewCoreData.findSaved(placeCoreData: place, context: context) {
             for review in reviewsSaved {
+                
+                // Check if review was by user which is using aplication
                 if review.user == "__defaultOwner__" {
                      self.currentUserReview = review
                 } else {
@@ -93,20 +98,31 @@ class ReviewsContext {
         let recordToMatch = CKRecord.Reference(recordID: recordID, action: .deleteSelf)
         
         let predicate = NSPredicate(format: "place == %@", recordToMatch)
+        
         let query = CKQuery(recordType: "Review", predicate: predicate)
+        
         query.sortDescriptors = [NSSortDescriptor(key: "modificationDate", ascending: false)]
+        
         let queryOperation = CKQueryOperation(query: query)
+        
         queryOperation.qualityOfService = .userInteractive
         queryOperation.queuePriority = .veryHigh
+        
         queryOperation.recordFetchedBlock = { record in
+            
+            // Create review from record
             let review = Review(date: record.creationDate!, rating: record["rating"]!, text: record["text"], user: record.creatorUserRecordID?.recordName, cloudID: record.recordID)
             
             DispatchQueue.main.async {
                 let context = AppDelegate.viewContext
+                
                 guard let _place = place else  { return }
+                
+                // Save review to CoreData
                 ReviewCoreData.changeOrCreate(place: _place, record: record, context: context)
             }
             
+            // Check if review was by user which is using aplication
             if record.creatorUserRecordID?.recordName == "__defaultOwner__" {
                 self.currentUserReview = review
             } else {
@@ -115,10 +131,6 @@ class ReviewsContext {
         }
         
         queryOperation.queryCompletionBlock = { results, error in
-            
-            if error != nil {
-                return
-            }
             
             DispatchQueue.main.async {
                 self.delegate?.fetchedMyReviews()
@@ -141,6 +153,7 @@ class ReviewsContext {
         let reviewCKRecord = ReviewCKRecord(review: review, placeID: place.placeID!, reviewRecordID: reviewRecordID)
         
         let saveOperation = CKModifyRecordsOperation(recordsToSave: [reviewCKRecord.record])
+        
         saveOperation.savePolicy = .changedKeys
         saveOperation.queuePriority = .veryHigh
         saveOperation.qualityOfService = .userInteractive
@@ -157,8 +170,6 @@ class ReviewsContext {
             guard let record = records?.first else { return }
             
             self.currentUserReview = Review(date: record.creationDate!, rating: record["rating"]!, text: record["text"], user: record.creatorUserRecordID?.recordName, cloudID: record.recordID)
-            
-
             
             DispatchQueue.main.async {
                 let context = AppDelegate.viewContext
@@ -187,7 +198,10 @@ class ReviewsContext {
             
             DispatchQueue.main.async {
                 let context = AppDelegate.viewContext
+                
+                // Delete user from CoreData
                 ReviewCoreData.deleteCurrentUser(context: context)
+                
                 self.currentUserReview = nil
                 
                 self.delegateDelete?.reviewDeleted(error: nil)

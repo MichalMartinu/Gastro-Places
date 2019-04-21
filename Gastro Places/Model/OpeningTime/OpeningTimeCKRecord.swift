@@ -14,8 +14,10 @@ class OpeningTimeCKRecord {
     
     init(days: [Day], recordReference: CKRecord, openingRecordID: CKRecord.ID?) {
         if let recordID = openingRecordID {
+            // When record needs to be edited
             self.record = CKRecord(recordType: "OpeningTime", recordID: recordID)
         } else {
+            // When record needs to be created
             self.record = CKRecord(recordType: "OpeningTime")
         }
         

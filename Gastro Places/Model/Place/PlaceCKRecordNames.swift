@@ -9,7 +9,7 @@
 import Foundation
 import CloudKit
 
-
+// Place Cloudkit records names
 enum PlaceCKRecordNames {
     static let record = "Place"
     static let name = "name"

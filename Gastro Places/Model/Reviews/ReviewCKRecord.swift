@@ -15,8 +15,10 @@ class ReviewCKRecord {
     init(review: Review, placeID: String, reviewRecordID: CKRecord.ID?) {
         
         if let id = reviewRecordID {
+            // When record needs to be edited
             self.record = CKRecord(recordType: "Review", recordID: id)
         } else {
+            // When record needs to be created
             self.record = CKRecord(recordType: "Review")
         }
         
