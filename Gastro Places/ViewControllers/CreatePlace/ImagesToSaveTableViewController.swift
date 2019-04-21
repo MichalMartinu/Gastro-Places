@@ -60,7 +60,7 @@ class ImagesToSaveTableViewController: UITableViewController {
     }
     
     @IBAction private func newImageButtonPressed(_ sender: UIBarButtonItem) {
-        imagePicker.sourceType = .savedPhotosAlbum
+        imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = false
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)

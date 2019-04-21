@@ -615,7 +615,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htq-cs-Pmn">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htq-cs-Pmn">
                                             <rect key="frame" x="16" y="0.0" width="343" height="54"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -918,7 +918,7 @@
                                 <rect key="frame" x="0.0" y="751" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f2T-Q9-bDn" id="CdX-VW-32N">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="85.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="E1b-gn-Dn1">
@@ -1494,7 +1494,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="42.666666666666664"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits"/>
+                                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                                 </textField>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xM8-TG-9Yu">
                                                                     <rect key="frame" x="0.0" y="42.666666666666671" width="359" height="1"/>
@@ -1539,7 +1539,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="42.666666666666664"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits"/>
+                                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                 </textField>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GyM-4i-kFc">
                                                                     <rect key="frame" x="0.0" y="42.666666666666671" width="359" height="1"/>
@@ -1982,8 +1982,8 @@
         <image name="saving-place-icon" width="980" height="964"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="l7s-o1-oXh"/>
+        <segue reference="QVz-c3-Rkp"/>
         <segue reference="t1U-Fa-GfT"/>
-        <segue reference="YVs-ck-beB"/>
+        <segue reference="bPq-uO-umJ"/>
     </inferredMetricsTieBreakers>
 </document>

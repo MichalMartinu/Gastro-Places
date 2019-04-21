@@ -34,6 +34,9 @@ class OpeningHoursTableViewCell: UITableViewCell {
             
             hourPickerView.selectRow(indexFrom, inComponent: 0, animated: false)
             hourPickerView.selectRow(indexTo, inComponent: 1, animated: false)
+        } else {
+            switchLabel.isOn = false
+            hourPickerView.isHidden = true
         }
     }
     
