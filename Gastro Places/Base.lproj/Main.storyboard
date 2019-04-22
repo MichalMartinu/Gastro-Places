@@ -918,7 +918,7 @@
                                 <rect key="frame" x="0.0" y="751" width="375" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f2T-Q9-bDn" id="CdX-VW-32N">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="85.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="E1b-gn-Dn1">
@@ -1984,6 +1984,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="QVz-c3-Rkp"/>
         <segue reference="t1U-Fa-GfT"/>
-        <segue reference="bPq-uO-umJ"/>
+        <segue reference="YVs-ck-beB"/>
     </inferredMetricsTieBreakers>
 </document>

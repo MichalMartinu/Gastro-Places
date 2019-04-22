@@ -57,6 +57,7 @@
 		076AD5C9226B291D00E13CBC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AD5C8226B291D00E13CBC /* Notification.swift */; };
 		076AD5CE226B413700E13CBC /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AD5CD226B413700E13CBC /* UIView.swift */; };
 		076AD5D0226B5F7100E13CBC /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AD5CF226B5F7100E13CBC /* RatingTableViewCell.swift */; };
+		0770A77D226E058900F7A558 /* InputValuesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770A77C226E058900F7A558 /* InputValuesTest.swift */; };
 		0778BF1C224A845C0027F196 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0778BF1B224A845C0027F196 /* ImageTableViewCell.swift */; };
 		077A47DB22690A95002A6729 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077A47DA22690A95002A6729 /* UIViewController.swift */; };
 		07855ABB22398593002042C4 /* OpeningTimeCKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */; };
@@ -78,6 +79,16 @@
 		07DBECB32238117300D3D13D /* OpeningHoursTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DBECB22238117300D3D13D /* OpeningHoursTableViewCell.swift */; };
 		07DBECB52238124E00D3D13D /* OpeningTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DBECB42238124E00D3D13D /* OpeningTime.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0770A77F226E058900F7A558 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07B7F124222FF5F800E22A27 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 07B7F12B222FF5F800E22A27;
+			remoteInfo = "Gastro Places";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		070004662242A80E002A19C7 /* ImageCKRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCKRecords.swift; sourceTree = "<group>"; };
@@ -132,6 +143,9 @@
 		076AD5C8226B291D00E13CBC /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		076AD5CD226B413700E13CBC /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		076AD5CF226B5F7100E13CBC /* RatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
+		0770A77A226E058800F7A558 /* Gastro PlacesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gastro PlacesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0770A77C226E058900F7A558 /* InputValuesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValuesTest.swift; sourceTree = "<group>"; };
+		0770A77E226E058900F7A558 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0778BF1B224A845C0027F196 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		077A47DA22690A95002A6729 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		07855ABA22398593002042C4 /* OpeningTimeCKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningTimeCKRecord.swift; sourceTree = "<group>"; };
@@ -157,6 +171,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0770A777226E058800F7A558 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07B7F129222FF5F800E22A27 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -369,6 +390,15 @@
 			path = "Create Place";
 			sourceTree = "<group>";
 		};
+		0770A77B226E058900F7A558 /* Gastro PlacesTests */ = {
+			isa = PBXGroup;
+			children = (
+				0770A77C226E058900F7A558 /* InputValuesTest.swift */,
+				0770A77E226E058900F7A558 /* Info.plist */,
+			);
+			path = "Gastro PlacesTests";
+			sourceTree = "<group>";
+		};
 		07956E3A2233AA7F001F1449 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +424,7 @@
 			isa = PBXGroup;
 			children = (
 				07B7F12E222FF5F800E22A27 /* Gastro Places */,
+				0770A77B226E058900F7A558 /* Gastro PlacesTests */,
 				07B7F12D222FF5F800E22A27 /* Products */,
 				075FE16E22326246007EC555 /* Frameworks */,
 			);
@@ -403,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				07B7F12C222FF5F800E22A27 /* Gastro Places.app */,
+				0770A77A226E058800F7A558 /* Gastro PlacesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -469,6 +501,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0770A779226E058800F7A558 /* Gastro PlacesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0770A783226E058900F7A558 /* Build configuration list for PBXNativeTarget "Gastro PlacesTests" */;
+			buildPhases = (
+				0770A776226E058800F7A558 /* Sources */,
+				0770A777226E058800F7A558 /* Frameworks */,
+				0770A778226E058800F7A558 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0770A780226E058900F7A558 /* PBXTargetDependency */,
+			);
+			name = "Gastro PlacesTests";
+			productName = "Gastro PlacesTests";
+			productReference = 0770A77A226E058800F7A558 /* Gastro PlacesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		07B7F12B222FF5F800E22A27 /* Gastro Places */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07B7F141222FF5FA00E22A27 /* Build configuration list for PBXNativeTarget "Gastro Places" */;
@@ -493,10 +543,14 @@
 		07B7F124222FF5F800E22A27 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Michal Martinů";
 				TargetAttributes = {
+					0770A779226E058800F7A558 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 07B7F12B222FF5F800E22A27;
+					};
 					07B7F12B222FF5F800E22A27 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
@@ -525,11 +579,19 @@
 			projectRoot = "";
 			targets = (
 				07B7F12B222FF5F800E22A27 /* Gastro Places */,
+				0770A779226E058800F7A558 /* Gastro PlacesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0770A778226E058800F7A558 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07B7F12A222FF5F800E22A27 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -564,6 +626,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0770A776226E058800F7A558 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0770A77D226E058900F7A558 /* InputValuesTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07B7F128222FF5F800E22A27 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -637,6 +707,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		0770A780226E058900F7A558 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 07B7F12B222FF5F800E22A27 /* Gastro Places */;
+			targetProxy = 0770A77F226E058900F7A558 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		07B7F133222FF5F800E22A27 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -657,6 +735,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0770A781226E058900F7A558 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H84BAJDPWF;
+				INFOPLIST_FILE = "Gastro PlacesTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.michalmartinu.Gastro-PlacesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gastro Places.app/Gastro Places";
+			};
+			name = Debug;
+		};
+		0770A782226E058900F7A558 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H84BAJDPWF;
+				INFOPLIST_FILE = "Gastro PlacesTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.michalmartinu.Gastro-PlacesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gastro Places.app/Gastro Places";
+			};
+			name = Release;
+		};
 		07B7F13F222FF5FA00E22A27 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -822,6 +942,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0770A783226E058900F7A558 /* Build configuration list for PBXNativeTarget "Gastro PlacesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0770A781226E058900F7A558 /* Debug */,
+				0770A782226E058900F7A558 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		07B7F127222FF5F800E22A27 /* Build configuration list for PBXProject "Gastro Places" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
