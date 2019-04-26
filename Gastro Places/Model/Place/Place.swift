@@ -18,6 +18,7 @@ class Place {
     var email: String?
     var web: String?
     var address: Address?
+    var userID: String?
     
     init(location: CLLocation) {
         self.location = location
@@ -39,5 +40,6 @@ class Place {
         self.email = place.email
         self.web = place.web
         self.address = Address.init(city: place.city ?? "", zipCode: place.zipCode ?? "", street: place.street ?? "")
+        self.userID = place.userID
     }
 }

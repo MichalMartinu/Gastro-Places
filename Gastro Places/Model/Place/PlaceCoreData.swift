@@ -49,6 +49,7 @@ class PlaceCoreData: NSManagedObject{
         recordToSave?.phone = record[PlaceCKRecordNames.phone]
         recordToSave?.longitude = location.coordinate.longitude
         recordToSave?.latitude = location.coordinate.latitude
+        recordToSave?.userID = record.creatorUserRecordID?.recordName
         
         return recordToSave
     }

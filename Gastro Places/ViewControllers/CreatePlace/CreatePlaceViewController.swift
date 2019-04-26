@@ -79,8 +79,8 @@ class CreatePlaceViewController: UITableViewController, ImageContextDelegate {
         openingHoursDaysLabel.text = openingTime.stringDays
         openingHoursLabel.text = openingTime.stringHours
         
-        if placeContext.place.placeID != nil {
-            // Show delete button when place exist
+        if placeContext.place.placeID != nil, placeContext.place.userID == "__defaultOwner__" {
+            // Show delete button when place exist and is created by current user
             setToolbarHidden(with: false)
         }
     }
